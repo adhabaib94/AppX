@@ -1,0 +1,777 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01FC278DB49C855966B726F8 /* Pods_AppointmentX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; };
+		155074B81E3F817A00F3A6A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074B71E3F817A00F3A6A4 /* AppDelegate.swift */; };
+		155074BA1E3F817A00F3A6A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074B91E3F817A00F3A6A4 /* ViewController.swift */; };
+		155074BD1E3F817A00F3A6A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 155074BB1E3F817A00F3A6A4 /* Main.storyboard */; };
+		155074C01E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 155074BE1E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld */; };
+		155074C21E3F817A00F3A6A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155074C11E3F817A00F3A6A4 /* Assets.xcassets */; };
+		155074C51E3F817A00F3A6A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 155074C31E3F817A00F3A6A4 /* LaunchScreen.storyboard */; };
+		155074D01E3F817A00F3A6A4 /* AppointmentXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074CF1E3F817A00F3A6A4 /* AppointmentXTests.swift */; };
+		155074DB1E3F817A00F3A6A4 /* AppointmentXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074DA1E3F817A00F3A6A4 /* AppointmentXUITests.swift */; };
+		1570F0551E3F835D00FF3968 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1570F0541E3F835D00FF3968 /* GoogleService-Info.plist */; };
+		1570F0571E3FDDB800FF3968 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0561E3FDDB800FF3968 /* Client.swift */; };
+		1570F05D1E40C8C100FF3968 /* Case.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1570F05C1E40C8C100FF3968 /* Case.swift */; };
+		1570F05F1E40D77200FF3968 /* Appointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1570F05E1E40D77200FF3968 /* Appointment.swift */; };
+		1570F0611E40DD8A00FF3968 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0601E40DD8A00FF3968 /* Scheduler.swift */; };
+		1570F0851E428DAC00FF3968 /* FSCalendar+Deprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0641E428DAC00FF3968 /* FSCalendar+Deprecated.m */; };
+		1570F0861E428DAC00FF3968 /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0661E428DAC00FF3968 /* FSCalendar.m */; };
+		1570F0871E428DAC00FF3968 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0681E428DAC00FF3968 /* FSCalendarAppearance.m */; };
+		1570F0881E428DAC00FF3968 /* FSCalendarCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F06A1E428DAC00FF3968 /* FSCalendarCalculator.m */; };
+		1570F0891E428DAC00FF3968 /* FSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F06C1E428DAC00FF3968 /* FSCalendarCell.m */; };
+		1570F08A1E428DAC00FF3968 /* FSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F06E1E428DAC00FF3968 /* FSCalendarCollectionView.m */; };
+		1570F08B1E428DAC00FF3968 /* FSCalendarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0701E428DAC00FF3968 /* FSCalendarCollectionViewLayout.m */; };
+		1570F08C1E428DAC00FF3968 /* FSCalendarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0721E428DAC00FF3968 /* FSCalendarConstants.m */; };
+		1570F08D1E428DAC00FF3968 /* FSCalendarDelegationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0741E428DAC00FF3968 /* FSCalendarDelegationFactory.m */; };
+		1570F08E1E428DAC00FF3968 /* FSCalendarDelegationProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0761E428DAC00FF3968 /* FSCalendarDelegationProxy.m */; };
+		1570F08F1E428DAC00FF3968 /* FSCalendarExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0791E428DAC00FF3968 /* FSCalendarExtensions.m */; };
+		1570F0901E428DAC00FF3968 /* FSCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F07B1E428DAC00FF3968 /* FSCalendarHeaderView.m */; };
+		1570F0911E428DAC00FF3968 /* FSCalendarScopeHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F07D1E428DAC00FF3968 /* FSCalendarScopeHandle.m */; };
+		1570F0921E428DAC00FF3968 /* FSCalendarStickyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F07F1E428DAC00FF3968 /* FSCalendarStickyHeader.m */; };
+		1570F0931E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0811E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m */; };
+		1570F0941E428DAC00FF3968 /* FSCalendarWeekdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0831E428DAC00FF3968 /* FSCalendarWeekdayView.m */; };
+		1570F0951E428DAC00FF3968 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1570F0841E428DAC00FF3968 /* Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		155074CC1E3F817A00F3A6A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 155074AC1E3F817A00F3A6A4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 155074B31E3F817A00F3A6A4;
+			remoteInfo = AppointmentX;
+		};
+		155074D71E3F817A00F3A6A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 155074AC1E3F817A00F3A6A4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 155074B31E3F817A00F3A6A4;
+			remoteInfo = AppointmentX;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppointmentX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B14918CD93C73D25D9F269F /* Pods-AppointmentX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.release.xcconfig"; sourceTree = "<group>"; };
+		155074B41E3F817A00F3A6A4 /* AppointmentX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppointmentX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		155074B71E3F817A00F3A6A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		155074B91E3F817A00F3A6A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		155074BC1E3F817A00F3A6A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		155074BF1E3F817A00F3A6A4 /* AppointmentX.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppointmentX.xcdatamodel; sourceTree = "<group>"; };
+		155074C11E3F817A00F3A6A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		155074C41E3F817A00F3A6A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		155074C61E3F817A00F3A6A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		155074CB1E3F817A00F3A6A4 /* AppointmentXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppointmentXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		155074CF1E3F817A00F3A6A4 /* AppointmentXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentXTests.swift; sourceTree = "<group>"; };
+		155074D11E3F817A00F3A6A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		155074D61E3F817A00F3A6A4 /* AppointmentXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppointmentXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		155074DA1E3F817A00F3A6A4 /* AppointmentXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentXUITests.swift; sourceTree = "<group>"; };
+		155074DC1E3F817A00F3A6A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1570F0541E3F835D00FF3968 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1570F0561E3FDDB800FF3968 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		1570F05C1E40C8C100FF3968 /* Case.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Case.swift; sourceTree = "<group>"; };
+		1570F05E1E40D77200FF3968 /* Appointment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appointment.swift; sourceTree = "<group>"; };
+		1570F0601E40DD8A00FF3968 /* Scheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		1570F0641E428DAC00FF3968 /* FSCalendar+Deprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSCalendar+Deprecated.m"; sourceTree = "<group>"; };
+		1570F0651E428DAC00FF3968 /* FSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendar.h; sourceTree = "<group>"; };
+		1570F0661E428DAC00FF3968 /* FSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendar.m; sourceTree = "<group>"; };
+		1570F0671E428DAC00FF3968 /* FSCalendarAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarAppearance.h; sourceTree = "<group>"; };
+		1570F0681E428DAC00FF3968 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
+		1570F0691E428DAC00FF3968 /* FSCalendarCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCalculator.h; sourceTree = "<group>"; };
+		1570F06A1E428DAC00FF3968 /* FSCalendarCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCalculator.m; sourceTree = "<group>"; };
+		1570F06B1E428DAC00FF3968 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
+		1570F06C1E428DAC00FF3968 /* FSCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCell.m; sourceTree = "<group>"; };
+		1570F06D1E428DAC00FF3968 /* FSCalendarCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCollectionView.h; sourceTree = "<group>"; };
+		1570F06E1E428DAC00FF3968 /* FSCalendarCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionView.m; sourceTree = "<group>"; };
+		1570F06F1E428DAC00FF3968 /* FSCalendarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCollectionViewLayout.h; sourceTree = "<group>"; };
+		1570F0701E428DAC00FF3968 /* FSCalendarCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionViewLayout.m; sourceTree = "<group>"; };
+		1570F0711E428DAC00FF3968 /* FSCalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarConstants.h; sourceTree = "<group>"; };
+		1570F0721E428DAC00FF3968 /* FSCalendarConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarConstants.m; sourceTree = "<group>"; };
+		1570F0731E428DAC00FF3968 /* FSCalendarDelegationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDelegationFactory.h; sourceTree = "<group>"; };
+		1570F0741E428DAC00FF3968 /* FSCalendarDelegationFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarDelegationFactory.m; sourceTree = "<group>"; };
+		1570F0751E428DAC00FF3968 /* FSCalendarDelegationProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDelegationProxy.h; sourceTree = "<group>"; };
+		1570F0761E428DAC00FF3968 /* FSCalendarDelegationProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarDelegationProxy.m; sourceTree = "<group>"; };
+		1570F0771E428DAC00FF3968 /* FSCalendarDynamicHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDynamicHeader.h; sourceTree = "<group>"; };
+		1570F0781E428DAC00FF3968 /* FSCalendarExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarExtensions.h; sourceTree = "<group>"; };
+		1570F0791E428DAC00FF3968 /* FSCalendarExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarExtensions.m; sourceTree = "<group>"; };
+		1570F07A1E428DAC00FF3968 /* FSCalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarHeaderView.h; sourceTree = "<group>"; };
+		1570F07B1E428DAC00FF3968 /* FSCalendarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarHeaderView.m; sourceTree = "<group>"; };
+		1570F07C1E428DAC00FF3968 /* FSCalendarScopeHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarScopeHandle.h; sourceTree = "<group>"; };
+		1570F07D1E428DAC00FF3968 /* FSCalendarScopeHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarScopeHandle.m; sourceTree = "<group>"; };
+		1570F07E1E428DAC00FF3968 /* FSCalendarStickyHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarStickyHeader.h; sourceTree = "<group>"; };
+		1570F07F1E428DAC00FF3968 /* FSCalendarStickyHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarStickyHeader.m; sourceTree = "<group>"; };
+		1570F0801E428DAC00FF3968 /* FSCalendarTransitionCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarTransitionCoordinator.h; sourceTree = "<group>"; };
+		1570F0811E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
+		1570F0821E428DAC00FF3968 /* FSCalendarWeekdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarWeekdayView.h; sourceTree = "<group>"; };
+		1570F0831E428DAC00FF3968 /* FSCalendarWeekdayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarWeekdayView.m; sourceTree = "<group>"; };
+		1570F0841E428DAC00FF3968 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1570F0961E428DD400FF3968 /* Objc-Bridge-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Objc-Bridge-Header.h"; path = "../../../Downloads/FSCalendar-master/Example-Swift/SwiftExample/Objc-Bridge-Header.h"; sourceTree = "<group>"; };
+		1570F0991E42954900FF3968 /* Objective-C-Header_Calender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Objective-C-Header_Calender.h"; sourceTree = "<group>"; };
+		20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		155074B11E3F817A00F3A6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01FC278DB49C855966B726F8 /* Pods_AppointmentX.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155074C81E3F817A00F3A6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155074D31E3F817A00F3A6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		155074AB1E3F817A00F3A6A4 = {
+			isa = PBXGroup;
+			children = (
+				155074B61E3F817A00F3A6A4 /* AppointmentX */,
+				155074CE1E3F817A00F3A6A4 /* AppointmentXTests */,
+				155074D91E3F817A00F3A6A4 /* AppointmentXUITests */,
+				155074B51E3F817A00F3A6A4 /* Products */,
+				B1A1C097CF5A4E5527A02C41 /* Pods */,
+				2D0EF6F8B62843EC7B04E426 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		155074B51E3F817A00F3A6A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				155074B41E3F817A00F3A6A4 /* AppointmentX.app */,
+				155074CB1E3F817A00F3A6A4 /* AppointmentXTests.xctest */,
+				155074D61E3F817A00F3A6A4 /* AppointmentXUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		155074B61E3F817A00F3A6A4 /* AppointmentX */ = {
+			isa = PBXGroup;
+			children = (
+				1570F0621E428D7F00FF3968 /* Custom UI Classes */,
+				1570F0581E3FE6A300FF3968 /* Model Classes */,
+				155074B71E3F817A00F3A6A4 /* AppDelegate.swift */,
+				155074B91E3F817A00F3A6A4 /* ViewController.swift */,
+				155074BB1E3F817A00F3A6A4 /* Main.storyboard */,
+				155074BE1E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld */,
+				155074C11E3F817A00F3A6A4 /* Assets.xcassets */,
+				155074C31E3F817A00F3A6A4 /* LaunchScreen.storyboard */,
+				155074C61E3F817A00F3A6A4 /* Info.plist */,
+			);
+			path = AppointmentX;
+			sourceTree = "<group>";
+		};
+		155074CE1E3F817A00F3A6A4 /* AppointmentXTests */ = {
+			isa = PBXGroup;
+			children = (
+				1570F0541E3F835D00FF3968 /* GoogleService-Info.plist */,
+				155074CF1E3F817A00F3A6A4 /* AppointmentXTests.swift */,
+				155074D11E3F817A00F3A6A4 /* Info.plist */,
+			);
+			path = AppointmentXTests;
+			sourceTree = "<group>";
+		};
+		155074D91E3F817A00F3A6A4 /* AppointmentXUITests */ = {
+			isa = PBXGroup;
+			children = (
+				155074DA1E3F817A00F3A6A4 /* AppointmentXUITests.swift */,
+				155074DC1E3F817A00F3A6A4 /* Info.plist */,
+			);
+			path = AppointmentXUITests;
+			sourceTree = "<group>";
+		};
+		1570F0581E3FE6A300FF3968 /* Model Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1570F0561E3FDDB800FF3968 /* Client.swift */,
+				1570F05C1E40C8C100FF3968 /* Case.swift */,
+				1570F05E1E40D77200FF3968 /* Appointment.swift */,
+				1570F0601E40DD8A00FF3968 /* Scheduler.swift */,
+			);
+			name = "Model Classes";
+			sourceTree = "<group>";
+		};
+		1570F0621E428D7F00FF3968 /* Custom UI Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1570F0961E428DD400FF3968 /* Objc-Bridge-Header.h */,
+				1570F0991E42954900FF3968 /* Objective-C-Header_Calender.h */,
+				1570F0631E428DAC00FF3968 /* FSCalendar */,
+			);
+			name = "Custom UI Classes";
+			sourceTree = "<group>";
+		};
+		1570F0631E428DAC00FF3968 /* FSCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				1570F0641E428DAC00FF3968 /* FSCalendar+Deprecated.m */,
+				1570F0651E428DAC00FF3968 /* FSCalendar.h */,
+				1570F0661E428DAC00FF3968 /* FSCalendar.m */,
+				1570F0671E428DAC00FF3968 /* FSCalendarAppearance.h */,
+				1570F0681E428DAC00FF3968 /* FSCalendarAppearance.m */,
+				1570F0691E428DAC00FF3968 /* FSCalendarCalculator.h */,
+				1570F06A1E428DAC00FF3968 /* FSCalendarCalculator.m */,
+				1570F06B1E428DAC00FF3968 /* FSCalendarCell.h */,
+				1570F06C1E428DAC00FF3968 /* FSCalendarCell.m */,
+				1570F06D1E428DAC00FF3968 /* FSCalendarCollectionView.h */,
+				1570F06E1E428DAC00FF3968 /* FSCalendarCollectionView.m */,
+				1570F06F1E428DAC00FF3968 /* FSCalendarCollectionViewLayout.h */,
+				1570F0701E428DAC00FF3968 /* FSCalendarCollectionViewLayout.m */,
+				1570F0711E428DAC00FF3968 /* FSCalendarConstants.h */,
+				1570F0721E428DAC00FF3968 /* FSCalendarConstants.m */,
+				1570F0731E428DAC00FF3968 /* FSCalendarDelegationFactory.h */,
+				1570F0741E428DAC00FF3968 /* FSCalendarDelegationFactory.m */,
+				1570F0751E428DAC00FF3968 /* FSCalendarDelegationProxy.h */,
+				1570F0761E428DAC00FF3968 /* FSCalendarDelegationProxy.m */,
+				1570F0771E428DAC00FF3968 /* FSCalendarDynamicHeader.h */,
+				1570F0781E428DAC00FF3968 /* FSCalendarExtensions.h */,
+				1570F0791E428DAC00FF3968 /* FSCalendarExtensions.m */,
+				1570F07A1E428DAC00FF3968 /* FSCalendarHeaderView.h */,
+				1570F07B1E428DAC00FF3968 /* FSCalendarHeaderView.m */,
+				1570F07C1E428DAC00FF3968 /* FSCalendarScopeHandle.h */,
+				1570F07D1E428DAC00FF3968 /* FSCalendarScopeHandle.m */,
+				1570F07E1E428DAC00FF3968 /* FSCalendarStickyHeader.h */,
+				1570F07F1E428DAC00FF3968 /* FSCalendarStickyHeader.m */,
+				1570F0801E428DAC00FF3968 /* FSCalendarTransitionCoordinator.h */,
+				1570F0811E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m */,
+				1570F0821E428DAC00FF3968 /* FSCalendarWeekdayView.h */,
+				1570F0831E428DAC00FF3968 /* FSCalendarWeekdayView.m */,
+				1570F0841E428DAC00FF3968 /* Info.plist */,
+			);
+			name = FSCalendar;
+			path = "../../../Downloads/FSCalendar-master/FSCalendar";
+			sourceTree = "<group>";
+		};
+		2D0EF6F8B62843EC7B04E426 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B1A1C097CF5A4E5527A02C41 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */,
+				0B14918CD93C73D25D9F269F /* Pods-AppointmentX.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		155074B31E3F817A00F3A6A4 /* AppointmentX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 155074DF1E3F817A00F3A6A4 /* Build configuration list for PBXNativeTarget "AppointmentX" */;
+			buildPhases = (
+				03D5ED7E45819E9690703F7E /* [CP] Check Pods Manifest.lock */,
+				155074B01E3F817A00F3A6A4 /* Sources */,
+				155074B11E3F817A00F3A6A4 /* Frameworks */,
+				155074B21E3F817A00F3A6A4 /* Resources */,
+				22D12F578CF11A6F58FD8857 /* [CP] Embed Pods Frameworks */,
+				47DA552F3938EDDD5EFE0DA2 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AppointmentX;
+			productName = AppointmentX;
+			productReference = 155074B41E3F817A00F3A6A4 /* AppointmentX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		155074CA1E3F817A00F3A6A4 /* AppointmentXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 155074E21E3F817A00F3A6A4 /* Build configuration list for PBXNativeTarget "AppointmentXTests" */;
+			buildPhases = (
+				155074C71E3F817A00F3A6A4 /* Sources */,
+				155074C81E3F817A00F3A6A4 /* Frameworks */,
+				155074C91E3F817A00F3A6A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				155074CD1E3F817A00F3A6A4 /* PBXTargetDependency */,
+			);
+			name = AppointmentXTests;
+			productName = AppointmentXTests;
+			productReference = 155074CB1E3F817A00F3A6A4 /* AppointmentXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		155074D51E3F817A00F3A6A4 /* AppointmentXUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 155074E51E3F817A00F3A6A4 /* Build configuration list for PBXNativeTarget "AppointmentXUITests" */;
+			buildPhases = (
+				155074D21E3F817A00F3A6A4 /* Sources */,
+				155074D31E3F817A00F3A6A4 /* Frameworks */,
+				155074D41E3F817A00F3A6A4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				155074D81E3F817A00F3A6A4 /* PBXTargetDependency */,
+			);
+			name = AppointmentXUITests;
+			productName = AppointmentXUITests;
+			productReference = 155074D61E3F817A00F3A6A4 /* AppointmentXUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		155074AC1E3F817A00F3A6A4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Abdullah Al Dhabaib";
+				TargetAttributes = {
+					155074B31E3F817A00F3A6A4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = W9TR9GJ5W6;
+						ProvisioningStyle = Automatic;
+					};
+					155074CA1E3F817A00F3A6A4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 155074B31E3F817A00F3A6A4;
+					};
+					155074D51E3F817A00F3A6A4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 155074B31E3F817A00F3A6A4;
+					};
+				};
+			};
+			buildConfigurationList = 155074AF1E3F817A00F3A6A4 /* Build configuration list for PBXProject "AppointmentX" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 155074AB1E3F817A00F3A6A4;
+			productRefGroup = 155074B51E3F817A00F3A6A4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				155074B31E3F817A00F3A6A4 /* AppointmentX */,
+				155074CA1E3F817A00F3A6A4 /* AppointmentXTests */,
+				155074D51E3F817A00F3A6A4 /* AppointmentXUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		155074B21E3F817A00F3A6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155074C51E3F817A00F3A6A4 /* LaunchScreen.storyboard in Resources */,
+				1570F0551E3F835D00FF3968 /* GoogleService-Info.plist in Resources */,
+				155074C21E3F817A00F3A6A4 /* Assets.xcassets in Resources */,
+				1570F0951E428DAC00FF3968 /* Info.plist in Resources */,
+				155074BD1E3F817A00F3A6A4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155074C91E3F817A00F3A6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155074D41E3F817A00F3A6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		03D5ED7E45819E9690703F7E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		22D12F578CF11A6F58FD8857 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		47DA552F3938EDDD5EFE0DA2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		155074B01E3F817A00F3A6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1570F08F1E428DAC00FF3968 /* FSCalendarExtensions.m in Sources */,
+				1570F0881E428DAC00FF3968 /* FSCalendarCalculator.m in Sources */,
+				1570F08C1E428DAC00FF3968 /* FSCalendarConstants.m in Sources */,
+				155074C01E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld in Sources */,
+				1570F08B1E428DAC00FF3968 /* FSCalendarCollectionViewLayout.m in Sources */,
+				1570F0851E428DAC00FF3968 /* FSCalendar+Deprecated.m in Sources */,
+				1570F0941E428DAC00FF3968 /* FSCalendarWeekdayView.m in Sources */,
+				1570F08A1E428DAC00FF3968 /* FSCalendarCollectionView.m in Sources */,
+				1570F0921E428DAC00FF3968 /* FSCalendarStickyHeader.m in Sources */,
+				1570F0911E428DAC00FF3968 /* FSCalendarScopeHandle.m in Sources */,
+				1570F0901E428DAC00FF3968 /* FSCalendarHeaderView.m in Sources */,
+				1570F0861E428DAC00FF3968 /* FSCalendar.m in Sources */,
+				1570F0611E40DD8A00FF3968 /* Scheduler.swift in Sources */,
+				1570F08E1E428DAC00FF3968 /* FSCalendarDelegationProxy.m in Sources */,
+				1570F0871E428DAC00FF3968 /* FSCalendarAppearance.m in Sources */,
+				1570F0891E428DAC00FF3968 /* FSCalendarCell.m in Sources */,
+				155074BA1E3F817A00F3A6A4 /* ViewController.swift in Sources */,
+				1570F05D1E40C8C100FF3968 /* Case.swift in Sources */,
+				1570F05F1E40D77200FF3968 /* Appointment.swift in Sources */,
+				1570F0571E3FDDB800FF3968 /* Client.swift in Sources */,
+				155074B81E3F817A00F3A6A4 /* AppDelegate.swift in Sources */,
+				1570F0931E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m in Sources */,
+				1570F08D1E428DAC00FF3968 /* FSCalendarDelegationFactory.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155074C71E3F817A00F3A6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155074D01E3F817A00F3A6A4 /* AppointmentXTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155074D21E3F817A00F3A6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155074DB1E3F817A00F3A6A4 /* AppointmentXUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		155074CD1E3F817A00F3A6A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 155074B31E3F817A00F3A6A4 /* AppointmentX */;
+			targetProxy = 155074CC1E3F817A00F3A6A4 /* PBXContainerItemProxy */;
+		};
+		155074D81E3F817A00F3A6A4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 155074B31E3F817A00F3A6A4 /* AppointmentX */;
+			targetProxy = 155074D71E3F817A00F3A6A4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		155074BB1E3F817A00F3A6A4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				155074BC1E3F817A00F3A6A4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		155074C31E3F817A00F3A6A4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				155074C41E3F817A00F3A6A4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		155074DD1E3F817A00F3A6A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "AppointmentX/Objective-C-Header_Calender.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		155074DE1E3F817A00F3A6A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "AppointmentX/Objective-C-Header_Calender.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		155074E01E3F817A00F3A6A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = W9TR9GJ5W6;
+				INFOPLIST_FILE = AppointmentX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Abdullah-Al-Dhabaib.AppointmentX";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		155074E11E3F817A00F3A6A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0B14918CD93C73D25D9F269F /* Pods-AppointmentX.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = W9TR9GJ5W6;
+				INFOPLIST_FILE = AppointmentX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Abdullah-Al-Dhabaib.AppointmentX";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		155074E31E3F817A00F3A6A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = AppointmentXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Abdullah-Al-Dhabaib.AppointmentXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AppointmentX.app/AppointmentX";
+			};
+			name = Debug;
+		};
+		155074E41E3F817A00F3A6A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = AppointmentXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Abdullah-Al-Dhabaib.AppointmentXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AppointmentX.app/AppointmentX";
+			};
+			name = Release;
+		};
+		155074E61E3F817A00F3A6A4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = AppointmentXUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Abdullah-Al-Dhabaib.AppointmentXUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = AppointmentX;
+			};
+			name = Debug;
+		};
+		155074E71E3F817A00F3A6A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = AppointmentXUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Abdullah-Al-Dhabaib.AppointmentXUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = AppointmentX;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		155074AF1E3F817A00F3A6A4 /* Build configuration list for PBXProject "AppointmentX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				155074DD1E3F817A00F3A6A4 /* Debug */,
+				155074DE1E3F817A00F3A6A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		155074DF1E3F817A00F3A6A4 /* Build configuration list for PBXNativeTarget "AppointmentX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				155074E01E3F817A00F3A6A4 /* Debug */,
+				155074E11E3F817A00F3A6A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		155074E21E3F817A00F3A6A4 /* Build configuration list for PBXNativeTarget "AppointmentXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				155074E31E3F817A00F3A6A4 /* Debug */,
+				155074E41E3F817A00F3A6A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		155074E51E3F817A00F3A6A4 /* Build configuration list for PBXNativeTarget "AppointmentXUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				155074E61E3F817A00F3A6A4 /* Debug */,
+				155074E71E3F817A00F3A6A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		155074BE1E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				155074BF1E3F817A00F3A6A4 /* AppointmentX.xcdatamodel */,
+			);
+			currentVersion = 155074BF1E3F817A00F3A6A4 /* AppointmentX.xcdatamodel */;
+			path = AppointmentX.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 155074AC1E3F817A00F3A6A4 /* Project object */;
+}
