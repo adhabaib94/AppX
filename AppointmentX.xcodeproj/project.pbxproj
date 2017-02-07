@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		01FC278DB49C855966B726F8 /* Pods_AppointmentX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; };
+		1530DE261E455B6900459824 /* Pods_AppointmentX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; };
+		1530DE271E455B6900459824 /* Pods_AppointmentX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		155074B81E3F817A00F3A6A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074B71E3F817A00F3A6A4 /* AppDelegate.swift */; };
 		155074BA1E3F817A00F3A6A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074B91E3F817A00F3A6A4 /* ViewController.swift */; };
 		155074BD1E3F817A00F3A6A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 155074BB1E3F817A00F3A6A4 /* Main.storyboard */; };
@@ -56,6 +58,20 @@
 			remoteInfo = AppointmentX;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1530DE281E455B6900459824 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1530DE271E455B6900459824 /* Pods_AppointmentX.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppointmentX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01FC278DB49C855966B726F8 /* Pods_AppointmentX.framework in Frameworks */,
+				1530DE261E455B6900459824 /* Pods_AppointmentX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +309,7 @@
 				155074B21E3F817A00F3A6A4 /* Resources */,
 				22D12F578CF11A6F58FD8857 /* [CP] Embed Pods Frameworks */,
 				47DA552F3938EDDD5EFE0DA2 /* [CP] Copy Pods Resources */,
+				1530DE281E455B6900459824 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

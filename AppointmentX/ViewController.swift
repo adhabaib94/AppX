@@ -301,7 +301,7 @@ class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate
         
     }
     @IBAction func alterExistingAppointment(_ sender: Any) {
-        if(current_client.myCase.scheduler.myAppointment.appointmentExists && (self.daySelection != "" && self.timeSelection != "" && self.slotSelection != "" ) && self.current_client.myCase.scheduler.myAppointment.appointmentExists && self.current_client.myCase.scheduler.myAppointment.time != self.timeSelection){
+        if(current_client.myCase.scheduler.myAppointment.appointmentExists && (self.daySelection != "" && self.timeSelection != "" && self.slotSelection != "" ) && self.current_client.myCase.scheduler.myAppointment.appointmentExists){
             self.current_client.myCase.scheduler.myAppointment.date = self.daySelection
             self.current_client.myCase.scheduler.myAppointment.time = self.timeSelection
             self.current_client.myCase.scheduler.myAppointment.slot = self.slotSelection
