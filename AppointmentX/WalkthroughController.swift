@@ -391,6 +391,9 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
     }
     
     
+    @IBAction func SkipWalkthrough(_ sender: Any) {
+        self.performSegue(withIdentifier: "backend-beta", sender: nil)
+    }
     
     
     
