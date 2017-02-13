@@ -27,11 +27,13 @@ PODS:
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - NVActivityIndicatorView (3.3)
+  - SwiftGifOrigin (1.6.1)
 
 DEPENDENCIES:
   - Firebase
   - Firebase/Database
   - NVActivityIndicatorView
+  - SwiftGifOrigin (~> 1.6.1)
 
 SPEC CHECKSUMS:
   Firebase: 8e99eb1ff553ad5bcc6072cc3d925bb89c1244d6
@@ -43,7 +45,8 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   NVActivityIndicatorView: 0a4cd7863d0e409e65b72e253c3e13f48d0260d7
+  SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
 
-PODFILE CHECKSUM: 8f26093753971e8b88f65423990839c00c81a8a8
+PODFILE CHECKSUM: 9c262b55e5f8fbb5b0033956dc8c107c0d661134
 
 COCOAPODS: 1.2.0

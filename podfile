@@ -6,4 +6,5 @@ use_frameworks!
 pod 'Firebase'
 pod 'Firebase/Database'
 pod 'NVActivityIndicatorView'
+pod 'SwiftGifOrigin', '~> 1.6.1'
 end

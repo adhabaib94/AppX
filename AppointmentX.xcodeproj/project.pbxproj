@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		01FC278DB49C855966B726F8 /* Pods_AppointmentX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; };
-		1530DE261E455B6900459824 /* Pods_AppointmentX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; };
 		1530DE271E455B6900459824 /* Pods_AppointmentX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		154EB19F1E49E4350098F549 /* DisplayLogoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154EB19E1E49E4350098F549 /* DisplayLogoController.swift */; };
+		154EB1A21E49E4BA0098F549 /* logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 154EB1A11E49E4BA0098F549 /* logo.gif */; };
 		155074B81E3F817A00F3A6A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074B71E3F817A00F3A6A4 /* AppDelegate.swift */; };
-		155074BA1E3F817A00F3A6A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074B91E3F817A00F3A6A4 /* ViewController.swift */; };
+		155074BA1E3F817A00F3A6A4 /* SystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155074B91E3F817A00F3A6A4 /* SystemViewController.swift */; };
 		155074BD1E3F817A00F3A6A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 155074BB1E3F817A00F3A6A4 /* Main.storyboard */; };
 		155074C01E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 155074BE1E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld */; };
 		155074C21E3F817A00F3A6A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155074C11E3F817A00F3A6A4 /* Assets.xcassets */; };
@@ -40,6 +41,39 @@
 		1570F0931E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0811E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m */; };
 		1570F0941E428DAC00FF3968 /* FSCalendarWeekdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0831E428DAC00FF3968 /* FSCalendarWeekdayView.m */; };
 		1570F0951E428DAC00FF3968 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1570F0841E428DAC00FF3968 /* Info.plist */; };
+		158FA6EF1E4C7E3D002D2307 /* Raleway-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6DD1E4C7E3D002D2307 /* Raleway-ThinItalic.ttf */; };
+		158FA6F01E4C7E3D002D2307 /* Raleway-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6DE1E4C7E3D002D2307 /* Raleway-Thin.ttf */; };
+		158FA6F11E4C7E3D002D2307 /* Raleway-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6DF1E4C7E3D002D2307 /* Raleway-SemiBoldItalic.ttf */; };
+		158FA6F21E4C7E3D002D2307 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E01E4C7E3D002D2307 /* Raleway-SemiBold.ttf */; };
+		158FA6F31E4C7E3D002D2307 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E11E4C7E3D002D2307 /* Raleway-Regular.ttf */; };
+		158FA6F41E4C7E3D002D2307 /* Raleway-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E21E4C7E3D002D2307 /* Raleway-MediumItalic.ttf */; };
+		158FA6F51E4C7E3D002D2307 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E31E4C7E3D002D2307 /* Raleway-Medium.ttf */; };
+		158FA6F61E4C7E3D002D2307 /* Raleway-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E41E4C7E3D002D2307 /* Raleway-LightItalic.ttf */; };
+		158FA6F71E4C7E3D002D2307 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E51E4C7E3D002D2307 /* Raleway-Light.ttf */; };
+		158FA6F81E4C7E3D002D2307 /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E61E4C7E3D002D2307 /* Raleway-Italic.ttf */; };
+		158FA6F91E4C7E3D002D2307 /* Raleway-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E71E4C7E3D002D2307 /* Raleway-ExtraLightItalic.ttf */; };
+		158FA6FA1E4C7E3D002D2307 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E81E4C7E3D002D2307 /* Raleway-ExtraLight.ttf */; };
+		158FA6FB1E4C7E3D002D2307 /* Raleway-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6E91E4C7E3D002D2307 /* Raleway-ExtraBoldItalic.ttf */; };
+		158FA6FC1E4C7E3D002D2307 /* Raleway-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6EA1E4C7E3D002D2307 /* Raleway-ExtraBold.ttf */; };
+		158FA6FD1E4C7E3D002D2307 /* Raleway-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6EB1E4C7E3D002D2307 /* Raleway-BoldItalic.ttf */; };
+		158FA6FE1E4C7E3D002D2307 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6EC1E4C7E3D002D2307 /* Raleway-Bold.ttf */; };
+		158FA6FF1E4C7E3D002D2307 /* Raleway-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6ED1E4C7E3D002D2307 /* Raleway-BlackItalic.ttf */; };
+		158FA7001E4C7E3D002D2307 /* Raleway-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6EE1E4C7E3D002D2307 /* Raleway-Black.ttf */; };
+		158FA70D1E4C8117002D2307 /* SourceSansPro-SemiboldIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7011E4C8117002D2307 /* SourceSansPro-SemiboldIt.otf */; };
+		158FA70E1E4C8117002D2307 /* SourceSansPro-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7021E4C8117002D2307 /* SourceSansPro-Semibold.otf */; };
+		158FA70F1E4C8117002D2307 /* SourceSansPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7031E4C8117002D2307 /* SourceSansPro-Regular.otf */; };
+		158FA7101E4C8117002D2307 /* SourceSansPro-LightIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7041E4C8117002D2307 /* SourceSansPro-LightIt.otf */; };
+		158FA7111E4C8117002D2307 /* SourceSansPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7051E4C8117002D2307 /* SourceSansPro-Light.otf */; };
+		158FA7121E4C8117002D2307 /* SourceSansPro-It.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7061E4C8117002D2307 /* SourceSansPro-It.otf */; };
+		158FA7131E4C8117002D2307 /* SourceSansPro-ExtraLightIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7071E4C8117002D2307 /* SourceSansPro-ExtraLightIt.otf */; };
+		158FA7141E4C8117002D2307 /* SourceSansPro-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7081E4C8117002D2307 /* SourceSansPro-ExtraLight.otf */; };
+		158FA7151E4C8117002D2307 /* SourceSansPro-BoldIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA7091E4C8117002D2307 /* SourceSansPro-BoldIt.otf */; };
+		158FA7161E4C8117002D2307 /* SourceSansPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA70A1E4C8117002D2307 /* SourceSansPro-Bold.otf */; };
+		158FA7171E4C8117002D2307 /* SourceSansPro-BlackIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA70B1E4C8117002D2307 /* SourceSansPro-BlackIt.otf */; };
+		158FA7181E4C8117002D2307 /* SourceSansPro-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA70C1E4C8117002D2307 /* SourceSansPro-Black.otf */; };
+		158FA71E1E4DCC10002D2307 /* WalkthroughController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */; };
+		158FA7201E4DCCEA002D2307 /* bulb.gif in Resources */ = {isa = PBXBuildFile; fileRef = 158FA71F1E4DCCEA002D2307 /* bulb.gif */; };
+		15BB6DB21E51C6B500E97619 /* ScheduleAppointmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,9 +110,11 @@
 /* Begin PBXFileReference section */
 		023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppointmentX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B14918CD93C73D25D9F269F /* Pods-AppointmentX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.release.xcconfig"; sourceTree = "<group>"; };
+		154EB19E1E49E4350098F549 /* DisplayLogoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLogoController.swift; sourceTree = "<group>"; };
+		154EB1A11E49E4BA0098F549 /* logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo.gif; sourceTree = "<group>"; };
 		155074B41E3F817A00F3A6A4 /* AppointmentX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppointmentX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		155074B71E3F817A00F3A6A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		155074B91E3F817A00F3A6A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		155074B91E3F817A00F3A6A4 /* SystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemViewController.swift; sourceTree = "<group>"; };
 		155074BC1E3F817A00F3A6A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		155074BF1E3F817A00F3A6A4 /* AppointmentX.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppointmentX.xcdatamodel; sourceTree = "<group>"; };
 		155074C11E3F817A00F3A6A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +166,39 @@
 		1570F0841E428DAC00FF3968 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1570F0961E428DD400FF3968 /* Objc-Bridge-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Objc-Bridge-Header.h"; path = "../../../Downloads/FSCalendar-master/Example-Swift/SwiftExample/Objc-Bridge-Header.h"; sourceTree = "<group>"; };
 		1570F0991E42954900FF3968 /* Objective-C-Header_Calender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Objective-C-Header_Calender.h"; sourceTree = "<group>"; };
+		158FA6DD1E4C7E3D002D2307 /* Raleway-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ThinItalic.ttf"; sourceTree = "<group>"; };
+		158FA6DE1E4C7E3D002D2307 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Thin.ttf"; sourceTree = "<group>"; };
+		158FA6DF1E4C7E3D002D2307 /* Raleway-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		158FA6E01E4C7E3D002D2307 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
+		158FA6E11E4C7E3D002D2307 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		158FA6E21E4C7E3D002D2307 /* Raleway-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-MediumItalic.ttf"; sourceTree = "<group>"; };
+		158FA6E31E4C7E3D002D2307 /* Raleway-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Medium.ttf"; sourceTree = "<group>"; };
+		158FA6E41E4C7E3D002D2307 /* Raleway-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-LightItalic.ttf"; sourceTree = "<group>"; };
+		158FA6E51E4C7E3D002D2307 /* Raleway-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Light.ttf"; sourceTree = "<group>"; };
+		158FA6E61E4C7E3D002D2307 /* Raleway-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Italic.ttf"; sourceTree = "<group>"; };
+		158FA6E71E4C7E3D002D2307 /* Raleway-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		158FA6E81E4C7E3D002D2307 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
+		158FA6E91E4C7E3D002D2307 /* Raleway-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		158FA6EA1E4C7E3D002D2307 /* Raleway-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraBold.ttf"; sourceTree = "<group>"; };
+		158FA6EB1E4C7E3D002D2307 /* Raleway-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-BoldItalic.ttf"; sourceTree = "<group>"; };
+		158FA6EC1E4C7E3D002D2307 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
+		158FA6ED1E4C7E3D002D2307 /* Raleway-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-BlackItalic.ttf"; sourceTree = "<group>"; };
+		158FA6EE1E4C7E3D002D2307 /* Raleway-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Black.ttf"; sourceTree = "<group>"; };
+		158FA7011E4C8117002D2307 /* SourceSansPro-SemiboldIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-SemiboldIt.otf"; sourceTree = "<group>"; };
+		158FA7021E4C8117002D2307 /* SourceSansPro-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Semibold.otf"; sourceTree = "<group>"; };
+		158FA7031E4C8117002D2307 /* SourceSansPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Regular.otf"; sourceTree = "<group>"; };
+		158FA7041E4C8117002D2307 /* SourceSansPro-LightIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-LightIt.otf"; sourceTree = "<group>"; };
+		158FA7051E4C8117002D2307 /* SourceSansPro-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Light.otf"; sourceTree = "<group>"; };
+		158FA7061E4C8117002D2307 /* SourceSansPro-It.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-It.otf"; sourceTree = "<group>"; };
+		158FA7071E4C8117002D2307 /* SourceSansPro-ExtraLightIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLightIt.otf"; sourceTree = "<group>"; };
+		158FA7081E4C8117002D2307 /* SourceSansPro-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-ExtraLight.otf"; sourceTree = "<group>"; };
+		158FA7091E4C8117002D2307 /* SourceSansPro-BoldIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BoldIt.otf"; sourceTree = "<group>"; };
+		158FA70A1E4C8117002D2307 /* SourceSansPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Bold.otf"; sourceTree = "<group>"; };
+		158FA70B1E4C8117002D2307 /* SourceSansPro-BlackIt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-BlackIt.otf"; sourceTree = "<group>"; };
+		158FA70C1E4C8117002D2307 /* SourceSansPro-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSansPro-Black.otf"; sourceTree = "<group>"; };
+		158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughController.swift; sourceTree = "<group>"; };
+		158FA71F1E4DCCEA002D2307 /* bulb.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bulb.gif; sourceTree = "<group>"; };
+		15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleAppointmentController.swift; sourceTree = "<group>"; };
 		20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,7 +208,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01FC278DB49C855966B726F8 /* Pods_AppointmentX.framework in Frameworks */,
-				1530DE261E455B6900459824 /* Pods_AppointmentX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +228,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		154EB1A01E49E43C0098F549 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */,
+				158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */,
+				154EB19E1E49E4350098F549 /* DisplayLogoController.swift */,
+				155074B91E3F817A00F3A6A4 /* SystemViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		154EB1A31E49E4C10098F549 /* Other Assets */ = {
+			isa = PBXGroup;
+			children = (
+				158FA71F1E4DCCEA002D2307 /* bulb.gif */,
+				158FA6DC1E4C7E24002D2307 /* Custom Fonts */,
+				154EB1A11E49E4BA0098F549 /* logo.gif */,
+			);
+			name = "Other Assets";
+			sourceTree = "<group>";
+		};
 		155074AB1E3F817A00F3A6A4 = {
 			isa = PBXGroup;
 			children = (
@@ -185,10 +274,11 @@
 		155074B61E3F817A00F3A6A4 /* AppointmentX */ = {
 			isa = PBXGroup;
 			children = (
+				154EB1A31E49E4C10098F549 /* Other Assets */,
+				154EB1A01E49E43C0098F549 /* Controller */,
 				1570F0621E428D7F00FF3968 /* Custom UI Classes */,
 				1570F0581E3FE6A300FF3968 /* Model Classes */,
 				155074B71E3F817A00F3A6A4 /* AppDelegate.swift */,
-				155074B91E3F817A00F3A6A4 /* ViewController.swift */,
 				155074BB1E3F817A00F3A6A4 /* Main.storyboard */,
 				155074BE1E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld */,
 				155074C11E3F817A00F3A6A4 /* Assets.xcassets */,
@@ -277,6 +367,43 @@
 			);
 			name = FSCalendar;
 			path = "../../../Downloads/FSCalendar-master/FSCalendar";
+			sourceTree = "<group>";
+		};
+		158FA6DC1E4C7E24002D2307 /* Custom Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				158FA7011E4C8117002D2307 /* SourceSansPro-SemiboldIt.otf */,
+				158FA7021E4C8117002D2307 /* SourceSansPro-Semibold.otf */,
+				158FA7031E4C8117002D2307 /* SourceSansPro-Regular.otf */,
+				158FA7041E4C8117002D2307 /* SourceSansPro-LightIt.otf */,
+				158FA7051E4C8117002D2307 /* SourceSansPro-Light.otf */,
+				158FA7061E4C8117002D2307 /* SourceSansPro-It.otf */,
+				158FA7071E4C8117002D2307 /* SourceSansPro-ExtraLightIt.otf */,
+				158FA7081E4C8117002D2307 /* SourceSansPro-ExtraLight.otf */,
+				158FA7091E4C8117002D2307 /* SourceSansPro-BoldIt.otf */,
+				158FA70A1E4C8117002D2307 /* SourceSansPro-Bold.otf */,
+				158FA70B1E4C8117002D2307 /* SourceSansPro-BlackIt.otf */,
+				158FA70C1E4C8117002D2307 /* SourceSansPro-Black.otf */,
+				158FA6DD1E4C7E3D002D2307 /* Raleway-ThinItalic.ttf */,
+				158FA6DE1E4C7E3D002D2307 /* Raleway-Thin.ttf */,
+				158FA6DF1E4C7E3D002D2307 /* Raleway-SemiBoldItalic.ttf */,
+				158FA6E01E4C7E3D002D2307 /* Raleway-SemiBold.ttf */,
+				158FA6E11E4C7E3D002D2307 /* Raleway-Regular.ttf */,
+				158FA6E21E4C7E3D002D2307 /* Raleway-MediumItalic.ttf */,
+				158FA6E31E4C7E3D002D2307 /* Raleway-Medium.ttf */,
+				158FA6E41E4C7E3D002D2307 /* Raleway-LightItalic.ttf */,
+				158FA6E51E4C7E3D002D2307 /* Raleway-Light.ttf */,
+				158FA6E61E4C7E3D002D2307 /* Raleway-Italic.ttf */,
+				158FA6E71E4C7E3D002D2307 /* Raleway-ExtraLightItalic.ttf */,
+				158FA6E81E4C7E3D002D2307 /* Raleway-ExtraLight.ttf */,
+				158FA6E91E4C7E3D002D2307 /* Raleway-ExtraBoldItalic.ttf */,
+				158FA6EA1E4C7E3D002D2307 /* Raleway-ExtraBold.ttf */,
+				158FA6EB1E4C7E3D002D2307 /* Raleway-BoldItalic.ttf */,
+				158FA6EC1E4C7E3D002D2307 /* Raleway-Bold.ttf */,
+				158FA6ED1E4C7E3D002D2307 /* Raleway-BlackItalic.ttf */,
+				158FA6EE1E4C7E3D002D2307 /* Raleway-Black.ttf */,
+			);
+			name = "Custom Fonts";
 			sourceTree = "<group>";
 		};
 		2D0EF6F8B62843EC7B04E426 /* Frameworks */ = {
@@ -408,11 +535,43 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				158FA6F11E4C7E3D002D2307 /* Raleway-SemiBoldItalic.ttf in Resources */,
+				158FA6F51E4C7E3D002D2307 /* Raleway-Medium.ttf in Resources */,
+				158FA6FA1E4C7E3D002D2307 /* Raleway-ExtraLight.ttf in Resources */,
+				158FA6FD1E4C7E3D002D2307 /* Raleway-BoldItalic.ttf in Resources */,
+				158FA70E1E4C8117002D2307 /* SourceSansPro-Semibold.otf in Resources */,
 				155074C51E3F817A00F3A6A4 /* LaunchScreen.storyboard in Resources */,
+				158FA7131E4C8117002D2307 /* SourceSansPro-ExtraLightIt.otf in Resources */,
+				158FA6F61E4C7E3D002D2307 /* Raleway-LightItalic.ttf in Resources */,
+				158FA6F01E4C7E3D002D2307 /* Raleway-Thin.ttf in Resources */,
+				158FA7171E4C8117002D2307 /* SourceSansPro-BlackIt.otf in Resources */,
+				158FA6F91E4C7E3D002D2307 /* Raleway-ExtraLightItalic.ttf in Resources */,
+				158FA7101E4C8117002D2307 /* SourceSansPro-LightIt.otf in Resources */,
+				158FA7151E4C8117002D2307 /* SourceSansPro-BoldIt.otf in Resources */,
+				158FA7121E4C8117002D2307 /* SourceSansPro-It.otf in Resources */,
+				154EB1A21E49E4BA0098F549 /* logo.gif in Resources */,
+				158FA6F81E4C7E3D002D2307 /* Raleway-Italic.ttf in Resources */,
+				158FA70F1E4C8117002D2307 /* SourceSansPro-Regular.otf in Resources */,
+				158FA6F71E4C7E3D002D2307 /* Raleway-Light.ttf in Resources */,
 				1570F0551E3F835D00FF3968 /* GoogleService-Info.plist in Resources */,
 				155074C21E3F817A00F3A6A4 /* Assets.xcassets in Resources */,
+				158FA7201E4DCCEA002D2307 /* bulb.gif in Resources */,
+				158FA6EF1E4C7E3D002D2307 /* Raleway-ThinItalic.ttf in Resources */,
+				158FA7141E4C8117002D2307 /* SourceSansPro-ExtraLight.otf in Resources */,
+				158FA6FF1E4C7E3D002D2307 /* Raleway-BlackItalic.ttf in Resources */,
 				1570F0951E428DAC00FF3968 /* Info.plist in Resources */,
+				158FA6FB1E4C7E3D002D2307 /* Raleway-ExtraBoldItalic.ttf in Resources */,
 				155074BD1E3F817A00F3A6A4 /* Main.storyboard in Resources */,
+				158FA6FC1E4C7E3D002D2307 /* Raleway-ExtraBold.ttf in Resources */,
+				158FA70D1E4C8117002D2307 /* SourceSansPro-SemiboldIt.otf in Resources */,
+				158FA6F41E4C7E3D002D2307 /* Raleway-MediumItalic.ttf in Resources */,
+				158FA7161E4C8117002D2307 /* SourceSansPro-Bold.otf in Resources */,
+				158FA7001E4C7E3D002D2307 /* Raleway-Black.ttf in Resources */,
+				158FA7181E4C8117002D2307 /* SourceSansPro-Black.otf in Resources */,
+				158FA6FE1E4C7E3D002D2307 /* Raleway-Bold.ttf in Resources */,
+				158FA6F31E4C7E3D002D2307 /* Raleway-Regular.ttf in Resources */,
+				158FA6F21E4C7E3D002D2307 /* Raleway-SemiBold.ttf in Resources */,
+				158FA7111E4C8117002D2307 /* SourceSansPro-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +651,7 @@
 				1570F08B1E428DAC00FF3968 /* FSCalendarCollectionViewLayout.m in Sources */,
 				1570F0851E428DAC00FF3968 /* FSCalendar+Deprecated.m in Sources */,
 				1570F0941E428DAC00FF3968 /* FSCalendarWeekdayView.m in Sources */,
+				158FA71E1E4DCC10002D2307 /* WalkthroughController.swift in Sources */,
 				1570F08A1E428DAC00FF3968 /* FSCalendarCollectionView.m in Sources */,
 				1570F0921E428DAC00FF3968 /* FSCalendarStickyHeader.m in Sources */,
 				1570F0911E428DAC00FF3968 /* FSCalendarScopeHandle.m in Sources */,
@@ -500,8 +660,10 @@
 				1570F0611E40DD8A00FF3968 /* Scheduler.swift in Sources */,
 				1570F08E1E428DAC00FF3968 /* FSCalendarDelegationProxy.m in Sources */,
 				1570F0871E428DAC00FF3968 /* FSCalendarAppearance.m in Sources */,
+				15BB6DB21E51C6B500E97619 /* ScheduleAppointmentController.swift in Sources */,
 				1570F0891E428DAC00FF3968 /* FSCalendarCell.m in Sources */,
-				155074BA1E3F817A00F3A6A4 /* ViewController.swift in Sources */,
+				155074BA1E3F817A00F3A6A4 /* SystemViewController.swift in Sources */,
+				154EB19F1E49E4350098F549 /* DisplayLogoController.swift in Sources */,
 				1570F05D1E40C8C100FF3968 /* Case.swift in Sources */,
 				1570F05F1E40D77200FF3968 /* Appointment.swift in Sources */,
 				1570F0571E3FDDB800FF3968 /* Client.swift in Sources */,

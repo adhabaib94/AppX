@@ -11,7 +11,7 @@ import Firebase
 import NVActivityIndicatorView
 
 
-class ViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
+class SystemViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
     @IBOutlet weak var day1: UIButton!
     @IBOutlet weak var day2: UIButton!
     @IBOutlet weak var day3: UIButton!
