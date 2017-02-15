@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>UITextField+Shake.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -32,7 +37,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>08C5E087564F3630EF5201F237D5B8C7</key>
+		<key>07746981B0D790A13F35F46478DAF1FF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>300FDAF9CA417370F0607114E66306D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +52,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E1AA8F5BC2B7DD50BA373E66C0C7388D</key>
+		<key>5874FF7D42FBF6BADC12E3890B5475B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

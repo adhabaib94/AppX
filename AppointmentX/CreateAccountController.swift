@@ -10,6 +10,7 @@ import UIKit
 import SwiftGifOrigin
 import NVActivityIndicatorView
 import Firebase
+import UITextField_Shake
 
 class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimationDelegate {
     
@@ -53,6 +54,11 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         self.passTextField.delegate = self
         self.phoneTextField.delegate = self
         
+        
+        // Keyboard Dismismal On Touch
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CreateAccountController.dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -60,15 +66,20 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     }
     
     
+    
+    // Create Account IBACTION
     @IBAction func createAccount(_ sender: UIButton) {
         
-        self.current_client.registerNewClient(name: self.nameTextField.text!, email: self.emailTextField.text!, password: self.passTextField.text!, number: self.phoneTextField.text!, legalStatus: "N/A")
-        
-        self.showLoading()
+        if (self.assertInputsCorrect()){
+            self.current_client.registerNewClient(name: self.nameTextField.text!, email: self.emailTextField.text!, password: self.passTextField.text!, number: self.phoneTextField.text!, legalStatus: "N/A")
+            
+            
+            self.showLoading()
+            
+        }
     }
     
-    
-    
+    // Shrink View and Display Loading While Waiting For Account Creation
     func showLoading(){
         
         UIView.animate(withDuration: 0.2, animations: {
@@ -82,16 +93,57 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         self.setupLoading()
     }
     
+    
+    // If Account Registeration Fails, Bring back main view
     func dismissLoading(){
         UIView.animate(withDuration: 0.2, animations: {
             self.scrollView.transform = CGAffineTransform(scaleX: 1, y: 1)
             self.scrollView.alpha = 1
             self.ringImageView.alpha  = 0
+        }, completion: { (Bool) in
+            self.shakeTextField(textField: self.emailTextField, errorMsg: "Email Taken")
         })
     }
-
     
-
+    // Insure All Inputs meets basic criteria
+    func assertInputsCorrect() -> Bool{
+        
+        var no_error = true
+    
+        // Insure All Values Entered
+        if(self.nameTextField.text == ""){
+            self.shakeTextField(textField: self.nameTextField, errorMsg: "")
+            no_error = false
+        }
+        if(self.emailTextField.text == ""){
+            self.shakeTextField(textField: self.emailTextField, errorMsg: "")
+            no_error = false
+        }
+        else  if(emailTextField.text?.lowercased().range(of:"@") == nil || emailTextField.text?.lowercased().range(of:".com") == nil ){
+            self.shakeTextField(textField: self.emailTextField, errorMsg: "Invalid Email")
+            no_error = false
+        }
+        if(self.passTextField.text == ""){
+            self.shakeTextField(textField: self.passTextField, errorMsg: "")
+            no_error = false
+        }
+        if(self.phoneTextField.text == ""){
+            self.shakeTextField(textField: self.phoneTextField, errorMsg: "")
+            no_error = false
+        }
+        else if(phoneTextField.text?.characters.count != 8){
+            self.shakeTextField(textField: self.phoneTextField, errorMsg: "Invalid Number")
+            no_error = false
+        }
+        
+        
+        
+        
+        return no_error
+    }
+    
+    
+    // Setup Loading GIF
     func setupLoading(){
         
         DispatchQueue.main.async {
@@ -112,7 +164,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
             animation.calculationMode = kCAAnimationCubic
             animation.duration = self.loading!.duration
             animation.values = values
-
+            
             // Other stuff
             animation.isRemovedOnCompletion = false
             animation.fillMode = kCAFillModeForwards
@@ -141,123 +193,50 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     }
     
     
+    // Shake animation on textfields to showcase errors
+    func shakeTextField(textField: UITextField, errorMsg: String){
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: textField.center.x - 10, y: textField.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: textField.center.x + 10, y: textField.center.y))
+        textField.layer.add(animation, forKey: "position")
+        textField.text = errorMsg
+        
+    }
     
+    // Handle Client Notififcations
     func registerationNotification(notfication: NSNotification){
         
-         let notification_type = notfication.name._rawValue as String
-         
-         print("$CreateAccountController: recieved notification -> \(notification_type)")
-         
-         if(notification_type == self.CLIENT_REG){
-         //   self.performSegue(withIdentifier: "walkthrough", sender: nil)
-        // self.hideAcitivityView(message: "Registeration Complete!", segue: true)
-         }
-         else if(notification_type == self.CLIENT_REG_EXISTS){
-        // self.hideAcitivityView(message: "Registeration Failed, Account Already Exists!", segue: false)
+        let notification_type = notfication.name._rawValue as String
+        
+        print("$CreateAccountController: recieved notification -> \(notification_type)")
+        
+        if(notification_type == self.CLIENT_REG){
+            self.performSegue(withIdentifier: "walkthrough", sender: nil)
+                    }
+        else if(notification_type == self.CLIENT_REG_EXISTS){
+           
             self.dismissLoading()
         }
-            
         
         
-    }
-    
-    
-    // Show ActivityView
-    func showActivityView(message: String){
         
-        
-        // Create BackLight View
-        //let frame_back = CGRect(x:0, y:0, width: self.view.frame.width, height: self.view.frame.height)
-        
-        // Create BackLight View
-        let frame_back = CGRect(x:0, y:0, width: self.view.frame.width, height: self.view.frame.height)
-        let backlight_view = UIView(frame: frame_back)
-        backlight_view.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0)
-        
-        backlight_view.tag = 100
-        
-        self.view.addSubview(backlight_view)
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            backlight_view.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.85)
-        })
-
-        
-    
-        
-        // Create Activity View
-        let frame = CGRect(x: (self.view.frame.width/2) - 50, y:  (self.view.frame.height/2) - 50, width: 100, height: 100)
-        
-        let activityView = NVActivityIndicatorView(frame: frame,
-                                                   type: NVActivityIndicatorType(rawValue: 26)!, color: UIColor.white)
-        
-        activityView.tag = 101
-        
-        
-        self.view.addSubview(activityView)
-        activityView.startAnimating()
-        
-        // Create Label
-        
-        let frame_msg = CGRect(x:0, y: 100, width: self.view.frame.width, height: self.view.frame.height)
-        let msg_Label = UILabel(frame: frame_msg)
-        msg_Label.textColor =  UIColor.init(red: 6/255, green: 190/255, blue: 189/255, alpha: 1)
-        msg_Label.text = ""
-        msg_Label.textAlignment = NSTextAlignment.center
-        msg_Label.tag = 102
-        
-        self.view.addSubview(msg_Label)
-        
-    }
-    
-    // Hide Activity View
-    func hideAcitivityView(message: String, segue: Bool){
-        
-        // Change Label
-        let msg_label: UILabel = self.view.viewWithTag(102) as! UILabel
-        msg_label.text = ""
-        
-        // Get Other View's
-        let back_light: UIView = self.view.viewWithTag(100)!
-        let activityView: NVActivityIndicatorView = self.view.viewWithTag(101) as! NVActivityIndicatorView
-        
-        
-        // Remove Acitivity View After 3 Secs
-        let delayInSeconds = 1.0
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds) {
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                activityView.stopAnimating()
-                activityView.removeFromSuperview()
-                back_light.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0)
-                msg_label.removeFromSuperview()
-            }, completion: { (Bool) in
-                
-               
-                back_light.removeFromSuperview()
-                
-                if(segue){
-                    self.performSegue(withIdentifier: "walkthrough", sender: nil)
-                }
-                
-            })
-            
-            
-        }
     }
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {    //delegate method
         activeField = textField
         print("$CreateAccountController: TEXTFIELD DELEGATE: DID BEGIN EDIT (\(textField.tag)")
- 
+        
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {  //delegate method
         activeField = nil
         print("$CreateAccountController: TEXTFIELD DELEGATE: SHOULD END EDIT (\(textField.tag)")
         self.view.endEditing(true)
-    
+        
         return true
     }
     
@@ -272,7 +251,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         }
         // Do not add a line break
         return false
-     
+        
     }
     
     
@@ -289,7 +268,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     }
     
     func keyboardWasShown(notification: NSNotification){
-       
+        
         //Need to calculate keyboard exact size due to Apple suggestions
         self.scrollView.isScrollEnabled = true
         var info = notification.userInfo!
@@ -302,7 +281,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         var aRect : CGRect = self.view.frame
         aRect.size.height -= keyboardSize!.height
         
-       if let activeField = self.activeField {
+        if let activeField = self.activeField {
             if (!aRect.contains(activeField.frame.origin)){
                 self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
             }
@@ -321,5 +300,11 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         self.scrollView.isScrollEnabled = false
     }
     
- 
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        self.view.endEditing(true)
+    }
+    
 }

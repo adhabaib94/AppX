@@ -28,12 +28,14 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - NVActivityIndicatorView (3.3)
   - SwiftGifOrigin (1.6.1)
+  - UITextField+Shake (1.1.2)
 
 DEPENDENCIES:
   - Firebase
   - Firebase/Database
   - NVActivityIndicatorView
   - SwiftGifOrigin (~> 1.6.1)
+  - UITextField+Shake (~> 1.1)
 
 SPEC CHECKSUMS:
   Firebase: 8e99eb1ff553ad5bcc6072cc3d925bb89c1244d6
@@ -46,7 +48,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   NVActivityIndicatorView: 0a4cd7863d0e409e65b72e253c3e13f48d0260d7
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
+  UITextField+Shake: 47cc0429dafb3da580686339ad2da091249a8ea2
 
-PODFILE CHECKSUM: 9c262b55e5f8fbb5b0033956dc8c107c0d661134
+PODFILE CHECKSUM: b65ec95275353a968e3f4ae4a07d85c58d871811
 
 COCOAPODS: 1.2.0
