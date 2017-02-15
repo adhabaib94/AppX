@@ -74,6 +74,8 @@
 		158FA71E1E4DCC10002D2307 /* WalkthroughController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */; };
 		158FA7201E4DCCEA002D2307 /* bulb.gif in Resources */ = {isa = PBXBuildFile; fileRef = 158FA71F1E4DCCEA002D2307 /* bulb.gif */; };
 		15BB6DB21E51C6B500E97619 /* ScheduleAppointmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */; };
+		15BB6DB71E53491F00E97619 /* CreateAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6DB61E53491F00E97619 /* CreateAccountController.swift */; };
+		15BB6DB91E549AC700E97619 /* ring-indicator.gif in Resources */ = {isa = PBXBuildFile; fileRef = 15BB6DB81E549AC700E97619 /* ring-indicator.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +201,8 @@
 		158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughController.swift; sourceTree = "<group>"; };
 		158FA71F1E4DCCEA002D2307 /* bulb.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bulb.gif; sourceTree = "<group>"; };
 		15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleAppointmentController.swift; sourceTree = "<group>"; };
+		15BB6DB61E53491F00E97619 /* CreateAccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountController.swift; sourceTree = "<group>"; };
+		15BB6DB81E549AC700E97619 /* ring-indicator.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "ring-indicator.gif"; sourceTree = "<group>"; };
 		20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +237,7 @@
 			children = (
 				15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */,
 				158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */,
+				15BB6DB61E53491F00E97619 /* CreateAccountController.swift */,
 				154EB19E1E49E4350098F549 /* DisplayLogoController.swift */,
 				155074B91E3F817A00F3A6A4 /* SystemViewController.swift */,
 			);
@@ -242,6 +247,7 @@
 		154EB1A31E49E4C10098F549 /* Other Assets */ = {
 			isa = PBXGroup;
 			children = (
+				15BB6DB81E549AC700E97619 /* ring-indicator.gif */,
 				158FA71F1E4DCCEA002D2307 /* bulb.gif */,
 				158FA6DC1E4C7E24002D2307 /* Custom Fonts */,
 				154EB1A11E49E4BA0098F549 /* logo.gif */,
@@ -539,6 +545,7 @@
 				158FA6F51E4C7E3D002D2307 /* Raleway-Medium.ttf in Resources */,
 				158FA6FA1E4C7E3D002D2307 /* Raleway-ExtraLight.ttf in Resources */,
 				158FA6FD1E4C7E3D002D2307 /* Raleway-BoldItalic.ttf in Resources */,
+				15BB6DB91E549AC700E97619 /* ring-indicator.gif in Resources */,
 				158FA70E1E4C8117002D2307 /* SourceSansPro-Semibold.otf in Resources */,
 				155074C51E3F817A00F3A6A4 /* LaunchScreen.storyboard in Resources */,
 				158FA7131E4C8117002D2307 /* SourceSansPro-ExtraLightIt.otf in Resources */,
@@ -665,6 +672,7 @@
 				155074BA1E3F817A00F3A6A4 /* SystemViewController.swift in Sources */,
 				154EB19F1E49E4350098F549 /* DisplayLogoController.swift in Sources */,
 				1570F05D1E40C8C100FF3968 /* Case.swift in Sources */,
+				15BB6DB71E53491F00E97619 /* CreateAccountController.swift in Sources */,
 				1570F05F1E40D77200FF3968 /* Appointment.swift in Sources */,
 				1570F0571E3FDDB800FF3968 /* Client.swift in Sources */,
 				155074B81E3F817A00F3A6A4 /* AppDelegate.swift in Sources */,

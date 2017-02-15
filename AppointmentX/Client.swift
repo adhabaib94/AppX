@@ -16,8 +16,7 @@ class Client : NSObject {
     var clientID: String = ""
     var email: String = ""
     var password: String = ""
-    var firstName: String = ""
-    var lastName : String = ""
+    var name: String = ""
     var phoneNumber: String = ""
     var legalStatus: String = ""
     
@@ -47,7 +46,7 @@ class Client : NSObject {
     
     
     // Register New Client
-    func registerNewClient(firstName: String, lastName: String, email: String ,password: String , number: String, legalStatus: String)  {
+    func registerNewClient(name: String, email: String ,password: String , number: String, legalStatus: String)  {
         
         print("\n### ClientManager -> Registering New Client Information ###\n")
         
@@ -73,8 +72,7 @@ class Client : NSObject {
                 self.clientID = newClientRef.key
                 let newClientData = [
                     "clientID" : newClientRef.key,
-                    "firstName": firstName,
-                    "lastName": lastName,
+                    "name": name,
                     "email": email,
                     "password": password,
                     "phoneNumber": number,
@@ -87,8 +85,7 @@ class Client : NSObject {
                     
                     self.email = email
                     self.password = password
-                    self.firstName = firstName
-                    self.lastName = lastName
+                    self.name = name
                     self.phoneNumber = number
                     self.legalStatus = legalStatus
                     
@@ -182,8 +179,7 @@ class Client : NSObject {
                     
                     // Init Client Object
                     self.clientID = clientID
-                    self.firstName = clientData!["firstName"] as! String
-                    self.lastName = clientData!["lastName"] as! String
+                    self.name = clientData!["name"] as! String
                     self.email = clientData!["email"] as! String
                     self.password = clientData!["password"] as! String
                     self.phoneNumber = clientData!["phoneNumber"] as! String
@@ -241,8 +237,7 @@ class Client : NSObject {
         
         ref.updateChildValues([
             "clientID" : self.clientID,
-            "firstName": self.firstName,
-            "lastName": self.lastName,
+            "name": self.name,
             "email": self.email,
             "password": self.password,
             "phoneNumber": self.phoneNumber,
@@ -279,8 +274,7 @@ class Client : NSObject {
         
         ref.removeValue(completionBlock: { (NSError, FIRDatabaseReference) in
             
-            self.firstName = ""
-            self.lastName = ""
+            self.name = ""
             self.email = ""
             self.legalStatus = ""
             self.password = ""
@@ -319,7 +313,7 @@ class Client : NSObject {
     
     func printClient(){
         print("\n*** ClientManager: printing client summary... ***\n")
-        print("\tclientID:\(self.clientID)\n\tclientName:\(self.firstName) \(self.lastName)\n\t")
+        print("\tclientID:\(self.clientID)\n\tclientName:\(self.name)\n")
     }
     
     

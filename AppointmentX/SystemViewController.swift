@@ -143,7 +143,7 @@ class SystemViewController: UIViewController, FSCalendarDataSource, FSCalendarDe
     
     @IBAction func registerNewClient(_ sender: Any) {
         self.showActivityView(message: "Registering...")
-        current_client.registerNewClient(firstName: "Mohammed", lastName: "Abo Zaid", email: "abuzaid95@gmail.com", password: "123xyz", number: "99166300", legalStatus: "Sole Trader")
+        current_client.registerNewClient(name: "Mohammed AbuZaid",email: "abuzaid95@gmail.com", password: "123xyz", number: "99166300", legalStatus: "Sole Trader")
     }
     
     
@@ -159,8 +159,7 @@ class SystemViewController: UIViewController, FSCalendarDataSource, FSCalendarDe
     @IBAction func updateExistingClient(_ sender: Any) {
         
         if(current_client.REGISTERATION_STATUS && current_client.AUTHENTICATION_STATUS == 1){
-            current_client.firstName = "Mohammed"
-            current_client.lastName = "Abu Zaid"
+            current_client.name = "Mohammed Abu Zaid"
             self.showActivityView(message: "Updating...")
             current_client.updateClientInformation()
         }
@@ -431,7 +430,7 @@ class SystemViewController: UIViewController, FSCalendarDataSource, FSCalendarDe
       
         
         if(notification_type == self.AUTH_NOTIFICATION){
-            self.hideAcitivityView(message: "Welcome Back, \(self.current_client.firstName)!")
+            self.hideAcitivityView(message: "Welcome Back, \(self.current_client.name)!")
             
         }
         else if(notification_type == self.CLIENT_AUTH_FAILED){
@@ -447,10 +446,10 @@ class SystemViewController: UIViewController, FSCalendarDataSource, FSCalendarDe
             self.hideAcitivityView(message: "Case File Added!")
         }
         else if(notification_type == self.CLIENT_UPDATE || notification_type == self.UPDATE_CASE){
-            self.hideAcitivityView(message: "Updated \(self.current_client.firstName) Information!")
+            self.hideAcitivityView(message: "Updated \(self.current_client.name) Information!")
         }
         else if(notification_type == self.CLIENT_DELETE || notification_type == self.DELETE_CASE){
-            self.hideAcitivityView(message: "Deleted \(self.current_client.firstName) Information!")
+            self.hideAcitivityView(message: "Deleted \(self.current_client.name) Information!")
         }
             
         else if(notification_type == self.APPT_NOTIFICATION_CREATE){
