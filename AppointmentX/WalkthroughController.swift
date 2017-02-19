@@ -36,12 +36,23 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
     @IBOutlet weak var deadline1_Button: UIButton!
     @IBOutlet weak var deadline2_boxButton: UIButton!
     @IBOutlet weak var deadline2_Button: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var skipButton: UIButton!
     
     
+    // Client Manager Status Fields/Notications
+    var current_client:Client!
+    let CREATE_CASE = "CREATE_CASE"
     
     
-    
-   var currentPage = -1
+    // Tracking Variables
+    var currentPage = 0
+    var platform_selection = "N/A"
+    var feature0_selection = "N/A"
+    var feature1_selection = "N/A"
+    var feature2_selection = "N/A"
+    var feature3_selection = "N/A"
+    var deadline_selection = "N/A"
     
     
     override func viewDidLoad() {
@@ -71,37 +82,58 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
         self.deadline2_boxButton.alpha = 0
         
         
+        
         self.imageView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         self.imageViewAnim.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         self.headerLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         self.subHeaderLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         self.bodyLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-     
-       self.iOS_boxButton.addTarget(self, action: #selector(WalkthroughController.platformSelected(_:)), for: .touchUpInside)
-       self.iOS_Button.addTarget(self, action: #selector(WalkthroughController.platformSelected(_:)), for: .touchUpInside)
-       self.driod_boxButton.addTarget(self, action: #selector(WalkthroughController.platformSelected(_:)), for: .touchUpInside)
-       self.driod_Button.addTarget(self, action: #selector(WalkthroughController.platformSelected(_:)), for: .touchUpInside)
-       
-       self.feature0_Button.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
-       self.feature0_boxButton.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
-       self.feature1_Button.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
-       self.feature1_boxButton.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
-       self.feature2_Button.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
-       self.feature2_boxButton.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
-       self.feature3_Button.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
-       self.feature3_boxButton.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
         
-       self.deadline0_boxButton.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
-       self.deadline0_Button.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
-       self.deadline1_boxButton.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
-       self.deadline1_Button.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
-       self.deadline2_boxButton.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
-       self.deadline2_Button.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
+        self.iOS_boxButton.addTarget(self, action: #selector(WalkthroughController.platformSelected(_:)), for: .touchUpInside)
+        self.iOS_Button.addTarget(self, action: #selector(WalkthroughController.platformSelected(_:)), for: .touchUpInside)
+        self.driod_boxButton.addTarget(self, action: #selector(WalkthroughController.platformSelected(_:)), for: .touchUpInside)
+        self.driod_Button.addTarget(self, action: #selector(WalkthroughController.platformSelected(_:)), for: .touchUpInside)
+        
+        self.feature0_Button.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
+        self.feature0_boxButton.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
+        self.feature1_Button.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
+        self.feature1_boxButton.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
+        self.feature2_Button.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
+        self.feature2_boxButton.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
+        self.feature3_Button.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
+        self.feature3_boxButton.addTarget(self, action: #selector(WalkthroughController.featureSelected(_:)), for: .touchUpInside)
+        
+        self.deadline0_boxButton.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
+        self.deadline0_Button.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
+        self.deadline1_boxButton.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
+        self.deadline1_Button.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
+        self.deadline2_boxButton.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
+        self.deadline2_Button.addTarget(self, action: #selector(WalkthroughController.deadlineSelected(_:)), for: .touchUpInside)
+        
+        
+        // Disbale Next Button
+        nextButton.alpha = 0.3
+        nextButton.isEnabled = false
+        
+        
+        // Case File Notification
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleCaseManagerNotification), name: Notification.Name(self.CREATE_CASE), object: nil)
+        
+        
         
     }
     
     
+    func handleCaseManagerNotification() {
+        
+        self.performSegue(withIdentifier: "backend-beta", sender: nil)
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
+        
+        
         
         self.showNextPhase()
         
@@ -116,6 +148,7 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
     @IBAction func nextPhaseClicked(_ sender: Any) {
         
         self.hideCurrentPhase()
+    
         
     }
     
@@ -154,13 +187,23 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
             self.headerLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             self.subHeaderLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             self.bodyLabel.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-
+            
             
             
             
         }) { (Bool) in
             
-            self.showNextPhase()
+            if(self.currentPage == 3){
+                
+                self.createNewCaseForClient()
+                
+            }
+            else{
+                self.currentPage = self.currentPage + 1
+                self.showNextPhase()
+            }
+            
+            
         }
         
         
@@ -171,17 +214,18 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
     
     func showNextPhase(){
         
-    
+        var initialPhase = false
         
-        // Keep track of walkthrough pages
-        if(self.currentPage == 3){
-            self.currentPage = 0
-            self.performSegue(withIdentifier: "backend-beta", sender: nil)
-        }
-        else{
-            self.currentPage = self.currentPage + 1
+        if(currentPage == 0){
+            initialPhase = true
         }
         
+        
+        // Disbale Next Button
+        nextButton.alpha = 0.3
+        nextButton.isEnabled = false
+        
+
         // Update UI according to UI
         
         switch self.currentPage {
@@ -191,6 +235,8 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
             self.headerLabel.text = "About Your Project"
             self.subHeaderLabel.text = "Help us more by telling us about your project so that we can better assist you."
             self.bodyLabel.text = ""
+            initialPhase = true
+        
         case 1:
             self.imageView.image = UIImage.init(named: "platform_front")
             self.imageViewAnim.image = UIImage.init(named: "platform_bk")
@@ -206,8 +252,10 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
                 self.driod_boxButton.alpha = 1
                 
             }, completion: { (Bool) in
+                self.nextButton.alpha = 1
+                self.nextButton.isEnabled = true
             })
-
+            
             
             
         case 2:
@@ -228,7 +276,8 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
                 self.feature3_boxButton.alpha = 1
                 
             }, completion: { (Bool) in
-                
+                self.nextButton.alpha = 1
+                self.nextButton.isEnabled = true
             })
             
             
@@ -248,9 +297,10 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
                 self.deadline2_boxButton.alpha = 1
                 
             }, completion: { (Bool) in
-                
+                self.nextButton.alpha = 1
+                self.nextButton.isEnabled = true
             })
-
+            
             
             
         default:
@@ -282,8 +332,12 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
                     self.subHeaderLabel.alpha = 1
                     self.bodyLabel.transform = CGAffineTransform(scaleX: 1, y: 1)
                     self.bodyLabel.alpha = 1
-             
+                    
                 }, completion: { (Bool) in
+                    if(initialPhase){
+                        self.nextButton.alpha = 1
+                        self.nextButton.isEnabled = true
+                    }
                 })
             })
         })
@@ -294,24 +348,54 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
     
     func platformSelected(_ sender: AnyObject?){
         
-  
+        
         switch sender!.tag {
         case 0:
             self.iOS_boxButton.setBackgroundImage(UIImage.init(named:"check_box_1"), for: .normal)
             self.iOS_boxButton.tag = 10
             self.iOS_Button.tag = 10
+            
+            if(self.platform_selection.lowercased().range(of:"Andriod") == nil){
+                self.platform_selection = "iOS"
+            }
+            else{
+                self.platform_selection = "iOS, Andriod"
+            }
+            
         case 1:
-             self.driod_boxButton.setBackgroundImage(UIImage.init(named:"check_box_1"), for: .normal)
-             self.driod_boxButton.tag = 11
-             self.driod_Button.tag = 11
+            self.driod_boxButton.setBackgroundImage(UIImage.init(named:"check_box_1"), for: .normal)
+            self.driod_boxButton.tag = 11
+            self.driod_Button.tag = 11
+            
+            if(self.platform_selection.lowercased().range(of:"iOS") == nil){
+                self.platform_selection = "Andriod"
+            }
+            else{
+                self.platform_selection = "iOS, Andriod"
+            }
         case 10:
             self.iOS_boxButton.setBackgroundImage(UIImage.init(named:"check_box_0"), for: .normal)
             self.iOS_boxButton.tag = 0
             self.iOS_Button.tag = 0
+            
+            if(self.platform_selection.lowercased().range(of:"Andriod") == nil){
+                self.platform_selection = "N/A"
+            }
+            else{
+                self.platform_selection = "Andriod"
+            }
         case 11:
             self.driod_boxButton.setBackgroundImage(UIImage.init(named:"check_box_0"), for: .normal)
             self.driod_boxButton.tag = 1
             self.driod_Button.tag = 1
+            
+            if(self.platform_selection.lowercased().range(of:"iOS") == nil){
+                self.platform_selection = "N/A"
+            }
+            else{
+                self.platform_selection = "iOS"
+            }
+            
         default:
             break
         }
@@ -327,36 +411,45 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
             self.feature0_boxButton.setBackgroundImage(UIImage.init(named:"check_box_1"), for: .normal)
             self.feature0_Button.tag = 10
             self.feature0_boxButton.tag = 10
+            self.feature0_selection = "Data Hosting/Storage"
         case 1:
             self.feature1_boxButton.setBackgroundImage(UIImage.init(named:"check_box_1"), for: .normal)
             self.feature1_Button.tag = 11
             self.feature1_boxButton.tag = 11
+            self.feature1_selection = "Chat Messenging"
+            
         case 2:
             self.feature2_boxButton.setBackgroundImage(UIImage.init(named:"check_box_1"), for: .normal)
             self.feature2_Button.tag = 22
             self.feature2_boxButton.tag = 22
+            self.feature2_selection = "KNET"
         case 3:
             self.feature3_boxButton.setBackgroundImage(UIImage.init(named:"check_box_1"), for: .normal)
             self.feature3_Button.tag = 33
             self.feature3_boxButton.tag = 33
+            self.feature3_selection = "Other"
         case 10:
             self.feature0_boxButton.setBackgroundImage(UIImage.init(named:"check_box_0"), for: .normal)
             self.feature0_Button.tag = 0
             self.feature0_boxButton.tag = 0
+            self.feature0_selection = "N/A"
         case 11 :
             self.feature1_boxButton.setBackgroundImage(UIImage.init(named:"check_box_0"), for: .normal)
             self.feature1_Button.tag = 1
             self.feature1_boxButton.tag = 1
+            self.feature1_selection = "N/A"
         case 22:
             self.feature2_boxButton.setBackgroundImage(UIImage.init(named:"check_box_0"), for: .normal)
             self.feature2_Button.tag = 2
             self.feature2_boxButton.tag = 2
+            self.feature3_selection = "N/A"
         case 33:
             self.feature3_boxButton.setBackgroundImage(UIImage.init(named:"check_box_0"), for: .normal)
             self.feature3_Button.tag = 3
             self.feature3_boxButton.tag = 3
+            self.feature3_selection = "N/A"
             
-   
+            
         default:
             break
         }
@@ -364,7 +457,7 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
         
     }
     
-
+    
     func deadlineSelected(_ sender: AnyObject?){
         
         
@@ -373,16 +466,19 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
             self.deadline0_boxButton.setBackgroundImage(UIImage.init(named:"radio_box1"), for: .normal)
             self.deadline1_boxButton.setBackgroundImage(UIImage.init(named:"radio_box0"), for: .normal)
             self.deadline2_boxButton.setBackgroundImage(UIImage.init(named:"radio_box0"), for: .normal)
-
+            self.deadline_selection = "ASAP"
+            
         case 1:
             self.deadline0_boxButton.setBackgroundImage(UIImage.init(named:"radio_box0"), for: .normal)
             self.deadline1_boxButton.setBackgroundImage(UIImage.init(named:"radio_box1"), for: .normal)
             self.deadline2_boxButton.setBackgroundImage(UIImage.init(named:"radio_box0"), for: .normal)
-
+            self.deadline_selection = "Very soon"
+            
         case 2:
             self.deadline0_boxButton.setBackgroundImage(UIImage.init(named:"radio_box0"), for: .normal)
             self.deadline1_boxButton.setBackgroundImage(UIImage.init(named:"radio_box0"), for: .normal)
             self.deadline2_boxButton.setBackgroundImage(UIImage.init(named:"radio_box1"), for: .normal)
+            self.deadline_selection = "Other"
         default:
             break
         }
@@ -392,13 +488,56 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
     
     
     @IBAction func SkipWalkthrough(_ sender: Any) {
-        self.performSegue(withIdentifier: "backend-beta", sender: nil)
+       self.currentPage = 3
+       self.hideCurrentPhase()
     }
     
     
     
     
-   
+    func createNewCaseForClient(){
+        
+        
+        UIView.animate(withDuration: 0.4, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            self.pageControl.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            self.pageControl.alpha = 0
+            self.nextButton.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            self.nextButton.alpha = 0
+            self.skipButton.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            self.skipButton.alpha = 0
+            
+        }, completion: { (Bool) in
+            var features = ""
+            
+            if(self.feature0_selection == "N/A" && self.feature1_selection == "N/A" && self.feature2_selection == "N/A" && self.feature3_selection == "N/A"){
+                features = "N/A"
+            }
+            else{
+                
+                
+                if(self.feature0_selection != "N/A"){
+                    features += self.feature0_selection
+                }
+                if(self.feature1_selection != "N/A"){
+                    features += ", " + self.feature1_selection
+                }
+                if(self.feature2_selection != "N/A"){
+                    features += ", " + self.feature2_selection
+                }
+                if(self.feature3_selection != "N/A"){
+                    features += self.feature3_selection
+                }
+                
+                
+            }
+            
+            self.current_client.myCase.createCase(caseStatus: "Pending Review", platform: self.platform_selection, appName: "N/A", appDescription: "N/A", appFeatures: features, deadline: self.deadline_selection, clientID: (self.current_client?.clientID)!)
+        })
+
+        
+    }
+    
+    
     
 }
 

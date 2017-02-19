@@ -83,6 +83,7 @@ class Client : NSObject {
                     
                     // Init Client Object
                     
+                    self.clientID = newClientRef.key
                     self.email = email
                     self.password = password
                     self.name = name

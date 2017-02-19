@@ -19,7 +19,9 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     @IBOutlet weak var passTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
+    @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var ringImageView: UIImageView!
+   
     // Client Manager Status Fields/Notications
     let CLIENT_REG = "REG_CLIENT"
     let CLIENT_REG_FAILED = "REG_CLIENT_FAILED"
@@ -73,7 +75,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         if (self.assertInputsCorrect()){
             self.current_client.registerNewClient(name: self.nameTextField.text!, email: self.emailTextField.text!, password: self.passTextField.text!, number: self.phoneTextField.text!, legalStatus: "N/A")
             
-            
+            self.dismissKeyboard()
             self.showLoading()
             
         }
@@ -86,8 +88,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
             self.scrollView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             self.scrollView.alpha = 0
         }, completion: { (Bool) in
-            
-            
+           
         })
         
         self.setupLoading()
@@ -214,8 +215,20 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         print("$CreateAccountController: recieved notification -> \(notification_type)")
         
         if(notification_type == self.CLIENT_REG){
-            self.performSegue(withIdentifier: "walkthrough", sender: nil)
-                    }
+            
+            
+            UIView.animate(withDuration: 0.4, animations: {
+                self.ringImageView.alpha = 0
+                self.ringImageView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            }, completion: { (Bool) in
+                
+                    self.performSegue(withIdentifier: "walkthrough", sender: nil)
+
+            })
+
+            
+            
+                                }
         else if(notification_type == self.CLIENT_REG_EXISTS){
            
             self.dismissLoading()
@@ -306,5 +319,15 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         self.view.endEditing(true)
     }
+    
+    // Segue Data Passing
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destinationVC = segue.destination as! WalkthroughController
+        destinationVC.current_client = self.current_client
+       
+        
+    }
+
     
 }
