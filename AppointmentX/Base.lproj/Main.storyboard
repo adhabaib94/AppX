@@ -355,7 +355,7 @@
                                 <state key="normal" backgroundImage="check_box_0"/>
                             </button>
                             <button opaque="NO" alpha="0.20000000000000001" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xwx-8P-i9N">
-                                <rect key="frame" x="67" y="489" width="28" height="29"/>
+                                <rect key="frame" x="67" y="484" width="28" height="39"/>
                                 <state key="normal" backgroundImage="check_box_0"/>
                             </button>
                             <button opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rk2-JH-hxq">
@@ -366,7 +366,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" alpha="0.20000000000000001" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UgS-hG-IzJ">
-                                <rect key="frame" x="102" y="489" width="198" height="29"/>
+                                <rect key="frame" x="102" y="489" width="198" height="34"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <state key="normal" title="Real-time Chat Messenging">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -663,6 +663,12 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="dO4-tr-zxN"/>
                                 </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unfortunately time travel is still not possible." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUm-lf-5TX">
+                                <rect key="frame" x="33" y="575" width="348" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkN-Pw-J3t">
                                 <rect key="frame" x="135" y="647" width="145" height="57"/>
                                 <constraints>
@@ -675,6 +681,7 @@
                                 </state>
                                 <connections>
                                     <action selector="nextPhaseClicked:" destination="awb-Mb-udZ" eventType="touchUpInside" id="eoz-C5-YIE"/>
+                                    <action selector="reserveAppointment:" destination="etx-gy-NZ7" eventType="touchUpInside" id="ZrT-yM-ZfA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFn-ug-mWy">
@@ -686,6 +693,9 @@
                                 <state key="normal" title="10:00am" backgroundImage="small_button">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="selectedSlot1:" destination="etx-gy-NZ7" eventType="touchUpInside" id="Mgd-yr-Cbo"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nsg-4c-IYf">
                                 <rect key="frame" x="162" y="571.66666666666652" width="90" height="30.333333333333371"/>
@@ -693,6 +703,9 @@
                                 <state key="normal" title="4:00pm" backgroundImage="small_button">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="selectedSlot2:" destination="etx-gy-NZ7" eventType="touchUpInside" id="m7D-Yz-pIp"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kOH-fX-ytE">
                                 <rect key="frame" x="268" y="571.66666666666652" width="90" height="30.333333333333371"/>
@@ -700,13 +713,10 @@
                                 <state key="normal" title="7:00pm" backgroundImage="small_button">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="selectedSlot3:" destination="etx-gy-NZ7" eventType="touchUpInside" id="zhI-TM-etc"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unfortunately time travel is still not possible." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUm-lf-5TX">
-                                <rect key="frame" x="33" y="575.66666666666652" width="348" height="20.333333333333371"/>
-                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.14117647059999999" green="0.1647058824" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -744,6 +754,7 @@
                     </view>
                     <connections>
                         <outlet property="calender" destination="ViA-wS-52J" id="D1K-hz-0Zl"/>
+                        <outlet property="reserveAppointmentButton" destination="MkN-Pw-J3t" id="iLX-9s-M1f"/>
                         <outlet property="slot1_button" destination="PFn-ug-mWy" id="8CW-uB-NX2"/>
                         <outlet property="slot2_button" destination="Nsg-4c-IYf" id="Mvw-0Y-ut8"/>
                         <outlet property="slot3_button" destination="kOH-fX-ytE" id="SKR-Mn-wRA"/>

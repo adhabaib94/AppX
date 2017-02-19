@@ -114,6 +114,8 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
         // Disbale Next Button
         nextButton.alpha = 0.3
         nextButton.isEnabled = false
+        skipButton.alpha = 0.3
+        skipButton.isEnabled = false
         
         
         // Case File Notification
@@ -224,6 +226,8 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
         // Disbale Next Button
         nextButton.alpha = 0.3
         nextButton.isEnabled = false
+        skipButton.alpha = 0.3
+        skipButton.isEnabled = false
         
 
         // Update UI according to UI
@@ -254,6 +258,8 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
             }, completion: { (Bool) in
                 self.nextButton.alpha = 1
                 self.nextButton.isEnabled = true
+                self.skipButton.alpha = 1
+                self.skipButton.isEnabled = true
             })
             
             
@@ -278,7 +284,11 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
             }, completion: { (Bool) in
                 self.nextButton.alpha = 1
                 self.nextButton.isEnabled = true
+                self.skipButton.alpha = 1
+                self.skipButton.isEnabled = true
             })
+            
+            
             
             
         case 3:
@@ -299,6 +309,8 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
             }, completion: { (Bool) in
                 self.nextButton.alpha = 1
                 self.nextButton.isEnabled = true
+                self.skipButton.alpha = 1
+                self.skipButton.isEnabled = true
             })
             
             
@@ -337,6 +349,8 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
                     if(initialPhase){
                         self.nextButton.alpha = 1
                         self.nextButton.isEnabled = true
+                        self.skipButton.alpha = 1
+                        self.skipButton.isEnabled = true
                     }
                 })
             })
@@ -534,6 +548,17 @@ class WalkthroughController: UIViewController, CAAnimationDelegate{
             self.current_client.myCase.createCase(caseStatus: "Pending Review", platform: self.platform_selection, appName: "N/A", appDescription: "N/A", appFeatures: features, deadline: self.deadline_selection, clientID: (self.current_client?.clientID)!)
         })
 
+        
+    }
+    
+    
+    
+    // Segue Data Passing
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destinationVC = segue.destination as! ScheduleAppointmentController
+        destinationVC.current_client = self.current_client
+        
         
     }
     

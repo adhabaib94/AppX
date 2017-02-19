@@ -18,7 +18,7 @@ class Scheduler: NSObject {
     var myAppointment:Appointment = Appointment()
     
     // Schedueling Variables
-    var availableSlots = [true,true,true,true]
+    var availableSlots = [true,true,true]
     
     // Notification Variables
     let SCH_FETCHED_SLOTS = "SCH_FETCH_COMPLETE"
