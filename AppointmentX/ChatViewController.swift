@@ -19,16 +19,19 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     private var last_message_received: Int64 = 0
     
+    private var last_cell = IndexPath()
+    
+    
     var current_channel:SBDGroupChannel = SBDGroupChannel()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       //self.senderId = "user00"
+        //self.senderId = "user00"
         //self.senderDisplayName = "Yousef"
-       self.senderId = "root"
-       self.senderDisplayName = "Abdullah"
+         self.senderId = "root"
+         self.senderDisplayName = "Abdullah"
         
         
         SBDMain.add(self as SBDChannelDelegate, identifier: "user00" + "root")
@@ -36,11 +39,12 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.pushNotificationRecieved(notification:)), name: Notification.Name("chatMessageRecieved"), object: nil)
         
-        
-        
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.current_channel.endTyping()
+    }
     
     
     override func didReceiveMemoryWarning() {
@@ -53,8 +57,12 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     // -------------- UICollectionView Functions ------------------ //
     
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count;
+        
+        
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -66,7 +74,6 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         } else {
             cell.textView.textColor = UIColor.black
         }
-        
         
         return cell;
     }
@@ -82,6 +89,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         } else {
             return bubbleFactory?.incomingMessagesBubbleImage(with:UIColor.init(red: 230.0/255.0, green: 230.0/255.0, blue: 235.0/255.0, alpha: 1));
         }
+        
+        
         
     }
     
@@ -115,16 +124,14 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         self.current_channel.sendUserMessage(text) { (userMessage, error) in
             print("Messege Sent")
+            
         }
-    
+        
         
         DispatchQueue.main.async {
-            self.collectionView.reloadData();
             self.finishSendingMessage();
         }
-
         
-       
         
     }
     
@@ -179,7 +186,6 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         
         DispatchQueue.main.async {
-            self.collectionView.reloadData();
             self.finishReceivingMessage()
         }
         
@@ -214,7 +220,6 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 self.current_channel.markAsRead()
                 
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData();
                     self.finishReceivingMessage()
                 }
                 
@@ -247,8 +252,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                     
                     
                     DispatchQueue.main.async {
-                        self.collectionView.reloadData();
                         self.finishReceivingMessage()
+                        
                     }
                 }
             }
@@ -261,8 +266,60 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         // When read receipt has been updated
     }
     
+    override func textViewDidChange(_ textView: UITextView) {
+        super.textViewDidChange(textView)
+        // If the text is not empty, the user is typing
+        if(textView.text != "" ){
+            self.current_channel.startTyping()
+        }
+        else{
+            self.current_channel.endTyping()
+        }
+        
+    }
+    
+    
+    override func textViewDidEndEditing(_ textView: UITextView) {
+        super.textViewDidEndEditing(textView)
+        self.current_channel.endTyping()
+    }
+    
+    
+    
     func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {
-        // When typing status has been updated
+        
+        
+        if sender.channelUrl == self.current_channel.channelUrl {
+            let members = sender.getTypingMembers()
+            
+            if(members?.count == 1){
+                if(members?[0].userId != self.senderId){
+                    
+                    DispatchQueue.main.async {
+                        self.showTypingIndicator = true
+                        self.scrollToBottom(animated: true)
+                        self.collectionView.reloadData()
+                        
+                    }
+                    
+                }
+            }
+            else{
+                if(members?.count == 0){
+                    DispatchQueue.main.async {
+                        self.showTypingIndicator = false
+                        self.scrollToBottom(animated: true)
+                         self.collectionView.reloadData()
+        
+                    }
+                }
+            }
+            
+            // Refresh typing status.
+        }
+        
+        
+        
     }
     
     func channel(_ sender: SBDGroupChannel, userDidJoin user: SBDUser) {
@@ -315,7 +372,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     func channel(_ sender: SBDBaseChannel, messageWasDeleted messageId: Int64) {
         // When a message has been deleted
+        
     }
+    
+    
     
     
     
