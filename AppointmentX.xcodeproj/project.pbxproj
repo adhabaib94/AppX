@@ -76,6 +76,7 @@
 		15BB6DB21E51C6B500E97619 /* ScheduleAppointmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */; };
 		15BB6DB71E53491F00E97619 /* CreateAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6DB61E53491F00E97619 /* CreateAccountController.swift */; };
 		15BB6DB91E549AC700E97619 /* ring-indicator.gif in Resources */ = {isa = PBXBuildFile; fileRef = 15BB6DB81E549AC700E97619 /* ring-indicator.gif */; };
+		15C343441E634A8B00F9541A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C343431E634A8B00F9541A /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,8 @@
 		15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleAppointmentController.swift; sourceTree = "<group>"; };
 		15BB6DB61E53491F00E97619 /* CreateAccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountController.swift; sourceTree = "<group>"; };
 		15BB6DB81E549AC700E97619 /* ring-indicator.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "ring-indicator.gif"; sourceTree = "<group>"; };
+		15C343431E634A8B00F9541A /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		15C343451E63632900F9541A /* AppointmentX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppointmentX.entitlements; sourceTree = "<group>"; };
 		20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -235,6 +238,7 @@
 		154EB1A01E49E43C0098F549 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				15C343431E634A8B00F9541A /* ChatViewController.swift */,
 				15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */,
 				158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */,
 				15BB6DB61E53491F00E97619 /* CreateAccountController.swift */,
@@ -280,6 +284,7 @@
 		155074B61E3F817A00F3A6A4 /* AppointmentX */ = {
 			isa = PBXGroup;
 			children = (
+				15C343451E63632900F9541A /* AppointmentX.entitlements */,
 				154EB1A31E49E4C10098F549 /* Other Assets */,
 				154EB1A01E49E43C0098F549 /* Controller */,
 				1570F0621E428D7F00FF3968 /* Custom UI Classes */,
@@ -503,6 +508,14 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = W9TR9GJ5W6;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					155074CA1E3F817A00F3A6A4 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -661,6 +674,7 @@
 				158FA71E1E4DCC10002D2307 /* WalkthroughController.swift in Sources */,
 				1570F08A1E428DAC00FF3968 /* FSCalendarCollectionView.m in Sources */,
 				1570F0921E428DAC00FF3968 /* FSCalendarStickyHeader.m in Sources */,
+				15C343441E634A8B00F9541A /* ChatViewController.swift in Sources */,
 				1570F0911E428DAC00FF3968 /* FSCalendarScopeHandle.m in Sources */,
 				1570F0901E428DAC00FF3968 /* FSCalendarHeaderView.m in Sources */,
 				1570F0861E428DAC00FF3968 /* FSCalendar.m in Sources */,
@@ -830,10 +844,12 @@
 			baseConfigurationReference = 20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AppointmentX/AppointmentX.entitlements;
 				DEVELOPMENT_TEAM = W9TR9GJ5W6;
 				INFOPLIST_FILE = AppointmentX/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Abdullah-Al-Dhabaib.AppointmentX";
+				PRODUCT_BUNDLE_IDENTIFIER = com.infiniteWays.coreApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -844,10 +860,12 @@
 			baseConfigurationReference = 0B14918CD93C73D25D9F269F /* Pods-AppointmentX.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AppointmentX/AppointmentX.entitlements;
 				DEVELOPMENT_TEAM = W9TR9GJ5W6;
 				INFOPLIST_FILE = AppointmentX/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Abdullah-Al-Dhabaib.AppointmentX";
+				PRODUCT_BUNDLE_IDENTIFIER = com.infiniteWays.coreApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

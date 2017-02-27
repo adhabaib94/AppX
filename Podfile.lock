@@ -26,16 +26,20 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
+  - JSQMessagesViewController (7.3.4):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
   - NVActivityIndicatorView (3.3)
+  - SendBirdSDK (3.0.36)
   - SwiftGifOrigin (1.6.1)
-  - UITextField+Shake (1.1.2)
 
 DEPENDENCIES:
   - Firebase
   - Firebase/Database
+  - JSQMessagesViewController
   - NVActivityIndicatorView
+  - SendBirdSDK
   - SwiftGifOrigin (~> 1.6.1)
-  - UITextField+Shake (~> 1.1)
 
 SPEC CHECKSUMS:
   Firebase: 8e99eb1ff553ad5bcc6072cc3d925bb89c1244d6
@@ -46,10 +50,12 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   NVActivityIndicatorView: 0a4cd7863d0e409e65b72e253c3e13f48d0260d7
+  SendBirdSDK: 758cea672ab036c435a2370c9c428fddb55bbe53
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
-  UITextField+Shake: 47cc0429dafb3da580686339ad2da091249a8ea2
 
-PODFILE CHECKSUM: b65ec95275353a968e3f4ae4a07d85c58d871811
+PODFILE CHECKSUM: b1270b34a9309aa2fd2a987c31db4752dc08a1d4
 
 COCOAPODS: 1.2.0

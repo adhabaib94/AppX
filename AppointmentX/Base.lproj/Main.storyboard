@@ -50,6 +50,7 @@
                     <connections>
                         <outlet property="imageView" destination="WDU-BN-W3H" id="YHN-Ef-bbf"/>
                         <segue destination="X30-pw-org" kind="show" identifier="create-account" id="pUB-wV-VKc"/>
+                        <segue destination="OHJ-vj-pYC" kind="show" identifier="ChatVC" id="uw8-y0-nmO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIy-AX-N4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -249,6 +250,25 @@
             </objects>
             <point key="canvasLocation" x="175.36231884057972" y="52.989130434782609"/>
         </scene>
+        <!--Direct Message-->
+        <scene sceneID="wiR-mg-tU4">
+            <objects>
+                <viewController id="2Z4-av-cpA" customClass="ChatViewController" customModule="AppointmentX" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sDD-G3-oA4"/>
+                        <viewControllerLayoutGuide type="bottom" id="yDy-gl-1kN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aE7-4z-ldh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Direct Message" id="cnY-Th-7sM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NCU-us-BxZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-60" y="1005"/>
+        </scene>
         <!--Walkthrough Controller-->
         <scene sceneID="95r-oC-aWp">
             <objects>
@@ -355,7 +375,7 @@
                                 <state key="normal" backgroundImage="check_box_0"/>
                             </button>
                             <button opaque="NO" alpha="0.20000000000000001" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xwx-8P-i9N">
-                                <rect key="frame" x="67" y="484" width="28" height="39"/>
+                                <rect key="frame" x="67" y="489" width="28" height="29"/>
                                 <state key="normal" backgroundImage="check_box_0"/>
                             </button>
                             <button opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rk2-JH-hxq">
@@ -366,7 +386,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" alpha="0.20000000000000001" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UgS-hG-IzJ">
-                                <rect key="frame" x="102" y="489" width="198" height="34"/>
+                                <rect key="frame" x="102" y="489" width="198" height="29"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="17"/>
                                 <state key="normal" title="Real-time Chat Messenging">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -585,7 +605,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jeg-Ab-HdT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="173.91304347826087" y="790.76086956521749"/>
+            <point key="canvasLocation" x="1081.1594202898552" y="790.76086956521749"/>
         </scene>
         <!--Schedule Appointment Controller-->
         <scene sceneID="Foh-6W-aTV">
@@ -664,7 +684,7 @@
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unfortunately time travel is still not possible." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUm-lf-5TX">
-                                <rect key="frame" x="33" y="575" width="348" height="20.333333333333371"/>
+                                <rect key="frame" x="33" y="575.66666666666652" width="348" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -763,7 +783,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BdP-sq-0gX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="952.17391304347836" y="792.39130434782612"/>
+            <point key="canvasLocation" x="1859.4202898550725" y="792.39130434782612"/>
         </scene>
         <!--Data Source-->
         <scene sceneID="tne-QT-ifu">
@@ -1135,7 +1155,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="894" y="54"/>
+            <point key="canvasLocation" x="1081" y="66"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gXt-Cc-vwy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OHJ-vj-pYC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ple-Jp-eXY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2Z4-av-cpA" kind="relationship" relationship="rootViewController" id="dZW-Xd-s8q"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aHR-HW-RBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-596" y="1005"/>
         </scene>
     </scenes>
     <resources>

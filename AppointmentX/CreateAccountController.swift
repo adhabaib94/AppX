@@ -10,7 +10,7 @@ import UIKit
 import SwiftGifOrigin
 import NVActivityIndicatorView
 import Firebase
-import UITextField_Shake
+
 
 class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimationDelegate {
     

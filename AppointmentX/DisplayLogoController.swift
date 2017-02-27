@@ -6,7 +6,7 @@
 //  Copyright © 2017 Abdullah Al Dhabaib. All rights reserved.
 //
 
-import Foundation
+
 //
 //  ViewController.swift
 //  AppointmentX
@@ -14,9 +14,10 @@ import Foundation
 //  Created by Abdullah Al Dhabaib on 1/30/17.
 //  Copyright © 2017 Abdullah Al Dhabaib. All rights reserved.
 //
-
+import Foundation
 import UIKit
 import SwiftGifOrigin
+import SendBirdSDK
 
 
 
@@ -29,14 +30,9 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
     
     override func viewDidLoad() {
 
-        for family: String in UIFont.familyNames
-        {
-            print("\(family)")
-            for names: String in UIFont.fontNames(forFamilyName: family)
-            {
-                print("== \(names)")
-            }
-        }
+        // BETA -> Setup SendBird Authentication
+        SBDMain.initWithApplicationId("2D70703C-C856-4001-954F-DCFB88A944CD")
+    
     }
     
     
@@ -114,7 +110,11 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
             self.imageView.alpha = 0
             
         }) { (Bool) in
-            self.performSegue(withIdentifier: "create-account", sender: nil)
+            //self.performSegue(withIdentifier: "create-account", sender: nil)
+            
+            
+            // BETA TESTING
+            self.performSegue(withIdentifier: "ChatVC", sender: nil)
             
         }
 
