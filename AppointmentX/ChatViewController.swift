@@ -25,14 +25,15 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     var current_channel:SBDGroupChannel = SBDGroupChannel()
     
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.senderId = "user00"
-        //self.senderDisplayName = "Yousef"
-         self.senderId = "root"
-         self.senderDisplayName = "Abdullah"
-        
+        self.senderId = "user00"
+        self.senderDisplayName = "Yousef"
+        //self.senderId = "root"
+        //self.senderDisplayName = "Abdullah"
         
         SBDMain.add(self as SBDChannelDelegate, identifier: "user00" + "root")
         self.connectToSB()
@@ -42,7 +43,15 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //  self.collectionView.collectionViewLayout.springinessEnabled = true
+        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
         self.current_channel.endTyping()
     }
     
@@ -60,7 +69,32 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count;
+    }
+    
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         
+        let message = messages[indexPath.item];
+        
+        if message.senderId == self.senderId {
+            return 0
+        }
+        else{
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        }
+        
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        
+        let message = messages[indexPath.item]
+        
+        
+        if message.senderId == self.senderId {
+            return nil
+        } else {
+            return NSAttributedString(string: message.senderDisplayName)
+        }
         
         
     }
@@ -109,6 +143,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+
+    
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.item]
@@ -119,17 +155,17 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
+        JSQSystemSoundPlayer.jsq_playMessageSentSound()
         
         self.messages.append(JSQMessage(senderId: self.senderId, displayName: self.senderDisplayName, text: text))
         
         self.current_channel.sendUserMessage(text) { (userMessage, error) in
             print("Messege Sent")
-            
         }
         
         
         DispatchQueue.main.async {
-            self.finishSendingMessage();
+            self.finishSendingMessage(animated: true)
         }
         
         
@@ -177,8 +213,17 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         let user_msg = (message as! SBDUserMessage)
         
-        
         print("Message Recived")
+        
+        let date = Date(timeIntervalSince1970: (TimeInterval(message.createdAt)))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+3") //Set timezone that you want
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Specify your format that you want
+        let strDate = dateFormatter.string(from: date)
+        
+        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
         
         messages.append(JSQMessage(senderId: user_msg.sender?.userId, displayName: user_msg.sender?.nickname, text: user_msg.message));
         
@@ -224,8 +269,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 }
                 
             }
-            
-            // ...
+
         })
     }
     
@@ -309,8 +353,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                     DispatchQueue.main.async {
                         self.showTypingIndicator = false
                         self.scrollToBottom(animated: true)
-                         self.collectionView.reloadData()
-        
+                        self.collectionView.reloadData()
+                        
                     }
                 }
             }
@@ -375,9 +419,26 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
-    
-    
-    
-    
-    
 }
+
+
+typealias UnixTime = Int
+
+extension UnixTime {
+    private func formatType(form: String) -> DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = form
+        return dateFormatter
+    }
+    var dateFull: Date {
+        return Date(timeIntervalSince1970: Double(self))
+    }
+    var toHour: String {
+        return formatType(form: "HH:mm").string(from: dateFull)
+    }
+    var toDay: String {
+        return formatType(form: "MM/dd/yyyy").string(from: dateFull)
+    }
+}
+
