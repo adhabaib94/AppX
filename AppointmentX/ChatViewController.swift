@@ -26,19 +26,23 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.senderId = "user00"
-        self.senderDisplayName = "Yousef"
-        //self.senderId = "root"
-        //self.senderDisplayName = "Abdullah"
+        //self.senderId = "user00"
+        //self.senderDisplayName = "Yousef"
+        self.senderId = "root"
+        self.senderDisplayName = "Abdullah"
         
         SBDMain.add(self as SBDChannelDelegate, identifier: "user00" + "root")
         self.connectToSB()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.pushNotificationRecieved(notification:)), name: Notification.Name("chatMessageRecieved"), object: nil)
+        
+        self.automaticallyScrollsToMostRecentMessage = true
+        
+        collectionView?.collectionViewLayout.incomingAvatarViewSize = .zero
+        collectionView?.collectionViewLayout.outgoingAvatarViewSize = .zero
         
     }
     
@@ -71,6 +75,47 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         return messages.count;
     }
     
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView, attributedTextForCellTopLabelAt indexPath: IndexPath) -> NSAttributedString? {
+        /**
+         *  This logic should be consistent with what you return from `heightForCellTopLabelAtIndexPath:`
+         *  The other label text delegate methods should follow a similar pattern.
+         *
+         *  Show a timestamp for every 3rd message
+         */
+        if (indexPath.item % 7 == 0 && self.messages[indexPath.item].senderId != self.senderId) {
+            let message = self.messages[indexPath.item]
+            let now = Date()
+            return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: now)
+        }
+        
+        return nil
+    }
+    
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout, heightForCellBottomLabelAt indexPath: IndexPath) -> CGFloat{
+        
+        return 3
+        
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout, heightForCellTopLabelAt indexPath: IndexPath) -> CGFloat {
+        /**
+         *  Each label in a cell has a `height` delegate method that corresponds to its text dataSource method
+         */
+        
+        /**
+         *  This logic should be consistent with what you return from `attributedTextForCellTopLabelAtIndexPath:`
+         *  The other label height delegate methods should follow similarly
+         *
+         *  Show a timestamp for every 3rd message
+         */
+        if (indexPath.item % 7 == 0 && self.messages[indexPath.item].senderId != self.senderId) {
+            return kJSQMessagesCollectionViewCellLabelHeightDefault
+        }
+        
+        return 2.0
+    }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         
@@ -157,7 +202,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         
-        self.messages.append(JSQMessage(senderId: self.senderId, displayName: self.senderDisplayName, text: text))
+        
+ 
+        
+        self.messages.append(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date , text: text))
         
         self.current_channel.sendUserMessage(text) { (userMessage, error) in
             print("Messege Sent")
@@ -225,7 +273,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
         
-        messages.append(JSQMessage(senderId: user_msg.sender?.userId, displayName: user_msg.sender?.nickname, text: user_msg.message));
+        let now = Date()
+        
+        messages.append(JSQMessage(senderId: user_msg.sender?.userId, senderDisplayName: user_msg.sender?.nickname, date: now , text: user_msg.message));
         
         self.current_channel.markAsRead()
         
