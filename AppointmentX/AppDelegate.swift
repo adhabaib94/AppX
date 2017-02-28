@@ -52,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
-        
          SBDMain.registerDevicePushToken(deviceToken) { (status, error) in
          if error == nil {
          if status == SBDPushTokenRegistrationStatus.pending {
@@ -117,6 +116,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         
         self.removeAllPendingNotification()
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "willEnterForeGround"), object: nil)
         
     }
     

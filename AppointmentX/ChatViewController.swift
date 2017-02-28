@@ -21,6 +21,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     private var last_cell = IndexPath()
     
+    private var connection_established = false
+    
     
     var current_channel:SBDGroupChannel = SBDGroupChannel()
     
@@ -33,15 +35,17 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.senderId = "user00"
-        //self.senderDisplayName = "Yousef"
-        self.senderId = "root"
-        self.senderDisplayName = "Abdullah"
+        self.senderId = "user00"
+    self.senderDisplayName = "Yousef"
+       // self.senderId = "root"
+       // self.senderDisplayName = "Abdullah"
         
         SBDMain.add(self as SBDChannelDelegate, identifier: "user00" + "root")
         self.connectToSB()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.pushNotificationRecieved(notification:)), name: Notification.Name("chatMessageRecieved"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshChatState), name: Notification.Name("willEnterForeGround"), object: nil)
         
         self.automaticallyScrollsToMostRecentMessage = true
         
@@ -62,20 +66,16 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         imageView.image = UIImage(named: "background")
         
-        imageView.alpha = 0.07
+        imageView.alpha = 0.12
    
         self.view.insertSubview(imageView, at: 0)
-        
-        
-        
-        
         
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //  self.collectionView.collectionViewLayout.springinessEnabled = true
+     
         
     }
     
@@ -316,9 +316,19 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     
     func pushNotificationRecieved(notification: NSNotification){
-        self.getLastSentMessages()
+        //self.getLastSentMessages()
         
     }
+    
+    
+    func refreshChatState(){
+        
+        if(self.connection_established){
+            self.getLastSentMessages()
+        }
+        
+    }
+    
     
     
     func getLastSentMessages(){
@@ -327,8 +337,11 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             if error != nil {
                 NSLog("Error: %@", error!)
                 return
+                self.getLastSentMessages()
             }
             else{
+                
+            
                 for m in msgs! {
                     let user_msg = (m as! SBDUserMessage)
                     
@@ -338,9 +351,13 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                     
                 }
                 
-                self.last_message_received = (msgs?[((msgs?.count)!-1)].createdAt)!
+                if(msgs?.count != 0){
+    
+                    self.last_message_received = (msgs?[((msgs?.count)!-1)].createdAt)!
+                    self.current_channel.markAsRead()
+                    
+                }
                 
-                self.current_channel.markAsRead()
                 
                 DispatchQueue.main.async {
                     self.finishReceivingMessage()
@@ -375,6 +392,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                     
                     DispatchQueue.main.async {
                         self.finishReceivingMessage()
+                        self.connection_established = true
                         
                     }
                 }
