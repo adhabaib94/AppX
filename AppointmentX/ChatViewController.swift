@@ -26,6 +26,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +47,28 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         collectionView?.collectionViewLayout.incomingAvatarViewSize = .zero
         collectionView?.collectionViewLayout.outgoingAvatarViewSize = .zero
+        
+        self.inputToolbar.contentView.rightBarButtonItem.setTitleColor(UIColor.init(red: 6.0/255.0, green: 190.0/255.0, blue: 189.0/255.0, alpha: 1), for: UIControlState.normal)
+        self.inputToolbar.contentView.rightBarButtonItem.titleLabel?.font = UIFont(name: "Source Sans Pro", size: 16)
+        
+        self.inputToolbar.contentView.textView.font = UIFont(name: "Source Sans Pro", size: 16)
+        
+        
+        self.collectionView.backgroundColor = UIColor.clear
+        
+        let screenSize: CGRect = UIScreen.main.bounds
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        
+        imageView.image = UIImage(named: "background")
+        
+        imageView.alpha = 0.07
+   
+        self.view.insertSubview(imageView, at: 0)
+        
+        
+        
+        
         
     }
     
@@ -150,8 +176,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         if message.senderId == self.senderId {
             cell.textView.textColor = UIColor.white
+            cell.textView.font = UIFont(name: "Source Sans Pro", size: 17)
         } else {
             cell.textView.textColor = UIColor.black
+            cell.textView.font = UIFont(name: "Source Sans Pro", size: 17)
         }
         
         return cell;
@@ -164,7 +192,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         let message = messages[indexPath.item];
         
         if message.senderId == self.senderId {
-            return bubbleFactory?.outgoingMessagesBubbleImage(with:UIColor.init(red: 15.0/255.0, green: 135.0/255.0, blue: 1, alpha: 1));
+            return bubbleFactory?.outgoingMessagesBubbleImage(with:UIColor.init(red: 6.0/255.0, green: 190.0/255.0, blue: 189.0/255.0, alpha: 1));
         } else {
             return bubbleFactory?.incomingMessagesBubbleImage(with:UIColor.init(red: 230.0/255.0, green: 230.0/255.0, blue: 235.0/255.0, alpha: 1));
         }

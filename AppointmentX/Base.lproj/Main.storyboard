@@ -267,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NCU-us-BxZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-60" y="1005"/>
+            <point key="canvasLocation" x="126" y="1004"/>
         </scene>
         <!--Walkthrough Controller-->
         <scene sceneID="95r-oC-aWp">
@@ -1162,9 +1162,13 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OHJ-vj-pYC" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ple-Jp-eXY">
+                    <navigationBar key="navigationBar" alpha="0.75" contentMode="scaleToFill" misplaced="YES" id="Ple-Jp-eXY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="19"/>
+                            <color key="textColor" red="0.040364249540000001" green="0.047080791810000001" blue="0.058066406250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
