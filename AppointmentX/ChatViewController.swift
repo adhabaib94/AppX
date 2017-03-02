@@ -11,9 +11,12 @@ import JSQMessagesViewController
 import MobileCoreServices
 import AVKit
 import SendBirdSDK
+import CoreData
 
 
 class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDChannelDelegate {
+    
+    // UI Variable Declaration
     
     private var messages = [JSQMessage]();
     
@@ -21,33 +24,61 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     private var last_cell = IndexPath()
     
-    private var connection_established = false
     
+    
+    // SendBird Required Variables
+    private var connection_established = false
     
     var current_channel:SBDGroupChannel = SBDGroupChannel()
     
+    // CoreData Variable
+    
+    var stored_messages: [NSManagedObject] = []
+    var loaded_messages: Bool = false
     
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
+    // UI connection indicator
+    
+    var activityIndicator = UIActivityIndicatorView()
+    
+    
+    // --------------------------------------- UIViewController Functions -----------------------------------//
+    
+ 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.senderId = "user00"
-    self.senderDisplayName = "Yousef"
-       // self.senderId = "root"
-       // self.senderDisplayName = "Abdullah"
+        
+        // Initalize UIActivity Indicator
+        activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        self.navigationItem.titleView = activityIndicator
+        activityIndicator.startAnimating()
+                
+        // Initialize User/ Display Name
+        if #available(iOS 10.0, *) {
+            
+            
+            self.senderId = "user00"
+            self.senderDisplayName = "Yousef"
+        }
+            
+        else{
+            
+            self.senderId = "root"
+            self.senderDisplayName = "Abdullah"
+            
+        }
+        
+        
+        // Setup SendBird Delegates
         
         SBDMain.add(self as SBDChannelDelegate, identifier: "user00" + "root")
-        self.connectToSB()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.pushNotificationRecieved(notification:)), name: Notification.Name("chatMessageRecieved"), object: nil)
+        SBDMain.add(self as SBDConnectionDelegate, identifier: "user00" + "root" + "connect")
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshChatState), name: Notification.Name("willEnterForeGround"), object: nil)
         
-        self.automaticallyScrollsToMostRecentMessage = true
+        // Setup JSQMessageViewController UI Elements
         
         collectionView?.collectionViewLayout.incomingAvatarViewSize = .zero
         collectionView?.collectionViewLayout.outgoingAvatarViewSize = .zero
@@ -62,26 +93,30 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         let screenSize: CGRect = UIScreen.main.bounds
         
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: screenSize.width , height: screenSize.height))
         
         imageView.image = UIImage(named: "background")
         
-        imageView.alpha = 0.12
-   
-        self.view.insertSubview(imageView, at: 0)
+        imageView.alpha = 0.09
         
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-     
+        self.view.insertSubview(imageView, at: 1)
+        
+        
+        self.automaticallyScrollsToMostRecentMessage = true
+        
+        
+        
+        // Core Data Testing
+        
+          self.fetchStoredMessages()
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
+        
+        // Insure User Updates Status to endTyping
         self.current_channel.endTyping()
     }
     
@@ -92,50 +127,53 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     }
     
     
+    // Setup Status bar to Light Skin
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     
-    // -------------- UICollectionView Functions ------------------ //
     
+    // ---------------------------------- JSQMessageViewController Functions --------------------------------//
+    
+    
+    /**
+     * Returns the number of messages in UICollectionView (messages)
+     */
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count;
     }
     
     
+    /**
+     *  Setups the Date Label every such messages
+     */
     override func collectionView(_ collectionView: JSQMessagesCollectionView, attributedTextForCellTopLabelAt indexPath: IndexPath) -> NSAttributedString? {
-        /**
-         *  This logic should be consistent with what you return from `heightForCellTopLabelAtIndexPath:`
-         *  The other label text delegate methods should follow a similar pattern.
-         *
-         *  Show a timestamp for every 3rd message
-         */
+        
         if (indexPath.item % 7 == 0 && self.messages[indexPath.item].senderId != self.senderId) {
-            let message = self.messages[indexPath.item]
-            let now = Date()
-            return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: now)
+            _ = self.messages[indexPath.item]
+            
+            return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: messages[indexPath.item].date)
         }
         
         return nil
     }
     
-    
+    /**
+     *  Returns the bottom height for each message bubble cell
+     */
     override func collectionView(_ collectionView: JSQMessagesCollectionView, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout, heightForCellBottomLabelAt indexPath: IndexPath) -> CGFloat{
         
         return 3
         
     }
     
+    /**
+     * Returns the top height for each cell
+     */
     override func collectionView(_ collectionView: JSQMessagesCollectionView, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout, heightForCellTopLabelAt indexPath: IndexPath) -> CGFloat {
-        /**
-         *  Each label in a cell has a `height` delegate method that corresponds to its text dataSource method
-         */
         
-        /**
-         *  This logic should be consistent with what you return from `attributedTextForCellTopLabelAtIndexPath:`
-         *  The other label height delegate methods should follow similarly
-         *
-         *  Show a timestamp for every 3rd message
-         */
         if (indexPath.item % 7 == 0 && self.messages[indexPath.item].senderId != self.senderId) {
             return kJSQMessagesCollectionViewCellLabelHeightDefault
         }
@@ -143,6 +181,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         return 2.0
     }
     
+    /**
+     *  Setups each message bubble top height
+     */
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         
         let message = messages[indexPath.item];
@@ -156,6 +197,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+    /**
+     *  Setups each message bubble with Display Name above it
+     */
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         
         let message = messages[indexPath.item]
@@ -170,6 +214,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+    /**
+     *  Setups up the message text bubble color and font
+     */
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         let message = messages[indexPath.item];
@@ -185,7 +232,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         return cell;
     }
     
-    
+    /**
+     *  Setups the message bubble color and cell setup
+     */
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         
         let bubbleFactory = JSQMessagesBubbleImageFactory();
@@ -197,10 +246,11 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             return bubbleFactory?.incomingMessagesBubbleImage(with:UIColor.init(red: 230.0/255.0, green: 230.0/255.0, blue: 235.0/255.0, alpha: 1));
         }
         
-        
-        
     }
     
+    /**
+     *  Setups up each message bubble avatar
+     */
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt
         indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         
@@ -216,30 +266,37 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
-
     
-    
+    /**
+     *  Returns each message for each bubble
+     */
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.item]
     }
     
     
-    // ------------ Handle Messege Sent ------------ //
+    /**
+     *  EventHandler every time user attempts to send message
+     */
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
+        
+        // Play Sent Sound
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         
-        
- 
-        
+        // Append new message in message queue
         self.messages.append(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date , text: text))
         
+        // Save to CoreDatata
+        self.save(senderId: self.senderId ,senderDisplayName: self.senderDisplayName,content: text, date: date, createdAt: -1 , messageSent: true)
+        
+        // Send Message Through Sendbird
         self.current_channel.sendUserMessage(text) { (userMessage, error) in
             print("Messege Sent")
         }
         
-        
+        // Update UICollectionView and Dismiss TextView
         DispatchQueue.main.async {
             self.finishSendingMessage(animated: true)
         }
@@ -248,21 +305,28 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     }
     
     
-    // -------------- SendBird Functions ------------------ //
+    // --------------------------------------- SBDChannelDelegate Functions -----------------------------------//
     
-    func connectToSB(){
+    /**
+     *  Connect to SendBird Server Authentication
+     */
+    
+    func channelConnectToSendBird(){
         SBDMain.connect(withUserId:self.senderId, completionHandler: { (user, error) in
             SBDMain.registerDevicePushToken(SBDMain.getPendingPushToken()!, completionHandler: { (status, error) in
                 
             })
-            self.createSBChannel()
+            print("ChatVC: Connected to Sendbird Server -> Authentication Complete")
+            self.channelCreateNewChannel()
         })
         
         
     }
     
-    
-    func createSBChannel(){
+    /**
+     *  Create new Channel if channel does not exists
+     */
+    func channelCreateNewChannel(){
         
         let userIds = ["user00" , "root"]
         
@@ -272,8 +336,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 return
             }
             else {
+                print("ChatVC: Channel Created/Entered")
                 self.current_channel = channel!
-                self.getPreviousMessages()
+                self.getLastSentMessages()
+                self.hideActivityView()
             }
             
             
@@ -282,22 +348,17 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+    /**
+     *  Recieved New Message from Channel
+     */
+    
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
-        // Received a chat message
         
         self.last_message_received = message.createdAt
         
         let user_msg = (message as! SBDUserMessage)
         
-        print("Message Recived")
-        
-        let date = Date(timeIntervalSince1970: (TimeInterval(message.createdAt)))
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+3") //Set timezone that you want
-        dateFormatter.locale = NSLocale.current
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" //Specify your format that you want
-        let strDate = dateFormatter.string(from: date)
+        print("ChatVC: Message Recived")
         
         JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
         
@@ -307,6 +368,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         self.current_channel.markAsRead()
         
+        // Beta -> Store to CoreData
+        self.save(senderId: (user_msg.sender?.userId)!,senderDisplayName: (user_msg.sender?.nickname)!,content: user_msg.message!, date: now, createdAt: message.createdAt, messageSent: false)
         
         DispatchQueue.main.async {
             self.finishReceivingMessage()
@@ -314,22 +377,20 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
-    
-    func pushNotificationRecieved(notification: NSNotification){
-        //self.getLastSentMessages()
-        
-    }
-    
-    
+    /**
+     *  Insure Retreiving new Messages if Connected
+     */
     func refreshChatState(){
         
-        if(self.connection_established){
+        if(self.connection_established && self.loaded_messages){
             self.getLastSentMessages()
         }
         
     }
     
-    
+    /**
+     *  Get Unread messages from SendBird Server
+     */
     
     func getLastSentMessages(){
         let messageQuery = self.current_channel.createMessageListQuery()
@@ -337,22 +398,26 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             if error != nil {
                 NSLog("Error: %@", error!)
                 return
-                self.getLastSentMessages()
             }
             else{
                 
-            
+                
                 for m in msgs! {
                     let user_msg = (m as! SBDUserMessage)
                     
                     if(user_msg.sender?.userId != self.senderId){
                         self.messages.append(JSQMessage(senderId: user_msg.sender?.userId, displayName: user_msg.sender?.nickname, text: user_msg.message));
+                        
+                        let now = Date()
+                        
+                        // Beta -> Store to CoreData
+                        self.save(senderId: (user_msg.sender?.userId)!,senderDisplayName: (user_msg.sender?.nickname)!,content: user_msg.message!, date: now , createdAt: user_msg.createdAt, messageSent: false)
                     }
                     
                 }
                 
                 if(msgs?.count != 0){
-    
+                    
                     self.last_message_received = (msgs?[((msgs?.count)!-1)].createdAt)!
                     self.current_channel.markAsRead()
                     
@@ -364,15 +429,18 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 }
                 
             }
-
+            
         })
     }
     
     
+    /**
+     *  Get All Messages from Channel from Sendbird Server
+     */
     func getPreviousMessages(){
         
         let previousMessageQuery = self.current_channel.createPreviousMessageListQuery()
-        previousMessageQuery?.loadPreviousMessages(withLimit: 100, reverse: false, completionHandler: { (msgs, error) in
+        previousMessageQuery?.loadPreviousMessages(withLimit: 10, reverse: false, completionHandler: { (msgs, error) in
             if error != nil {
                 NSLog("Error: %@", error!)
                 return
@@ -392,6 +460,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                     
                     DispatchQueue.main.async {
                         self.finishReceivingMessage()
+                        
                         self.connection_established = true
                         
                     }
@@ -402,29 +471,19 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+    /**
+     *  When read receipt has been updated
+     */
+    
     func channelDidUpdateReadReceipt(_ sender: SBDGroupChannel) {
-        // When read receipt has been updated
-    }
-    
-    override func textViewDidChange(_ textView: UITextView) {
-        super.textViewDidChange(textView)
-        // If the text is not empty, the user is typing
-        if(textView.text != "" ){
-            self.current_channel.startTyping()
-        }
-        else{
-            self.current_channel.endTyping()
-        }
-        
+        print("ChatVC: read recipt has been updated")
     }
     
     
-    override func textViewDidEndEditing(_ textView: UITextView) {
-        super.textViewDidEndEditing(textView)
-        self.current_channel.endTyping()
-    }
     
-    
+    /**
+     *  Did Recieve Update Typing Status Event Handler
+     */
     
     func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {
         
@@ -462,24 +521,36 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+    
+    // When a new member joined the group channel
+    
     func channel(_ sender: SBDGroupChannel, userDidJoin user: SBDUser) {
-        // When a new member joined the group channel
+        if(self.connection_established && self.loaded_messages){
+            self.getLastSentMessages()
+            
+        }
     }
     
+    // When a member left the group channel
     func channel(_ sender: SBDGroupChannel, userDidLeave user: SBDUser) {
-        // When a member left the group channel
+        
     }
     
     func channel(_ sender: SBDOpenChannel, userDidEnter user: SBDUser) {
-        // When a new user entered the open channel
+        print("ChatVC: User entered Chanel!")
+        if(self.connection_established && self.loaded_messages){
+            self.getLastSentMessages()
+            
+        }
     }
     
+    // When a new user left the open channel
     func channel(_ sender: SBDOpenChannel, userDidExit user: SBDUser) {
-        // When a new user left the open channel
+        
     }
     
     func channel(_ sender: SBDOpenChannel, userWasMuted user: SBDUser) {
-        // When a user is muted on the open channel
+        
     }
     
     func channel(_ sender: SBDOpenChannel, userWasUnmuted user: SBDUser) {
@@ -515,26 +586,272 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+    
+    
+    // --------------------------------------- SBDConnectionDelegate Functions ------------------------------//
+    
+    func didStartReconnection() {
+        print("ChatVC: Attemping to reconnect!")
+        self.showActivityView()
+        self.connection_established = false
+    }
+    
+    func didSucceedReconnection() {
+        
+        self.connection_established = true
+        
+        print("ChatVC: Auto reconnecting succeeded!")
+        if(self.loaded_messages){
+            self.getLastSentMessages()
+            self.hideActivityView()
+        }
+        
+        
+    }
+    
+    func didFailReconnection() {
+        self.showActivityView()
+        self.connection_established = false
+        print("ChatVC: Auto reconnecting failed. You should call `connect` to reconnect to SendBird.")
+        
+    }
+    
+    
+    
+    // ---------------------------------------------- Helper Functions --------------------------------------//
+    
+    
+    override func textViewDidChange(_ textView: UITextView) {
+        super.textViewDidChange(textView)
+        // If the text is not empty, the user is typing
+        
+        if(self.connection_established){
+            if(textView.text != "" ){
+                self.current_channel.startTyping()
+            }
+            else{
+                self.current_channel.endTyping()
+            }
+        }
+    }
+    
+    
+    override func textViewDidEndEditing(_ textView: UITextView) {
+        super.textViewDidEndEditing(textView)
+        
+        if(self.connection_established){
+            self.current_channel.endTyping()
+        }
+    }
+    
+    
+    func save(senderId: String, senderDisplayName: String, content: String, date: Date, createdAt: Int64, messageSent: Bool) {
+       
+        DispatchQueue.main.async {
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        // 1
+        if #available(iOS 10.0, *) {
+            
+            
+            // (A) Save Message Entity
+            
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            
+            // 2
+            let entity =
+                NSEntityDescription.entity(forEntityName: "Message",
+                                           in: managedContext)!
+            
+            let message = NSManagedObject(entity: entity,
+                                          insertInto: managedContext)
+            
+            // 3
+            message.setValue(senderId, forKeyPath: "senderId")
+            message.setValue(senderDisplayName, forKeyPath: "senderDisplayName")
+            message.setValue(content, forKeyPath: "content")
+            message.setValue(date, forKeyPath: "date")
+            message.setValue(createdAt, forKeyPath: "createdAt")
+            
+            // 4
+            do {
+                try managedContext.save()
+                self.stored_messages.append(message)
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+            
+            // (B) Set Last Message Created At
+            if(!messageSent){
+                self.last_message_received = createdAt
+            }
+            
+            
+        } else {
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext
+            
+            let entity =
+                NSEntityDescription.entity(forEntityName: "Message",
+                                           in: managedContext)!
+            
+            let message = NSManagedObject(entity: entity,
+                                          insertInto: managedContext)
+            
+            // 3
+            message.setValue(senderId, forKeyPath: "senderId")
+            message.setValue(senderDisplayName, forKeyPath: "senderDisplayName")
+            message.setValue(content, forKeyPath: "content")
+            message.setValue(date, forKeyPath: "date")
+            message.setValue(createdAt, forKeyPath: "createdAt")
+            
+            // 4
+            do {
+                try managedContext.save()
+                self.stored_messages.append(message)
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+            
+            
+            
+            
+        }
+        
+        }
+    }
+    
+    
+    func fetchStoredMessages(){
+        //1
+        DispatchQueue.main.async {
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        if #available(iOS 10.0, *) {
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            //2
+            let fetchRequest =
+                NSFetchRequest<NSManagedObject>(entityName: "Message")
+            
+            //3
+            do {
+                self.stored_messages = try managedContext.fetch(fetchRequest)
+                
+                self.loadStoredMessagesIntoUICollectionView()
+                
+            } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+            }
+            
+        } else {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext
+            
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+            
+            do {
+                let results =
+                    try managedContext.fetch(fetchRequest)
+                self.stored_messages = results as! [NSManagedObject]
+                self.loadStoredMessagesIntoUICollectionView()
+                
+            } catch let error as NSError {
+                print("Could not fetch \(error), \(error.userInfo)")
+            }        }
+        
+        }
+    }
+    
+    
+    func loadStoredMessagesIntoUICollectionView(){
+        
+        var createdAtDates = [Int64]()
+        
+        for msg in stored_messages {
+            
+            
+            print("SenderDisplayName: " + String(describing: msg.value(forKey: "senderDisplayName")!) + "\n")
+            print("\tSenderID: " + String(describing: msg.value(forKey: "senderId")!) + "\n")
+            print("\tContent: " + String(describing: msg.value(forKey: "content")!) + "\n\n")
+            print("\tContent: " + String(describing: msg.value(forKey: "date")! as! Date) + "\n\n")
+            
+            messages.append(JSQMessage(senderId: String(describing: msg.value(forKey: "senderId")!), senderDisplayName: String(describing: msg.value(forKey: "senderDisplayName")!) , date:( msg.value(forKey: "date")! as! Date) , text: String(describing: msg.value(forKey: "content")!)));
+            
+            let current_date = msg.value(forKey: "createdAt") as! Int64
+            let sender = String(describing: msg.value(forKey: "senderId")!)
+            
+            if(sender != self.senderId){
+                createdAtDates.append(current_date)
+            }
+            
+        }
+        
+        
+        
+        DispatchQueue.main.async {
+            self.finishReceivingMessage()
+        }
+        
+        
+        if(createdAtDates.count > 0){
+            self.last_message_received = createdAtDates[createdAtDates.count - 1]
+        }
+        else{
+            self.last_message_received = 0
+        }
+        
+        // Connect To SendBird Server
+        self.channelConnectToSendBird()
+        self.loaded_messages = true
+        
+        
+    }
+    
+    
+    
+    
+    func showActivityView(){
+        DispatchQueue.main.async {
+            self.navigationItem.titleView = self.activityIndicator
+            self.activityIndicator.startAnimating()
+            self.inputToolbar.contentView.rightBarButtonItem.isEnabled = false
+            self.inputToolbar.contentView.rightBarButtonItem.isUserInteractionEnabled = false
+            self.inputToolbar.contentView.rightBarButtonItem.alpha = 0.5
+            self.inputToolbar.contentView.textView.isEditable = false
+            
+        }
+        
+        
+        
+    }
+    
+    func hideActivityView(){
+        
+        DispatchQueue.main.async {
+            self.navigationItem.titleView = nil
+            self.activityIndicator.stopAnimating()
+            self.inputToolbar.contentView.rightBarButtonItem.isEnabled = true
+            self.inputToolbar.contentView.rightBarButtonItem.isUserInteractionEnabled = true
+            self.inputToolbar.contentView.textView.isEditable = true
+        }
+        
+        
+    }
+    
+    
 }
 
 
-typealias UnixTime = Int
 
-extension UnixTime {
-    private func formatType(form: String) -> DateFormatter {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.dateFormat = form
-        return dateFormatter
-    }
-    var dateFull: Date {
-        return Date(timeIntervalSince1970: Double(self))
-    }
-    var toHour: String {
-        return formatType(form: "HH:mm").string(from: dateFull)
-    }
-    var toDay: String {
-        return formatType(form: "MM/dd/yyyy").string(from: dateFull)
-    }
-}
+
+
 

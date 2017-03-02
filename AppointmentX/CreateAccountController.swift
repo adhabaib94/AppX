@@ -21,7 +21,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     
     @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var ringImageView: UIImageView!
-   
+    
     // Client Manager Status Fields/Notications
     let CLIENT_REG = "REG_CLIENT"
     let CLIENT_REG_FAILED = "REG_CLIENT_FAILED"
@@ -88,7 +88,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
             self.scrollView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             self.scrollView.alpha = 0
         }, completion: { (Bool) in
-           
+            
         })
         
         self.setupLoading()
@@ -110,7 +110,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     func assertInputsCorrect() -> Bool{
         
         var no_error = true
-    
+        
         // Insure All Values Entered
         if(self.nameTextField.text == ""){
             self.shakeTextField(textField: self.nameTextField, errorMsg: "")
@@ -222,15 +222,15 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
                 self.ringImageView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             }, completion: { (Bool) in
                 
-                    self.performSegue(withIdentifier: "walkthrough", sender: nil)
-
+                self.performSegue(withIdentifier: "walkthrough", sender: nil)
+                
             })
-
             
             
-                                }
+            
+        }
         else if(notification_type == self.CLIENT_REG_EXISTS){
-           
+            
             self.dismissLoading()
         }
         
@@ -322,12 +322,12 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     
     // Segue Data Passing
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let destinationVC = segue.destination as! WalkthroughController
-        destinationVC.current_client = self.current_client
-       
+        if(segue.identifier != "chatViewController"){
+            let destinationVC = segue.destination as! WalkthroughController
+            destinationVC.current_client = self.current_client
+        }
         
     }
-
+    
     
 }

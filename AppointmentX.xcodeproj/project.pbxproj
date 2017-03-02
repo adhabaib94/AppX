@@ -240,9 +240,9 @@
 			children = (
 				15C343431E634A8B00F9541A /* ChatViewController.swift */,
 				15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */,
+				154EB19E1E49E4350098F549 /* DisplayLogoController.swift */,
 				158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */,
 				15BB6DB61E53491F00E97619 /* CreateAccountController.swift */,
-				154EB19E1E49E4350098F549 /* DisplayLogoController.swift */,
 				155074B91E3F817A00F3A6A4 /* SystemViewController.swift */,
 			);
 			name = Controller;

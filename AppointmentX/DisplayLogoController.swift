@@ -110,7 +110,7 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
             self.imageView.alpha = 0
             
         }) { (Bool) in
-            //self.performSegue(withIdentifier: "create-account", sender: nil)
+           // self.performSegue(withIdentifier: "create-account", sender: nil)
             
             
             // BETA TESTING
