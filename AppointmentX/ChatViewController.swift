@@ -35,6 +35,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     var stored_messages: [NSManagedObject] = []
     var loaded_messages: Bool = false
+    var last_received: [NSManagedObject] = []
     
     
     // UI connection indicator
@@ -49,7 +50,6 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         // Initalize UIActivity Indicator
         self.showActivityView()
@@ -87,7 +87,6 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         self.inputToolbar.contentView.textView.font = UIFont(name: "Source Sans Pro", size: 16)
         
-        
         self.collectionView.backgroundColor = UIColor.clear
         
         let screenSize: CGRect = UIScreen.main.bounds
@@ -100,14 +99,21 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         self.view.insertSubview(imageView, at: 1)
         
-        
         self.automaticallyScrollsToMostRecentMessage = true
         
+        
+        let btn1 = UIButton(type: .custom)
+        btn1.setImage(UIImage(named: "Trash-50"), for: .normal)
+        btn1.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btn1.addTarget(self, action: #selector(ChatViewController.clearStoredMessages), for: .touchUpInside)
+        let item1 = UIBarButtonItem(customView: btn1)
+        self.navigationItem.setRightBarButton(item1, animated: true)
         
         
         // Core Data Testing
         
-          self.fetchStoredMessages()
+        self.fetchLastRecieved()
+        self.fetchStoredMessages()
         
     }
     
@@ -392,6 +398,16 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     
     func getLastSentMessages(){
+        
+        
+        if(self.last_message_received == 0){
+            if(self.last_received.count > 0 ){
+                let createdAt = self.last_received[self.last_received.count - 1]
+                self.last_message_received = createdAt.value(forKey: "createdAt") as! Int64
+            }
+        }
+        
+        
         let messageQuery = self.current_channel.createMessageListQuery()
         messageQuery?.loadNextMessages(fromTimestamp: self.last_message_received, limit: 100 , reverse: false, completionHandler: { (msgs, error) in
             if error != nil {
@@ -687,6 +703,29 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             // (B) Set Last Message Created At
             if(!messageSent){
                 self.last_message_received = createdAt
+                
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                
+                // 2
+                let entity =
+                    NSEntityDescription.entity(forEntityName: "LastReceived",
+                                               in: managedContext)!
+                
+                let message = NSManagedObject(entity: entity,
+                                              insertInto: managedContext)
+                
+                // 3
+                message.setValue(self.last_message_received, forKeyPath: "createdAt")
+   
+                // 4
+                do {
+                    try managedContext.save()
+                    self.last_received.append(message)
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
             }
             
             
@@ -717,7 +756,30 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 print("Could not save. \(error), \(error.userInfo)")
             }
             
-            
+            // (B) Set Last Message Created At
+            if(!messageSent){
+                self.last_message_received = createdAt
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.managedObjectContext
+                
+                let entity =
+                    NSEntityDescription.entity(forEntityName: "LastReceived",
+                                               in: managedContext)!
+                
+                let message = NSManagedObject(entity: entity,
+                                              insertInto: managedContext)
+                
+                message.setValue(self.last_message_received, forKeyPath: "createdAt")
+
+                do {
+                    try managedContext.save()
+                    self.last_received.append(message)
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+
+                
+            }
             
             
         }
@@ -770,6 +832,48 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         }
     }
     
+    func fetchLastRecieved(){
+        //1
+        DispatchQueue.main.async {
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            if #available(iOS 10.0, *) {
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                //2
+                let fetchRequest =
+                    NSFetchRequest<NSManagedObject>(entityName: "LastReceived")
+                
+                //3
+                do {
+                    self.last_received = try managedContext.fetch(fetchRequest)
+                    
+                } catch let error as NSError {
+                    print("Could not fetch. \(error), \(error.userInfo)")
+                }
+                
+            } else {
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.managedObjectContext
+                
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "LastReceived")
+                
+                do {
+                    let results =
+                        try managedContext.fetch(fetchRequest)
+                    self.last_received = results as! [NSManagedObject]
+
+                    
+                } catch let error as NSError {
+                    print("Could not fetch \(error), \(error.userInfo)")
+                }        }
+            
+        }
+    }
+    
     
     func loadStoredMessagesIntoUICollectionView(){
         
@@ -812,6 +916,57 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         self.channelConnectToSendBird()
         self.loaded_messages = true
         
+        
+    }
+    
+    
+    
+    
+    
+    func clearStoredMessages(){
+        
+        DispatchQueue.main.async {
+            
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            // Create Fetch Request
+            
+            if #available(iOS 10.0, *) {
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+                
+                // Create Batch Delete Request
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                do {
+                    try managedContext.execute(batchDeleteRequest)
+                    
+                } catch {
+                    // Error Handling
+                }
+                
+            } else {
+                 let managedContext = appDelegate.managedObjectContext
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+                
+                // Create Batch Delete Request
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                do {
+                    try managedContext.execute(batchDeleteRequest)
+                    
+                } catch {
+                    // Error Handling
+                }
+            }
+            
+            self.messages.removeAll()
+            self.finishReceivingMessage()
+        }
         
     }
     
