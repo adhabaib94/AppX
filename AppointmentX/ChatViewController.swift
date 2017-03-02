@@ -39,6 +39,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     // UI connection indicator
     
+    var activityCoreView = UIView()
     var activityIndicator = UIActivityIndicatorView()
     
     
@@ -51,10 +52,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         
         // Initalize UIActivity Indicator
-        activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        self.navigationItem.titleView = activityIndicator
-        activityIndicator.startAnimating()
-                
+        self.showActivityView()
+        
         // Initialize User/ Display Name
         if #available(iOS 10.0, *) {
             
@@ -821,14 +820,19 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     func showActivityView(){
         DispatchQueue.main.async {
-            self.navigationItem.titleView = self.activityIndicator
+            self.activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+            let connectingLabel = UILabel.init(frame: CGRect(x: 30, y: 0, width: 100, height: 22))
+            connectingLabel.text = "Connecting"
+            connectingLabel.font =  UIFont(name: "Source Sans Pro", size: 19)
+            self.activityCoreView = UIView(frame: CGRect(x: 0, y: 0, width: 130, height: 22))
+            self.activityCoreView.addSubview(connectingLabel)
+            self.activityCoreView.addSubview(self.activityIndicator)
+            self.navigationItem.titleView = self.activityCoreView
             self.activityIndicator.startAnimating()
-            self.inputToolbar.contentView.rightBarButtonItem.isEnabled = false
-            self.inputToolbar.contentView.rightBarButtonItem.isUserInteractionEnabled = false
-            self.inputToolbar.contentView.rightBarButtonItem.alpha = 0.5
-            self.inputToolbar.contentView.textView.isEditable = false
+
             
         }
+        
         
         
         
