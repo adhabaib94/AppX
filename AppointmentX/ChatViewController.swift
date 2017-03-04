@@ -322,6 +322,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 
             })
             print("ChatVC: Connected to Sendbird Server -> Authentication Complete")
+            
             self.channelCreateNewChannel()
         })
         
@@ -344,6 +345,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 print("ChatVC: Channel Created/Entered")
                 self.current_channel = channel!
                 self.getLastSentMessages()
+                self.connection_established = true
                 self.hideActivityView()
             }
             
@@ -919,10 +921,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
-    
-    
-    
-    
+
     func clearStoredMessages(){
         
         DispatchQueue.main.async {
