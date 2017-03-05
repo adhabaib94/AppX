@@ -18,6 +18,7 @@ import Foundation
 import UIKit
 import SwiftGifOrigin
 import SendBirdSDK
+import CoreData
 
 
 
@@ -26,6 +27,10 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
 
 
     var logo = UIImage.gif(name: "logo")
+    
+    // Core Data Variables
+    var skip_sign_in = true
+    var client_data: [NSManagedObject] = []
     
     
     override func viewDidLoad() {
@@ -45,6 +50,8 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
         
         DispatchQueue.main.async {
 
+            self.fetchClientDataFromCoreData()
+            
             self.imageView.alpha = 0
             self.imageView.loadGif(name: "logo")
             self.imageView.animationImages = self.logo?.images
@@ -110,7 +117,27 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
             self.imageView.alpha = 0
             
         }) { (Bool) in
-           self.performSegue(withIdentifier: "create-account", sender: nil)
+            
+            if(self.client_data.isEmpty || self.client_data.count > 1){
+                self.performSegue(withIdentifier: "create-account", sender: nil)
+            }
+            else{
+                
+             
+                let email = String(describing: self.client_data[0].value(forKey: "email")!)
+                let pass = String(describing: self.client_data[0].value(forKey: "password")!)
+                
+                print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
+            
+                if(self.skip_sign_in){
+                    self.performSegue(withIdentifier: "chatViewController3", sender: nil)
+                }
+                else{
+                    self.performSegue(withIdentifier: "create-account", sender: nil)
+                }
+                
+            }
+           
             
             
             // BETA TESTING
@@ -142,6 +169,49 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
         return .lightContent
     }
 
+    
+    
+    func fetchClientDataFromCoreData(){
+        //1
+        DispatchQueue.main.async {
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            if #available(iOS 10.0, *) {
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                //2
+                let fetchRequest =
+                    NSFetchRequest<NSManagedObject>(entityName: "ClientAuth")
+                
+                //3
+                do {
+                    self.client_data = try managedContext.fetch(fetchRequest)
+                    
+                } catch let error as NSError {
+                    print("Could not fetch. \(error), \(error.userInfo)")
+                }
+                
+            } else {
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.managedObjectContext
+                
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClientAuth")
+                
+                do {
+                    let results =
+                        try managedContext.fetch(fetchRequest)
+                    self.client_data = results as! [NSManagedObject]
+
+                } catch let error as NSError {
+                    print("Could not fetch \(error), \(error.userInfo)")
+                }        }
+            
+        }
+    }
+    
     
 
     

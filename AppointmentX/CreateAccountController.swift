@@ -10,6 +10,7 @@ import UIKit
 import SwiftGifOrigin
 import NVActivityIndicatorView
 import Firebase
+import CoreData
 
 
 class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimationDelegate {
@@ -255,7 +256,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
                 self.ringImageView.alpha = 0
                 self.ringImageView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             }, completion: { (Bool) in
-                
+                self.save(client_email: self.current_client.email, client_pass: self.current_client.password)
                 self.performSegue(withIdentifier: "walkthrough", sender: nil)
                 
             })
@@ -392,5 +393,123 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         
     }
     
+    // Save Client Information For Future Quick Authetintication
+    func save(client_email: String, client_pass: String) {
+        
+        
+        self.refreshClientDataCoreData()
+        
+        DispatchQueue.main.async {
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            // 1
+            if #available(iOS 10.0, *) {
+                
+                
+                // (A) Save Message Entity
+                
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                
+                // 2
+                let entity =
+                    NSEntityDescription.entity(forEntityName: "ClientAuth",
+                                               in: managedContext)!
+                
+                let clientAuth = NSManagedObject(entity: entity,
+                                                 insertInto: managedContext)
+                
+                // 3
+                clientAuth.setValue(client_email, forKeyPath: "email")
+                clientAuth.setValue(client_pass, forKeyPath: "password")
+                
+                // 4
+                do {
+                    try managedContext.save()
+                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+                
+                
+            } else {
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.managedObjectContext
+                
+                let entity =
+                    NSEntityDescription.entity(forEntityName: "ClientAuth",
+                                               in: managedContext)!
+                
+                let clientAuth = NSManagedObject(entity: entity,
+                                                 insertInto: managedContext)
+                
+                // 3
+                clientAuth.setValue(client_email, forKeyPath: "email")
+                clientAuth.setValue(client_pass, forKeyPath: "password")
+                
+                
+                // 4
+                do {
+                    try managedContext.save()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+                
+            }
+        }
+        
+    }
+    
+    
+    func refreshClientDataCoreData(){
+        
+        DispatchQueue.main.async {
+            
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            // Create Fetch Request
+            
+            if #available(iOS 10.0, *) {
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClientAuth")
+                
+                // Create Batch Delete Request
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                do {
+                    try managedContext.execute(batchDeleteRequest)
+                    
+                } catch {
+                    // Error Handling
+                }
+                
+            } else {
+                let managedContext = appDelegate.managedObjectContext
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClientAuth")
+                
+                // Create Batch Delete Request
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                do {
+                    try managedContext.execute(batchDeleteRequest)
+                    
+                } catch {
+                    // Error Handling
+                }
+            }
+            
+        }
+        
+    }
     
 }

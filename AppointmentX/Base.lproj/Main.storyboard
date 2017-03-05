@@ -42,11 +42,12 @@
                     <connections>
                         <outlet property="imageView" destination="WDU-BN-W3H" id="YHN-Ef-bbf"/>
                         <segue destination="X30-pw-org" kind="show" identifier="create-account" id="pUB-wV-VKc"/>
+                        <segue destination="OHJ-vj-pYC" kind="show" identifier="chatViewController3" id="keK-YU-Ma8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIy-AX-N4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-613" y="53"/>
+            <point key="canvasLocation" x="-613" y="429"/>
         </scene>
         <!--Create Account Controller-->
         <scene sceneID="B2r-zP-KZN">
@@ -641,7 +642,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jeg-Ab-HdT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="173.91304347826087" y="820.92391304347836"/>
+            <point key="canvasLocation" x="175" y="821"/>
         </scene>
         <!--Schedule Appointment Controller-->
         <scene sceneID="Foh-6W-aTV">
@@ -1174,7 +1175,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aHR-HW-RBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1871" y="501"/>
+            <point key="canvasLocation" x="1871" y="429"/>
         </scene>
     </scenes>
     <resources>
@@ -1192,6 +1193,6 @@
         <image name="small_button" width="51" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MJz-cI-cij"/>
+        <segue reference="keK-YU-Ma8"/>
     </inferredMetricsTieBreakers>
 </document>

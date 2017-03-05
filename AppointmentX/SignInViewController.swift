@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import CoreData
 
 class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationDelegate {
     
@@ -32,6 +33,9 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
     let CLIENT_AUTH_FAILED = "AUTH_FAILED"
     let CLIENT_DATA_RETREIVED = "CLIENT_DONE"
     var current_client: Client = Client()
+    
+    // Core Data Variables
+    var stored_client: [NSManagedObject] = []
     
     
     override func viewDidLoad() {
@@ -73,13 +77,15 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
             // INSURE FAULT TOLERENT, case must exists before going to mainViewController
             
             if(self.current_client.myCase.caseExists){
+                
+                self.save(client_email: self.current_client.email, client_pass: self.current_client.password)
                 self.performSegue(withIdentifier: "chatViewController", sender: nil)
             }
             else{
                 self.current_client.myCase.createCase(caseStatus: "Pending Review", platform: "N/A", appName: "N/A", appDescription: "N/A", appFeatures: "N/A", deadline: "N/A", clientID: self.current_client.clientID)
             }
             
-                    }
+        }
         else if(notification_type == self.CLIENT_AUTH_FAILED){
             self.dismissLoading()
         }
@@ -137,7 +143,7 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
             self.scrollView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             self.scrollView.alpha = 0
             self.dismissKeyboard()
-        
+            
         }, completion: { (Bool) in
             
         })
@@ -282,4 +288,121 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
     }
     
     
+    func save(client_email: String, client_pass: String) {
+        
+        
+        self.refreshClientDataCoreData()
+        
+        DispatchQueue.main.async {
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            // 1
+            if #available(iOS 10.0, *) {
+                
+                
+                // (A) Save Message Entity
+                
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                
+                // 2
+                let entity =
+                    NSEntityDescription.entity(forEntityName: "ClientAuth",
+                                               in: managedContext)!
+                
+                let clientAuth = NSManagedObject(entity: entity,
+                                                 insertInto: managedContext)
+                
+                // 3
+                clientAuth.setValue(client_email, forKeyPath: "email")
+                clientAuth.setValue(client_pass, forKeyPath: "password")
+                
+                // 4
+                do {
+                    try managedContext.save()
+                    
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+                
+                
+            } else {
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.managedObjectContext
+                
+                let entity =
+                    NSEntityDescription.entity(forEntityName: "ClientAuth",
+                                               in: managedContext)!
+                
+                let clientAuth = NSManagedObject(entity: entity,
+                                                 insertInto: managedContext)
+                
+                // 3
+                clientAuth.setValue(client_email, forKeyPath: "email")
+                clientAuth.setValue(client_pass, forKeyPath: "password")
+                
+                
+                // 4
+                do {
+                    try managedContext.save()
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+                
+            }
+        }
+        
+    }
+    
+    
+    func refreshClientDataCoreData(){
+        
+        DispatchQueue.main.async {
+            
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            // Create Fetch Request
+            
+            if #available(iOS 10.0, *) {
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClientAuth")
+                
+                // Create Batch Delete Request
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                do {
+                    try managedContext.execute(batchDeleteRequest)
+                    
+                } catch {
+                    // Error Handling
+                }
+                
+            } else {
+                let managedContext = appDelegate.managedObjectContext
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ClientAuth")
+                
+                // Create Batch Delete Request
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                do {
+                    try managedContext.execute(batchDeleteRequest)
+                    
+                } catch {
+                    // Error Handling
+                }
+            }
+            
+        }
+        
+    }
 }
