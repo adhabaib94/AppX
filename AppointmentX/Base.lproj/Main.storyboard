@@ -46,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XIy-AX-N4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-597.10144927536237" y="53.804347826086961"/>
+            <point key="canvasLocation" x="-613" y="53"/>
         </scene>
         <!--Create Account Controller-->
         <scene sceneID="B2r-zP-KZN">
@@ -419,7 +419,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NCU-us-BxZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1826" y="821"/>
+            <point key="canvasLocation" x="2816" y="501"/>
         </scene>
         <!--Walkthrough Controller-->
         <scene sceneID="95r-oC-aWp">
@@ -775,6 +775,7 @@
                         <outlet property="slot2_button" destination="Nsg-4c-IYf" id="Mvw-0Y-ut8"/>
                         <outlet property="slot3_button" destination="kOH-fX-ytE" id="SKR-Mn-wRA"/>
                         <outlet property="timeTravelLabel" destination="vUm-lf-5TX" id="R2W-4q-Yzl"/>
+                        <segue destination="OHJ-vj-pYC" kind="show" identifier="chatViewController2" id="6IZ-pH-lXL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BdP-sq-0gX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1151,7 +1152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1146" y="-664"/>
+            <point key="canvasLocation" x="-1404" y="416"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gXt-Cc-vwy">
@@ -1173,7 +1174,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aHR-HW-RBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1826" y="54"/>
+            <point key="canvasLocation" x="1871" y="501"/>
         </scene>
     </scenes>
     <resources>
@@ -1190,4 +1191,7 @@
         <image name="sign-in-icon" width="43" height="43"/>
         <image name="small_button" width="51" height="18"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="MJz-cI-cij"/>
+    </inferredMetricsTieBreakers>
 </document>

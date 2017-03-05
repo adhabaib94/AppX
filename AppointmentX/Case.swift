@@ -28,6 +28,9 @@ class Case: NSObject {
     let UPDATE_CASE = "UPDATE_CASE"
     let DELETE_CASE = "DELETE_CASE"
     let GET_CASE = "APPT_GET"
+    
+    //Additional Notfication For Completion
+    let CLIENT_DATA_RETREIVED = "CLIENT_DONE"
 
     
     var caseExists = false
@@ -79,6 +82,10 @@ class Case: NSObject {
             // POST NOTIFICATION FOR COMPLETION
             DispatchQueue.main.async {
                         NotificationCenter.default.post(name: Notification.Name(self.CREATE_CASE), object: nil)
+            }
+            
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
             }
             
             
@@ -178,6 +185,12 @@ class Case: NSObject {
             // No Case Found Return Failed to Find
             if(postDict == nil){
                 print("\n*** CaseManager: No Cases found for Client. ***\n")
+                
+                self.caseExists = false
+                
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
+                }
                
             }
             else{

@@ -30,6 +30,7 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
     // Client Manager Status Fields/Notications
     let CLIENT_AUTH = "AUTH_COMPLETE"
     let CLIENT_AUTH_FAILED = "AUTH_FAILED"
+    let CLIENT_DATA_RETREIVED = "CLIENT_DONE"
     var current_client: Client = Client()
     
     
@@ -52,6 +53,7 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
         // Client Manager Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_AUTH), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_AUTH_FAILED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
         
     }
     
@@ -66,9 +68,18 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
         
         print("$SignInViewController: recieved notification -> \(notification_type)")
         
-        if(notification_type == self.CLIENT_AUTH){
-            self.performSegue(withIdentifier: "chatViewController", sender: nil)
-        }
+        if(notification_type == self.CLIENT_DATA_RETREIVED){
+            
+            // INSURE FAULT TOLERENT, case must exists before going to mainViewController
+            
+            if(self.current_client.myCase.caseExists){
+                self.performSegue(withIdentifier: "chatViewController", sender: nil)
+            }
+            else{
+                self.current_client.myCase.createCase(caseStatus: "Pending Review", platform: "N/A", appName: "N/A", appDescription: "N/A", appFeatures: "N/A", deadline: "N/A", clientID: self.current_client.clientID)
+            }
+            
+                    }
         else if(notification_type == self.CLIENT_AUTH_FAILED){
             self.dismissLoading()
         }
@@ -84,6 +95,7 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
             self.scrollView.transform = CGAffineTransform(scaleX: 1, y: 1)
             self.scrollView.alpha = 1
             self.ringImageView.alpha  = 0
+            self.view.backgroundColor = UIColor.white
         }, completion: { (Bool) in
             self.shakeTextField(textField: self.emailTextField, errorMsg: "Invalid Email")
             self.shakeTextField(textField: self.passTextField, errorMsg: "")
@@ -125,6 +137,7 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
             self.scrollView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             self.scrollView.alpha = 0
             self.dismissKeyboard()
+        
         }, completion: { (Bool) in
             
         })

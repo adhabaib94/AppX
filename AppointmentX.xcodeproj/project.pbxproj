@@ -78,6 +78,7 @@
 		15BB6DB91E549AC700E97619 /* ring-indicator.gif in Resources */ = {isa = PBXBuildFile; fileRef = 15BB6DB81E549AC700E97619 /* ring-indicator.gif */; };
 		15C343441E634A8B00F9541A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C343431E634A8B00F9541A /* ChatViewController.swift */; };
 		15D5A8C81E6C1DD40083B974 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A8C71E6C1DD40083B974 /* SignInViewController.swift */; };
+		15D5A8CA1E6C54830083B974 /* loadingIO.gif in Resources */ = {isa = PBXBuildFile; fileRef = 15D5A8C91E6C54830083B974 /* loadingIO.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +209,7 @@
 		15C343431E634A8B00F9541A /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		15C343451E63632900F9541A /* AppointmentX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppointmentX.entitlements; sourceTree = "<group>"; };
 		15D5A8C71E6C1DD40083B974 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		15D5A8C91E6C54830083B974 /* loadingIO.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loadingIO.gif; sourceTree = "<group>"; };
 		20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -254,6 +256,7 @@
 		154EB1A31E49E4C10098F549 /* Other Assets */ = {
 			isa = PBXGroup;
 			children = (
+				15D5A8C91E6C54830083B974 /* loadingIO.gif */,
 				15BB6DB81E549AC700E97619 /* ring-indicator.gif */,
 				158FA71F1E4DCCEA002D2307 /* bulb.gif */,
 				158FA6DC1E4C7E24002D2307 /* Custom Fonts */,
@@ -583,6 +586,7 @@
 				158FA7141E4C8117002D2307 /* SourceSansPro-ExtraLight.otf in Resources */,
 				158FA6FF1E4C7E3D002D2307 /* Raleway-BlackItalic.ttf in Resources */,
 				1570F0951E428DAC00FF3968 /* Info.plist in Resources */,
+				15D5A8CA1E6C54830083B974 /* loadingIO.gif in Resources */,
 				158FA6FB1E4C7E3D002D2307 /* Raleway-ExtraBoldItalic.ttf in Resources */,
 				155074BD1E3F817A00F3A6A4 /* Main.storyboard in Resources */,
 				158FA6FC1E4C7E3D002D2307 /* Raleway-ExtraBold.ttf in Resources */,

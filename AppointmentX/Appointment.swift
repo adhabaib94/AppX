@@ -27,6 +27,9 @@ class Appointment: NSObject {
     let APPT_NOTIFICATION_DELETED = "APPT_DELETED"
     let APPT_NOTIFICATION_GET = "APPT_GET"
     
+    //Addiotnal Notfication for CLient Data Retreived
+     let CLIENT_DATA_RETREIVED = "CLIENT_DONE"
+    
     var appointmentExists = false;
     
     // Schedule and Create Appointment
@@ -160,6 +163,10 @@ class Appointment: NSObject {
             // No Appointment Found Return Failed to Find Appointment
             if(postDict == nil){
                 print("\n*** AppointmentManager: No Appointments found for Case. ***\n")
+                
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
+                }
        
             }
             else{
@@ -184,6 +191,12 @@ class Appointment: NSObject {
                 print("\t*** AppointmentManager: Appointment Object Initialized***\n")
                 
                 self.printAppointment()
+                
+                
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
+                }
+                
 
             }
             
@@ -192,6 +205,8 @@ class Appointment: NSObject {
                 NotificationCenter.default.post(name: Notification.Name(self.APPT_NOTIFICATION_GET), object: nil)
 
             }
+            
+            
 
             
             

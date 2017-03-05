@@ -37,6 +37,7 @@ class ScheduleAppointmentController: UIViewController, FSCalendarDataSource, FSC
         // Scheduler Notification
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.showAllSlotButtons), name: Notification.Name(SCH_FETCHED_SLOTS), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.doneBookingAppointment), name: Notification.Name(APPT_NOTIFICATION_CREATE), object: nil)
         
         
         // Calender Delegation
@@ -88,6 +89,14 @@ class ScheduleAppointmentController: UIViewController, FSCalendarDataSource, FSC
     override func viewDidAppear(_ animated: Bool) {
         
         self.current_client.myCase.scheduler.getAvailableAppointmentSlots(day: self.day_selection)
+    }
+    
+    
+    
+    func doneBookingAppointment(){
+        
+        self.performSegue(withIdentifier: "chatViewController2", sender: nil)
+        
     }
     
     func showAllSlotButtons(){
