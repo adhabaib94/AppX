@@ -77,6 +77,7 @@
 		15BB6DB71E53491F00E97619 /* CreateAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6DB61E53491F00E97619 /* CreateAccountController.swift */; };
 		15BB6DB91E549AC700E97619 /* ring-indicator.gif in Resources */ = {isa = PBXBuildFile; fileRef = 15BB6DB81E549AC700E97619 /* ring-indicator.gif */; };
 		15C343441E634A8B00F9541A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C343431E634A8B00F9541A /* ChatViewController.swift */; };
+		15D5A8C81E6C1DD40083B974 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A8C71E6C1DD40083B974 /* SignInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,6 +207,7 @@
 		15BB6DB81E549AC700E97619 /* ring-indicator.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "ring-indicator.gif"; sourceTree = "<group>"; };
 		15C343431E634A8B00F9541A /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		15C343451E63632900F9541A /* AppointmentX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppointmentX.entitlements; sourceTree = "<group>"; };
+		15D5A8C71E6C1DD40083B974 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -241,6 +243,7 @@
 				15C343431E634A8B00F9541A /* ChatViewController.swift */,
 				15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */,
 				158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */,
+				15D5A8C71E6C1DD40083B974 /* SignInViewController.swift */,
 				15BB6DB61E53491F00E97619 /* CreateAccountController.swift */,
 				154EB19E1E49E4350098F549 /* DisplayLogoController.swift */,
 				155074B91E3F817A00F3A6A4 /* SystemViewController.swift */,
@@ -674,6 +677,7 @@
 				158FA71E1E4DCC10002D2307 /* WalkthroughController.swift in Sources */,
 				1570F08A1E428DAC00FF3968 /* FSCalendarCollectionView.m in Sources */,
 				1570F0921E428DAC00FF3968 /* FSCalendarStickyHeader.m in Sources */,
+				15D5A8C81E6C1DD40083B974 /* SignInViewController.swift in Sources */,
 				15C343441E634A8B00F9541A /* ChatViewController.swift in Sources */,
 				1570F0911E428DAC00FF3968 /* FSCalendarScopeHandle.m in Sources */,
 				1570F0901E428DAC00FF3968 /* FSCalendarHeaderView.m in Sources */,

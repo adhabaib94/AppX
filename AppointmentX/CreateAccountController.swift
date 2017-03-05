@@ -64,11 +64,10 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
+        self.showView()
     }
     
-    
-    
+
     // Create Account IBACTION
     @IBAction func createAccount(_ sender: UIButton) {
         
@@ -87,6 +86,7 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         UIView.animate(withDuration: 0.2, animations: {
             self.scrollView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
             self.scrollView.alpha = 0
+            self.dismissKeyboard()
         }, completion: { (Bool) in
             
         })
@@ -104,6 +104,40 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         }, completion: { (Bool) in
             self.shakeTextField(textField: self.emailTextField, errorMsg: "Email Taken")
         })
+    }
+    
+    
+    // Shrink View and Display Loading While Waiting For Account Creation
+    func hideView(){
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.scrollView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            self.scrollView.alpha = 0
+        }, completion: { (Bool) in
+            
+            self.performSegue(withIdentifier: "signInViewController", sender: nil)
+            
+        })
+        
+    }
+    
+    
+    // If Account Registeration Fails, Bring back main view
+    func showView(){
+        UIView.animate(withDuration: 0.2, animations: {
+            self.scrollView.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.scrollView.alpha = 1
+            self.ringImageView.alpha  = 0
+        }, completion: { (Bool) in
+          
+        })
+    }
+    
+    @IBAction func showSignView(_ sender: Any) {
+        
+        self.hideView()
+    
+        
     }
     
     // Insure All Inputs meets basic criteria
@@ -322,10 +356,11 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     
     // Segue Data Passing
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier != "chatViewController"){
+        if(segue.identifier != "chatViewController" && segue.identifier != "signInViewController"){
             let destinationVC = segue.destination as! WalkthroughController
             destinationVC.current_client = self.current_client
         }
+
         
     }
     
