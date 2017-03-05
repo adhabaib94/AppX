@@ -276,6 +276,12 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
     func textFieldDidBeginEditing(_ textField: UITextField) {    //delegate method
         activeField = textField
         print("$CreateAccountController: TEXTFIELD DELEGATE: DID BEGIN EDIT (\(textField.tag)")
+        if(textField.tag == phoneTextField.tag){
+            self.addDoneButtonOnKeyboard()
+        }
+        else{
+            self.doneButtonAction()
+        }
         
     }
     
@@ -300,6 +306,28 @@ class CreateAccountController: UIViewController, UITextFieldDelegate, CAAnimatio
         return false
         
     }
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(CreateAccountController.doneButtonAction))
+        done.tintColor = UIColor.init(red: 6.0/255.0, green: 190.0/255.0, blue: 189.0/255.0, alpha: 1)
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        self.phoneTextField.inputAccessoryView = doneToolbar
+    }
+    
+    func doneButtonAction() {
+        self.phoneTextField.resignFirstResponder()
+    }
+    
     
     
     func registerForKeyboardNotifications(){
