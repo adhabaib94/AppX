@@ -79,6 +79,10 @@
 		15C343441E634A8B00F9541A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C343431E634A8B00F9541A /* ChatViewController.swift */; };
 		15D5A8C81E6C1DD40083B974 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A8C71E6C1DD40083B974 /* SignInViewController.swift */; };
 		15D5A8CA1E6C54830083B974 /* loadingIO.gif in Resources */ = {isa = PBXBuildFile; fileRef = 15D5A8C91E6C54830083B974 /* loadingIO.gif */; };
+		15D5A8CE1E6EB63A0083B974 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A8CC1E6EB63A0083B974 /* LeftMenuViewController.swift */; };
+		15D5A8CF1E6EB63A0083B974 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A8CD1E6EB63A0083B974 /* RightMenuViewController.swift */; };
+		15D5A8D11E6EB64B0083B974 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A8D01E6EB64B0083B974 /* RootViewController.swift */; };
+		15D5A8D31E6EB6CB0083B974 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D5A8D21E6EB6CB0083B974 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +214,10 @@
 		15C343451E63632900F9541A /* AppointmentX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppointmentX.entitlements; sourceTree = "<group>"; };
 		15D5A8C71E6C1DD40083B974 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		15D5A8C91E6C54830083B974 /* loadingIO.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loadingIO.gif; sourceTree = "<group>"; };
+		15D5A8CC1E6EB63A0083B974 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
+		15D5A8CD1E6EB63A0083B974 /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
+		15D5A8D01E6EB64B0083B974 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		15D5A8D21E6EB6CB0083B974 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		20952A76423B832FCAC1C19A /* Pods-AppointmentX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -242,7 +250,9 @@
 		154EB1A01E49E43C0098F549 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				15D5A8CB1E6EB5F80083B974 /* SideBar */,
 				15C343431E634A8B00F9541A /* ChatViewController.swift */,
+				15D5A8D21E6EB6CB0083B974 /* MainViewController.swift */,
 				15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */,
 				158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */,
 				15D5A8C71E6C1DD40083B974 /* SignInViewController.swift */,
@@ -421,6 +431,16 @@
 				158FA6EE1E4C7E3D002D2307 /* Raleway-Black.ttf */,
 			);
 			name = "Custom Fonts";
+			sourceTree = "<group>";
+		};
+		15D5A8CB1E6EB5F80083B974 /* SideBar */ = {
+			isa = PBXGroup;
+			children = (
+				15D5A8D01E6EB64B0083B974 /* RootViewController.swift */,
+				15D5A8CC1E6EB63A0083B974 /* LeftMenuViewController.swift */,
+				15D5A8CD1E6EB63A0083B974 /* RightMenuViewController.swift */,
+			);
+			name = SideBar;
 			sourceTree = "<group>";
 		};
 		2D0EF6F8B62843EC7B04E426 /* Frameworks */ = {
@@ -683,14 +703,18 @@
 				1570F0921E428DAC00FF3968 /* FSCalendarStickyHeader.m in Sources */,
 				15D5A8C81E6C1DD40083B974 /* SignInViewController.swift in Sources */,
 				15C343441E634A8B00F9541A /* ChatViewController.swift in Sources */,
+				15D5A8D31E6EB6CB0083B974 /* MainViewController.swift in Sources */,
 				1570F0911E428DAC00FF3968 /* FSCalendarScopeHandle.m in Sources */,
 				1570F0901E428DAC00FF3968 /* FSCalendarHeaderView.m in Sources */,
+				15D5A8CE1E6EB63A0083B974 /* LeftMenuViewController.swift in Sources */,
 				1570F0861E428DAC00FF3968 /* FSCalendar.m in Sources */,
 				1570F0611E40DD8A00FF3968 /* Scheduler.swift in Sources */,
+				15D5A8CF1E6EB63A0083B974 /* RightMenuViewController.swift in Sources */,
 				1570F08E1E428DAC00FF3968 /* FSCalendarDelegationProxy.m in Sources */,
 				1570F0871E428DAC00FF3968 /* FSCalendarAppearance.m in Sources */,
 				15BB6DB21E51C6B500E97619 /* ScheduleAppointmentController.swift in Sources */,
 				1570F0891E428DAC00FF3968 /* FSCalendarCell.m in Sources */,
+				15D5A8D11E6EB64B0083B974 /* RootViewController.swift in Sources */,
 				155074BA1E3F817A00F3A6A4 /* SystemViewController.swift in Sources */,
 				154EB19F1E49E4350098F549 /* DisplayLogoController.swift in Sources */,
 				1570F05D1E40C8C100FF3968 /* Case.swift in Sources */,

@@ -95,7 +95,7 @@ class ScheduleAppointmentController: UIViewController, FSCalendarDataSource, FSC
     
     func doneBookingAppointment(){
         
-        self.performSegue(withIdentifier: "chatViewController2", sender: nil)
+        self.performSegue(withIdentifier: "rootViewController-new", sender: nil)
         
     }
     

@@ -130,7 +130,7 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
                 print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
             
                 if(self.skip_sign_in){
-                    self.performSegue(withIdentifier: "chatViewController3", sender: nil)
+                    self.performSegue(withIdentifier: "rootViewController", sender: nil)
                 }
                 else{
                     self.performSegue(withIdentifier: "create-account", sender: nil)
