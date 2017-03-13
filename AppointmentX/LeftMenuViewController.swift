@@ -39,12 +39,15 @@ public class LeftMenuViewController: UIViewController, UITableViewDelegate, UITa
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
             case 0:
-                self.sideMenuViewController!.setContentViewController(UINavigationController.init(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "firstViewController")), animated: true)
+
                 self.sideMenuViewController!.hideMenuViewController()
 
-            case 1:
-                self.sideMenuViewController!.setContentViewController(UINavigationController.init(rootViewController: self.storyboard!.instantiateViewController(withIdentifier: "secondViewController")), animated: true)
+            case 2:
                 self.sideMenuViewController!.hideMenuViewController()
+                DispatchQueue.main.async {
+                    // POST NOTIFICATION FOR COMPLETION
+                    NotificationCenter.default.post(name: Notification.Name("chatViewController"), object: nil)
+                }
 
         default:
             break
@@ -52,7 +55,7 @@ public class LeftMenuViewController: UIViewController, UITableViewDelegate, UITa
     }
 
     // MARK: - <UITableViewDataSource>
-
+  
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
     }
@@ -73,14 +76,14 @@ public class LeftMenuViewController: UIViewController, UITableViewDelegate, UITa
         if cell == nil {
             cell = UITableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: cellIdentifier)
             cell!.backgroundColor = UIColor.clear
-            cell!.textLabel?.font = UIFont.init(name: "HelveticaNeue", size: 21)
+            cell!.textLabel?.font = UIFont.init(name: "Raleway-Regular", size: 21)
             cell!.textLabel?.textColor = UIColor.white
             cell!.textLabel?.highlightedTextColor = UIColor.lightGray
             cell!.selectedBackgroundView = UIView.init()
         }
 
-        var titles: [String] = ["Home", "Calendar", "Profile", "Settings", "Log Out"]
-        var images: [String] = ["IconHome", "IconCalendar", "IconProfile", "IconSettings", "IconEmpty"]
+        var titles: [String] = ["Home", "Appointments", "Inbox", "Updates", "Log Out"]
+        var images: [String] = ["IconHome", "IconCalendar", "inbox_icon", "update_icon", "logout_icon"]
         cell!.textLabel?.text = titles[indexPath.row]
         cell!.imageView?.image = UIImage.init(named: images[indexPath.row])
 

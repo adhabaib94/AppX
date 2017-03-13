@@ -16,14 +16,16 @@ public class RootViewController: AKSideMenu, AKSideMenuDelegate {
         self.menuPreferredStatusBarStyle = UIStatusBarStyle.lightContent
         self.contentViewShadowColor = UIColor.black
         self.contentViewShadowOffset = CGSize(width: 0, height: 0)
-        self.contentViewShadowOpacity = 0.6
+        self.contentViewShadowOpacity = 0.1
         self.contentViewShadowRadius = 12
         self.contentViewShadowEnabled = true
 
         self.contentViewController = self.storyboard!.instantiateViewController(withIdentifier: "contentViewController")
         self.leftMenuViewController = self.storyboard!.instantiateViewController(withIdentifier: "leftMenuViewController")
         self.rightMenuViewController = self.storyboard!.instantiateViewController(withIdentifier: "rightMenuViewController")
-        self.backgroundImage = UIImage.init(named: "Stars")
+        
+        
+        self.backgroundImage = UIImage.init(named: "background_menu")
         self.delegate = self
         self.panGestureLeftEnabled = true
     }
@@ -36,6 +38,14 @@ public class RootViewController: AKSideMenu, AKSideMenuDelegate {
         super.didReceiveMemoryWarning()
     }
 
+    
+    override public var preferredStatusBarStyle: UIStatusBarStyle {
+        
+            return .lightContent
+        
+    }
+    
+    
     // MARK: - <AKSideMenuDelegate>
 
     public func sideMenu(_ sideMenu: AKSideMenu, willShowMenuViewController menuViewController: UIViewController) {

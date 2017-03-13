@@ -51,8 +51,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initalize UIActivity Indicator
-        self.showActivityView()
+         self.navigationItem.hidesBackButton = true;
+        
+       
         
         // Initialize User/ Display Name
         if #available(iOS 10.0, *) {
@@ -95,7 +96,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         imageView.image = UIImage(named: "background")
         
-        imageView.alpha = 0.09
+        imageView.alpha = 0.05
         
         self.view.insertSubview(imageView, at: 1)
         
@@ -103,11 +104,19 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         
         let btn1 = UIButton(type: .custom)
-        btn1.setImage(UIImage(named: "Trash-50"), for: .normal)
-        btn1.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btn1.setImage(UIImage(named: "Erase-50"), for: .normal)
+        btn1.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         btn1.addTarget(self, action: #selector(ChatViewController.clearStoredMessages), for: .touchUpInside)
         let item1 = UIBarButtonItem(customView: btn1)
         self.navigationItem.setRightBarButton(item1, animated: true)
+        
+        
+        let btn2 = UIButton(type: .custom)
+        btn2.setImage(UIImage(named: "Back-50"), for: .normal)
+        btn2.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        btn2.addTarget(self, action: #selector(ChatViewController.onClickBack), for: .touchUpInside)
+        let item2 = UIBarButtonItem(customView: btn2)
+        self.navigationItem.setLeftBarButton(item2, animated: true)
         
         
         // Core Data Testing
@@ -117,12 +126,23 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
         
         // Insure User Updates Status to endTyping
         self.current_channel.endTyping()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Initalize UIActivity Indicator
+        self.showActivityView()
+       
+        
     }
     
     
@@ -137,7 +157,12 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         return .lightContent
     }
     
+
     
+    func onClickBack()
+    {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
     
     // ---------------------------------- JSQMessageViewController Functions --------------------------------//
     
@@ -974,10 +999,11 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     func showActivityView(){
         DispatchQueue.main.async {
-            self.activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+            self.activityIndicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
             let connectingLabel = UILabel.init(frame: CGRect(x: 30, y: 0, width: 100, height: 22))
-            connectingLabel.text = "Connecting"
-            connectingLabel.font =  UIFont(name: "Source Sans Pro", size: 19)
+            connectingLabel.text = "Connecting..."
+            connectingLabel.font =  UIFont(name: "Source Sans Pro", size: 16)
+            connectingLabel.textColor = UIColor.white
             self.activityCoreView = UIView(frame: CGRect(x: 0, y: 0, width: 130, height: 22))
             self.activityCoreView.addSubview(connectingLabel)
             self.activityCoreView.addSubview(self.activityIndicator)
@@ -1009,7 +1035,19 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
 }
 
 
-
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience init(netHex:Int) {
+        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    }
+}
 
 
 
