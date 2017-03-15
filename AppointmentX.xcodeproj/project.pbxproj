@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		01FC278DB49C855966B726F8 /* Pods_AppointmentX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; };
+		15054F561E77433000CD7692 /* TMNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15054F551E77433000CD7692 /* TMNavigationBar.swift */; };
+		15054F581E77CE0900CD7692 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15054F571E77CE0900CD7692 /* BubbleCell.swift */; };
 		1530DE271E455B6900459824 /* Pods_AppointmentX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		154EB19F1E49E4350098F549 /* DisplayLogoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154EB19E1E49E4350098F549 /* DisplayLogoController.swift */; };
 		154EB1A21E49E4BA0098F549 /* logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 154EB1A11E49E4BA0098F549 /* logo.gif */; };
@@ -119,6 +121,8 @@
 /* Begin PBXFileReference section */
 		023E3190C65E3FE5B0829CFD /* Pods_AppointmentX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppointmentX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B14918CD93C73D25D9F269F /* Pods-AppointmentX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppointmentX.release.xcconfig"; path = "Pods/Target Support Files/Pods-AppointmentX/Pods-AppointmentX.release.xcconfig"; sourceTree = "<group>"; };
+		15054F551E77433000CD7692 /* TMNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMNavigationBar.swift; sourceTree = "<group>"; };
+		15054F571E77CE0900CD7692 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		154EB19E1E49E4350098F549 /* DisplayLogoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLogoController.swift; sourceTree = "<group>"; };
 		154EB1A11E49E4BA0098F549 /* logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo.gif; sourceTree = "<group>"; };
 		155074B41E3F817A00F3A6A4 /* AppointmentX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppointmentX.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -351,6 +355,8 @@
 				1570F0961E428DD400FF3968 /* Objc-Bridge-Header.h */,
 				1570F0991E42954900FF3968 /* Objective-C-Header_Calender.h */,
 				1570F0631E428DAC00FF3968 /* FSCalendar */,
+				15054F551E77433000CD7692 /* TMNavigationBar.swift */,
+				15054F571E77CE0900CD7692 /* BubbleCell.swift */,
 			);
 			name = "Custom UI Classes";
 			sourceTree = "<group>";
@@ -693,6 +699,7 @@
 			files = (
 				1570F08F1E428DAC00FF3968 /* FSCalendarExtensions.m in Sources */,
 				1570F0881E428DAC00FF3968 /* FSCalendarCalculator.m in Sources */,
+				15054F561E77433000CD7692 /* TMNavigationBar.swift in Sources */,
 				1570F08C1E428DAC00FF3968 /* FSCalendarConstants.m in Sources */,
 				155074C01E3F817A00F3A6A4 /* AppointmentX.xcdatamodeld in Sources */,
 				1570F08B1E428DAC00FF3968 /* FSCalendarCollectionViewLayout.m in Sources */,
@@ -722,6 +729,7 @@
 				1570F05F1E40D77200FF3968 /* Appointment.swift in Sources */,
 				1570F0571E3FDDB800FF3968 /* Client.swift in Sources */,
 				155074B81E3F817A00F3A6A4 /* AppDelegate.swift in Sources */,
+				15054F581E77CE0900CD7692 /* BubbleCell.swift in Sources */,
 				1570F0931E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m in Sources */,
 				1570F08D1E428DAC00FF3968 /* FSCalendarDelegationFactory.m in Sources */,
 			);

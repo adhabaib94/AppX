@@ -16,8 +16,8 @@ public class RootViewController: AKSideMenu, AKSideMenuDelegate {
         self.menuPreferredStatusBarStyle = UIStatusBarStyle.lightContent
         self.contentViewShadowColor = UIColor.black
         self.contentViewShadowOffset = CGSize(width: 0, height: 0)
-        self.contentViewShadowOpacity = 0.1
-        self.contentViewShadowRadius = 12
+        self.contentViewShadowOpacity = 0.8
+        self.contentViewShadowRadius = 20
         self.contentViewShadowEnabled = true
 
         self.contentViewController = self.storyboard!.instantiateViewController(withIdentifier: "contentViewController")
@@ -28,6 +28,9 @@ public class RootViewController: AKSideMenu, AKSideMenuDelegate {
         self.backgroundImage = UIImage.init(named: "background_menu")
         self.delegate = self
         self.panGestureLeftEnabled = true
+        self.panGestureRightEnabled = false
+      
+        self.panFromEdgeZoneWidth = 150
     }
 
     override public func viewDidLoad() {

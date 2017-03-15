@@ -26,6 +26,10 @@ class MainViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -56,10 +60,15 @@ class MainViewController: UIViewController {
   
         let logo = UIImage(named: "navbar_logo")
         let imageView = UIImageView(image:logo)
-        imageView.frame(forAlignmentRect: CGRect(x: 0 , y: 0, width: 200, height: 30))
+        imageView.frame(forAlignmentRect:  CGRect(x: 0, y: 0, width: 44, height: 44))
         imageView.contentMode = .scaleAspectFit
-        self.navigationItem.titleView = imageView
-        self.navigationItem.titleView?.sizeToFit()
+        
+        let titleView = UIView(frame: CGRect(x: 0, y: 0 , width: 44, height: 22))
+        titleView.addSubview(imageView)
+        
+        
+        self.navigationItem.titleView = titleView
+     
         
     }
     
@@ -68,9 +77,11 @@ class MainViewController: UIViewController {
 
 }
 
+/*
 extension UINavigationBar {
     open override func sizeThatFits(_ size: CGSize) -> CGSize {
         let screenRect = UIScreen.main.bounds
         return CGSize(width: screenRect.size.width, height: 70)
     }
 }
+*/

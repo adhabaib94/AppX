@@ -96,7 +96,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         imageView.image = UIImage(named: "background")
         
-        imageView.alpha = 0.05
+        imageView.alpha = 0
         
         self.view.insertSubview(imageView, at: 1)
         
@@ -104,8 +104,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         
         let btn1 = UIButton(type: .custom)
-        btn1.setImage(UIImage(named: "Erase-50"), for: .normal)
-        btn1.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        btn1.setImage(UIImage(named: "erase-icon"), for: .normal)
+        btn1.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btn1.addTarget(self, action: #selector(ChatViewController.clearStoredMessages), for: .touchUpInside)
         let item1 = UIBarButtonItem(customView: btn1)
         self.navigationItem.setRightBarButton(item1, animated: true)
@@ -113,7 +113,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         let btn2 = UIButton(type: .custom)
         btn2.setImage(UIImage(named: "Back-50"), for: .normal)
-        btn2.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        btn2.frame = CGRect(x: 0, y: 0, width: 22, height: 22)
         btn2.addTarget(self, action: #selector(ChatViewController.onClickBack), for: .touchUpInside)
         let item2 = UIBarButtonItem(customView: btn2)
         self.navigationItem.setLeftBarButton(item2, animated: true)
@@ -161,6 +161,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     func onClickBack()
     {
+        //self.navigationController?.dismiss(animated: true, completion: nil)
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -181,7 +182,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     override func collectionView(_ collectionView: JSQMessagesCollectionView, attributedTextForCellTopLabelAt indexPath: IndexPath) -> NSAttributedString? {
         
-        if (indexPath.item % 7 == 0 && self.messages[indexPath.item].senderId != self.senderId) {
+        if (indexPath.item % 2 == 0 || indexPath.item == 0) {
             _ = self.messages[indexPath.item]
             
             return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: messages[indexPath.item].date)
@@ -204,7 +205,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     override func collectionView(_ collectionView: JSQMessagesCollectionView, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout, heightForCellTopLabelAt indexPath: IndexPath) -> CGFloat {
         
-        if (indexPath.item % 7 == 0 && self.messages[indexPath.item].senderId != self.senderId) {
+        if (indexPath.item % 2 == 0 || indexPath.item == 0) {
             return kJSQMessagesCollectionViewCellLabelHeightDefault
         }
         
@@ -1048,6 +1049,7 @@ extension UIColor {
         self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
     }
 }
+
 
 
 
