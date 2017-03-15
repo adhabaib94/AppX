@@ -262,5 +262,17 @@ class ScheduleAppointmentController: UIViewController, FSCalendarDataSource, FSC
         }
         
     }
+    
+    // Segue Data Passing
+    override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if(segue.identifier == "rootViewController-new"){
+            let destinationVC = segue.destination as! RootViewController
+            destinationVC.current_client = self.current_client
+            
+        }
+        
+        
+    }
 }
 

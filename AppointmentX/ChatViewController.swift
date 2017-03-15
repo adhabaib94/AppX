@@ -104,7 +104,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         
         let btn1 = UIButton(type: .custom)
-        btn1.setImage(UIImage(named: "erase-icon"), for: .normal)
+        btn1.setImage(UIImage(named: "phone_icon"), for: .normal)
         btn1.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         btn1.addTarget(self, action: #selector(ChatViewController.clearStoredMessages), for: .touchUpInside)
         let item1 = UIBarButtonItem(customView: btn1)
@@ -1035,20 +1035,6 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
 }
 
-
-extension UIColor {
-    convenience init(red: Int, green: Int, blue: Int) {
-        assert(red >= 0 && red <= 255, "Invalid red component")
-        assert(green >= 0 && green <= 255, "Invalid green component")
-        assert(blue >= 0 && blue <= 255, "Invalid blue component")
-        
-        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
-    }
-    
-    convenience init(netHex:Int) {
-        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
-    }
-}
 
 
 

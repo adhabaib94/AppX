@@ -29,14 +29,27 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
     var logo = UIImage.gif(name: "logo")
     
     // Core Data Variables
-    var skip_sign_in = true
+    var skip_sign_in = false
     var client_data: [NSManagedObject] = []
+    
+    // Client Manager Status Fields/Notications
+    let CLIENT_AUTH = "AUTH_COMPLETE"
+    let CLIENT_AUTH_FAILED = "AUTH_FAILED"
+    let CLIENT_DATA_RETREIVED = "CLIENT_DONE"
+    var current_client: Client = Client()
     
     
     override func viewDidLoad() {
 
         // BETA -> Setup SendBird Authentication
         SBDMain.initWithApplicationId("2D70703C-C856-4001-954F-DCFB88A944CD")
+        
+        self.fetchClientDataFromCoreData()
+        
+        // Client Manager Notification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_AUTH), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_AUTH_FAILED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
     
     }
     
@@ -49,8 +62,6 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
     func setup(){
         
         DispatchQueue.main.async {
-
-            self.fetchClientDataFromCoreData()
             
             self.imageView.alpha = 0
             self.imageView.loadGif(name: "logo")
@@ -122,26 +133,14 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
                 self.performSegue(withIdentifier: "create-account", sender: nil)
             }
             else{
-                
-             
-                let email = String(describing: self.client_data[0].value(forKey: "email")!)
-                let pass = String(describing: self.client_data[0].value(forKey: "password")!)
-                
-                print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
             
                 if(self.skip_sign_in){
                     self.performSegue(withIdentifier: "rootViewController", sender: nil)
                 }
-                else{
-                    self.performSegue(withIdentifier: "create-account", sender: nil)
-                }
+              
                 
             }
            
-            
-            
-            // BETA TESTING
-            //self.performSegue(withIdentifier: "ChatVC", sender: nil)
             
         }
 
@@ -189,6 +188,12 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
                 //3
                 do {
                     self.client_data = try managedContext.fetch(fetchRequest)
+                    let email = String(describing: self.client_data[0].value(forKey: "email")!)
+                    let pass = String(describing: self.client_data[0].value(forKey: "password")!)
+                    
+                    self.current_client.authenticateExistingClient(email: email, password: pass)
+                    
+                    print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
                     
                 } catch let error as NSError {
                     print("Could not fetch. \(error), \(error.userInfo)")
@@ -204,6 +209,12 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
                     let results =
                         try managedContext.fetch(fetchRequest)
                     self.client_data = results as! [NSManagedObject]
+                    let email = String(describing: self.client_data[0].value(forKey: "email")!)
+                    let pass = String(describing: self.client_data[0].value(forKey: "password")!)
+                    
+                    self.current_client.authenticateExistingClient(email: email, password: pass)
+                    
+                    print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
 
                 } catch let error as NSError {
                     print("Could not fetch \(error), \(error.userInfo)")
@@ -213,6 +224,49 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
     }
     
     
+    func signedInNotification(notfication: NSNotification){
+        
+        let notification_type = notfication.name._rawValue as String
+        
+        print("$SignInViewController: recieved notification -> \(notification_type)")
+        
+        if(notification_type == self.CLIENT_DATA_RETREIVED){
+            
+            // INSURE FAULT TOLERENT, case must exists before going to mainViewController
+            
+            if(self.current_client.myCase.caseExists){
+                
+                self.performSegue(withIdentifier: "rootViewController", sender: nil)
+            }
+            else{
+                self.current_client.myCase.createCase(caseStatus: "Pending Review", platform: "N/A", appName: "N/A", appDescription: "N/A", appFeatures: "N/A", deadline: "N/A", clientID: self.current_client.clientID)
+            }
+            
+        }
+        else if(notification_type == self.CLIENT_AUTH_FAILED){
+                self.performSegue(withIdentifier: "create-account", sender: nil)
+        }
+        
+        
+        
+        
+    }
+
+    
+    
+    
+    
+    // Segue Data Passing
+    override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if(segue.identifier == "rootViewController"){
+            let destinationVC = segue.destination as! RootViewController
+            destinationVC.current_client = self.current_client
+            
+        }
+        
+        
+    }
 
     
 }

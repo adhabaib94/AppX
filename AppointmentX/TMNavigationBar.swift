@@ -1,4 +1,10 @@
+
+
 class TMNavigationBar: UINavigationBar {
+    
+    
+    // Custom Client Data
+    var current_client = Client()
     
     ///The height you want your navigation bar to be of
     static let navigationBarHeight: CGFloat = 70

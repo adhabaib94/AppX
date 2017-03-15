@@ -405,4 +405,19 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
         }
         
     }
+    
+    
+    
+    
+    // Segue Data Passing
+    override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if(segue.identifier == "rootViewController-old"){
+            let destinationVC = segue.destination as! RootViewController
+            destinationVC.current_client = self.current_client
+            
+        }
+        
+        
+    }
 }

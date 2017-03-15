@@ -11,16 +11,31 @@ import AKSideMenu
 
 public class RootViewController: AKSideMenu, AKSideMenuDelegate {
 
+    
+    // Client Object Data
+    var current_client = Client()
+    
+    
     override public func awakeFromNib() {
+        
         super.awakeFromNib()
+        
+        
+        
         self.menuPreferredStatusBarStyle = UIStatusBarStyle.lightContent
         self.contentViewShadowColor = UIColor.black
         self.contentViewShadowOffset = CGSize(width: 0, height: 0)
         self.contentViewShadowOpacity = 0.8
         self.contentViewShadowRadius = 20
         self.contentViewShadowEnabled = true
+        
 
+       
+        
         self.contentViewController = self.storyboard!.instantiateViewController(withIdentifier: "contentViewController")
+        
+        
+        
         self.leftMenuViewController = self.storyboard!.instantiateViewController(withIdentifier: "leftMenuViewController")
         self.rightMenuViewController = self.storyboard!.instantiateViewController(withIdentifier: "rightMenuViewController")
         
@@ -31,13 +46,27 @@ public class RootViewController: AKSideMenu, AKSideMenuDelegate {
         self.panGestureRightEnabled = false
       
         self.panFromEdgeZoneWidth = 150
+        
+       
+        
+        
     }
 
     override public func viewDidLoad() {
+       
         super.viewDidLoad()
+        
+        
+       
+        
     }
 
+    
+    
+    
     override public func didReceiveMemoryWarning() {
+        
+        
         super.didReceiveMemoryWarning()
     }
 
@@ -52,18 +81,28 @@ public class RootViewController: AKSideMenu, AKSideMenuDelegate {
     // MARK: - <AKSideMenuDelegate>
 
     public func sideMenu(_ sideMenu: AKSideMenu, willShowMenuViewController menuViewController: UIViewController) {
+       
         print("willShowMenuViewController")
     }
 
     public func sideMenu(_ sideMenu: AKSideMenu, didShowMenuViewController menuViewController: UIViewController) {
+        
+
         print("didShowMenuViewController")
     }
 
     public func sideMenu(_ sideMenu: AKSideMenu, willHideMenuViewController menuViewController: UIViewController) {
+         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ROOT"), object:self.current_client);
         print("willHideMenuViewController")
     }
 
     public func sideMenu(_ sideMenu: AKSideMenu, didHideMenuViewController menuViewController: UIViewController) {
+    
         print("didHideMenuViewController")
     }
+    
+    
+
+ 
+    
 }

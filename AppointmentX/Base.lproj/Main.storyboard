@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -259,7 +260,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ulo-Yy-Joq">
-                                <rect key="frame" x="158" y="340" width="99" height="57"/>
+                                <rect key="frame" x="158.33333333333331" y="340.33333333333326" width="98.999999999999943" height="56.666666666666686"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="45"/>
                                 <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1190,23 +1191,44 @@
                         <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLN-j0-bKJ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background_menu" translatesAutoresizingMaskIntoConstraints="NO" id="TKT-Rg-CSG">
+                                <rect key="frame" x="0.0" y="-66" width="415" height="738"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLN-j0-bKJ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uRe-jD-MKI">
-                                        <rect key="frame" x="-0.5" y="8" width="414" height="850"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRe-jD-MKI">
+                                        <rect key="frame" x="-1" y="8" width="414" height="850"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="full_content_mainView" translatesAutoresizingMaskIntoConstraints="NO" id="JhW-Yq-79x">
-                                                <rect key="frame" x="0.0" y="-8" width="414" height="806"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProgressReviewDisplay" translatesAutoresizingMaskIntoConstraints="NO" id="Y0n-JR-8jW">
+                                                <rect key="frame" x="0.0" y="1" width="416" height="224"/>
+                                                <color key="backgroundColor" red="0.097172535955905914" green="0.12091294676065445" blue="0.15831455588340759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Y0n-JR-8jW" secondAttribute="height" multiplier="415:221" constant="-4.6334841628959111" id="8Yr-J8-2V0"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MainViewController_Content" translatesAutoresizingMaskIntoConstraints="NO" id="7na-uH-qap">
+                                                <rect key="frame" x="0.0" y="-86" width="416" height="786"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Y0n-JR-8jW" secondAttribute="trailing" constant="-1.6666666666666288" id="HuW-wd-gDf"/>
+                                            <constraint firstItem="Y0n-JR-8jW" firstAttribute="leading" secondItem="uRe-jD-MKI" secondAttribute="leading" id="gHA-33-Y0U"/>
+                                            <constraint firstItem="Y0n-JR-8jW" firstAttribute="top" secondItem="uRe-jD-MKI" secondAttribute="top" constant="1" id="lD6-rA-Nda"/>
+                                            <constraint firstAttribute="bottom" secondItem="Y0n-JR-8jW" secondAttribute="bottom" constant="625" id="s4t-PH-qFy"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="uRe-jD-MKI" firstAttribute="top" secondItem="JLN-j0-bKJ" secondAttribute="top" constant="8" id="LyG-Vm-pFo"/>
+                                    <constraint firstAttribute="bottom" secondItem="uRe-jD-MKI" secondAttribute="bottom" constant="-186" id="RVQ-pw-2BL"/>
+                                    <constraint firstItem="uRe-jD-MKI" firstAttribute="leading" secondItem="JLN-j0-bKJ" secondAttribute="leading" constant="-0.5" id="S9h-DW-wtF"/>
+                                    <constraint firstAttribute="trailing" secondItem="uRe-jD-MKI" secondAttribute="trailing" constant="0.5" id="yAQ-AM-zqR"/>
+                                    <constraint firstItem="uRe-jD-MKI" firstAttribute="width" secondItem="JLN-j0-bKJ" secondAttribute="width" id="yCF-cY-rPc"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="size" keyPath="contentSize">
                                         <size key="value" width="414" height="850"/>
@@ -1214,7 +1236,13 @@
                                 </userDefinedRuntimeAttributes>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.74655181169509888" blue="0.7448543906211853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="JLN-j0-bKJ" firstAttribute="top" secondItem="13f-T4-0fO" secondAttribute="bottom" id="IqJ-lR-JeR"/>
+                            <constraint firstAttribute="trailing" secondItem="JLN-j0-bKJ" secondAttribute="trailing" id="lMC-ho-Jv5"/>
+                            <constraint firstItem="Gb5-4s-EF6" firstAttribute="top" secondItem="JLN-j0-bKJ" secondAttribute="bottom" id="rq7-iC-9eL"/>
+                            <constraint firstItem="JLN-j0-bKJ" firstAttribute="leading" secondItem="pK5-Mm-Wuz" secondAttribute="leading" id="w81-H9-Uui"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="NkS-Zv-kxh">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="4AV-RR-euJ">
@@ -1227,17 +1255,11 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="5hS-5z-0uF">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ICL-uY-KWc">
-                                <rect key="frame" x="364" y="7" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="call_icon"/>
-                            </button>
-                        </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="736"/>
                     <connections>
+                        <outlet property="scrollView" destination="JLN-j0-bKJ" id="h0t-W6-9zS"/>
                         <segue destination="J3C-zc-sam" kind="show" identifier="chatViewController" id="ncO-Kp-ISF"/>
                     </connections>
                 </viewController>
@@ -1301,14 +1323,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="MainViewController_Content" width="375" height="579"/>
+        <image name="ProgressReviewDisplay" width="250" height="146"/>
         <image name="appointment_icon" width="43" height="43"/>
+        <image name="background_menu" width="414" height="736"/>
         <image name="bulb_bk" width="130" height="130"/>
         <image name="bulb_front" width="130" height="130"/>
-        <image name="call_icon" width="40" height="40"/>
         <image name="check_box_0" width="14" height="13"/>
         <image name="create-account" width="43" height="43"/>
         <image name="create_account_bt" width="167" height="43"/>
-        <image name="full_content_mainView" width="750" height="1400"/>
         <image name="infinity" width="49" height="23"/>
         <image name="menu-icon" width="26" height="18"/>
         <image name="mid-btn" width="87" height="33"/>
@@ -1318,6 +1341,6 @@
         <image name="small_button" width="51" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="G0y-rC-kHV"/>
+        <segue reference="eAC-jV-lnS"/>
     </inferredMetricsTieBreakers>
 </document>
