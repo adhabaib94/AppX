@@ -1191,46 +1191,53 @@
                         <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background_menu" translatesAutoresizingMaskIntoConstraints="NO" id="TKT-Rg-CSG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Swipe Down To Call Us" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihf-7r-7Sz">
+                                <rect key="frame" x="107" y="25" width="200" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.74655181169509888" blue="0.7448543906211853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background_menu" translatesAutoresizingMaskIntoConstraints="NO" id="TKT-Rg-CSG">
                                 <rect key="frame" x="0.0" y="-66" width="415" height="738"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLN-j0-bKJ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uRe-jD-MKI">
-                                        <rect key="frame" x="0.0" y="-18" width="414" height="850"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRe-jD-MKI">
+                                        <rect key="frame" x="0.0" y="-1" width="414" height="832"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progress-review" translatesAutoresizingMaskIntoConstraints="NO" id="Y0n-JR-8jW">
-                                                <rect key="frame" x="0.0" y="1" width="416" height="224"/>
+                                                <rect key="frame" x="0.0" y="10" width="416" height="224"/>
                                                 <color key="backgroundColor" red="0.097172535955905914" green="0.12091294676065445" blue="0.15831455588340759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Y0n-JR-8jW" secondAttribute="height" multiplier="415:221" constant="-4.6334841628959111" id="8Yr-J8-2V0"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A Days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGP-oH-gTs">
-                                                <rect key="frame" x="10" y="213" width="60" height="21"/>
+                                                <rect key="frame" x="10" y="223" width="60" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
                                                 <color key="textColor" red="0.84313725490196079" green="0.82745098039215681" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pending Review" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X6d-ZB-Nsf">
-                                                <rect key="frame" x="146" y="213" width="150" height="21"/>
+                                                <rect key="frame" x="146" y="223" width="150" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
                                                 <color key="textColor" red="0.84313725490000002" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A Days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuN-kn-YvE">
-                                                <rect key="frame" x="354" y="213" width="54" height="21"/>
+                                                <rect key="frame" x="354" y="223" width="54" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
                                                 <color key="textColor" red="0.84313725490000002" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FbF-t8-oXx">
-                                                <rect key="frame" x="0.0" y="242" width="416" height="75"/>
+                                                <rect key="frame" x="0.0" y="257" width="416" height="75"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No appointment scheduled soon." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wV5-Ry-tea">
@@ -1259,19 +1266,117 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gU-xJ-ThD">
+                                                <rect key="frame" x="-1" y="347" width="416" height="338"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your assigned agent can update this information." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BAq-sH-lBk">
+                                                        <rect key="frame" x="81" y="35" width="308" height="24"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
+                                                        <color key="textColor" red="0.60763671880000003" green="0.60763671880000003" blue="0.60763671880000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Project Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofL-PE-2up">
+                                                        <rect key="frame" x="81" y="15" width="198" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
+                                                        <color key="textColor" red="0.16780760884284973" green="0.19162309169769287" blue="0.22490373253822327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="project_details_icon" translatesAutoresizingMaskIntoConstraints="NO" id="aKv-pj-GNr">
+                                                        <rect key="frame" x="23" y="19" width="39" height="33"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line" translatesAutoresizingMaskIntoConstraints="NO" id="ysE-Qx-z3L">
+                                                        <rect key="frame" x="23" y="74" width="366" height="11"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line" translatesAutoresizingMaskIntoConstraints="NO" id="gdU-7A-Vuw">
+                                                        <rect key="frame" x="23" y="109" width="366" height="11"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line" translatesAutoresizingMaskIntoConstraints="NO" id="nbW-4b-ChO">
+                                                        <rect key="frame" x="22" y="189" width="366" height="11"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V23-I4-jIE">
+                                                        <rect key="frame" x="23" y="84" width="97" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
+                                                        <color key="textColor" red="0.16780760884284973" green="0.19162309169769287" blue="0.22490373253822327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Product Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbE-lv-MW8">
+                                                        <rect key="frame" x="23" y="121" width="125" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
+                                                        <color key="textColor" red="0.16780760884284973" green="0.19162309169769287" blue="0.22490373253822327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqB-FT-GRv">
+                                                        <rect key="frame" x="200" y="84" width="180" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                        <color key="textColor" red="0.60763671880000003" green="0.60763671880000003" blue="0.60763671880000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQc-XD-GnF">
+                                                        <rect key="frame" x="23" y="140" width="567" height="51"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <string key="text">Your product’s brief concept summary and description to helpus develop it.</string>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                        <color key="textColor" red="0.60763671880000003" green="0.60763671880000003" blue="0.60763671880000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="line" translatesAutoresizingMaskIntoConstraints="NO" id="eQD-MF-zU7">
+                                                        <rect key="frame" x="22" y="257" width="366" height="11"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Product Platform" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KdJ-HE-U4o">
+                                                        <rect key="frame" x="23" y="204" width="125" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
+                                                        <color key="textColor" red="0.16780760884284973" green="0.19162309169769287" blue="0.22490373253822327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your desired platforms for your product" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6aa-d7-4bD">
+                                                        <rect key="frame" x="23" y="226" width="567" height="25"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                        <color key="textColor" red="0.60763671880000003" green="0.60763671880000003" blue="0.60763671880000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Product Features" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71R-Su-GcA">
+                                                        <rect key="frame" x="23" y="271" width="125" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="15"/>
+                                                        <color key="textColor" red="0.16780760884284973" green="0.19162309169769287" blue="0.22490373253822327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your selected features for your product" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vn7-xw-HzU">
+                                                        <rect key="frame" x="23" y="293" width="567" height="25"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
+                                                        <color key="textColor" red="0.60763671880000003" green="0.60763671880000003" blue="0.60763671880000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Y0n-JR-8jW" secondAttribute="trailing" constant="-1.6666666666666288" id="HuW-wd-gDf"/>
                                             <constraint firstItem="Y0n-JR-8jW" firstAttribute="leading" secondItem="uRe-jD-MKI" secondAttribute="leading" id="gHA-33-Y0U"/>
-                                            <constraint firstItem="Y0n-JR-8jW" firstAttribute="top" secondItem="uRe-jD-MKI" secondAttribute="top" constant="1" id="lD6-rA-Nda"/>
-                                            <constraint firstAttribute="bottom" secondItem="Y0n-JR-8jW" secondAttribute="bottom" constant="625" id="s4t-PH-qFy"/>
+                                            <constraint firstItem="Y0n-JR-8jW" firstAttribute="top" secondItem="uRe-jD-MKI" secondAttribute="top" constant="10" id="lD6-rA-Nda"/>
+                                            <constraint firstAttribute="bottom" secondItem="Y0n-JR-8jW" secondAttribute="bottom" constant="598" id="s4t-PH-qFy"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="uRe-jD-MKI" firstAttribute="top" secondItem="JLN-j0-bKJ" secondAttribute="top" constant="8" id="LyG-Vm-pFo"/>
-                                    <constraint firstAttribute="bottom" secondItem="uRe-jD-MKI" secondAttribute="bottom" constant="-186" id="RVQ-pw-2BL"/>
+                                    <constraint firstItem="uRe-jD-MKI" firstAttribute="top" secondItem="JLN-j0-bKJ" secondAttribute="top" constant="-1" id="LyG-Vm-pFo"/>
+                                    <constraint firstAttribute="bottom" secondItem="uRe-jD-MKI" secondAttribute="bottom" constant="-159" id="RVQ-pw-2BL"/>
                                     <constraint firstItem="uRe-jD-MKI" firstAttribute="leading" secondItem="JLN-j0-bKJ" secondAttribute="leading" constant="-0.5" id="S9h-DW-wtF"/>
                                     <constraint firstAttribute="trailing" secondItem="uRe-jD-MKI" secondAttribute="trailing" constant="0.5" id="yAQ-AM-zqR"/>
                                     <constraint firstItem="uRe-jD-MKI" firstAttribute="width" secondItem="JLN-j0-bKJ" secondAttribute="width" id="yCF-cY-rPc"/>
@@ -1283,7 +1388,7 @@
                                 </userDefinedRuntimeAttributes>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.74655181169509888" blue="0.7448543906211853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.098039215686274508" green="0.12156862745098039" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="JLN-j0-bKJ" firstAttribute="top" secondItem="13f-T4-0fO" secondAttribute="bottom" id="IqJ-lR-JeR"/>
                             <constraint firstAttribute="trailing" secondItem="JLN-j0-bKJ" secondAttribute="trailing" id="lMC-ho-Jv5"/>
@@ -1306,10 +1411,15 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="736"/>
                     <connections>
+                        <outlet property="appFeatures" destination="vn7-xw-HzU" id="ewS-xB-Yyd"/>
+                        <outlet property="appInfo" destination="WQc-XD-GnF" id="DI6-yu-VSw"/>
+                        <outlet property="appName" destination="aqB-FT-GRv" id="oqk-ph-HCc"/>
+                        <outlet property="appPlatform" destination="6aa-d7-4bD" id="TLS-lj-l9k"/>
                         <outlet property="appointmentLabel" destination="wV5-Ry-tea" id="r2o-KM-PX3"/>
                         <outlet property="appointmentView" destination="FbF-t8-oXx" id="n7X-HU-1Ft"/>
                         <outlet property="endLabel" destination="wuN-kn-YvE" id="mf8-TI-Y0J"/>
                         <outlet property="progressImageView" destination="Y0n-JR-8jW" id="GhP-aZ-vbY"/>
+                        <outlet property="projectDetailsView" destination="8gU-xJ-ThD" id="FjH-nM-0BG"/>
                         <outlet property="scrollView" destination="JLN-j0-bKJ" id="h0t-W6-9zS"/>
                         <outlet property="startLabel" destination="qGP-oH-gTs" id="Sgg-9V-SVI"/>
                         <outlet property="statusLabel" destination="X6d-ZB-Nsf" id="UHf-Ud-v03"/>
@@ -1386,10 +1496,12 @@
         <image name="create-account" width="43" height="43"/>
         <image name="create_account_bt" width="167" height="43"/>
         <image name="infinity" width="49" height="23"/>
+        <image name="line" width="1" height="1"/>
         <image name="menu-icon" width="26" height="18"/>
         <image name="mid-btn" width="87" height="33"/>
         <image name="mid-btn-2" width="87" height="33"/>
         <image name="progress-review" width="250" height="146"/>
+        <image name="project_details_icon" width="23" height="25"/>
         <image name="radio_box0" width="16" height="16"/>
         <image name="sign-in-icon" width="43" height="43"/>
         <image name="small_button" width="51" height="18"/>

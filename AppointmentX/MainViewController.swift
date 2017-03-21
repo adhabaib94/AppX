@@ -27,10 +27,17 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     
     // Upcoming Appointment
     @IBOutlet weak var appointmentView: UIView!
-    
     @IBOutlet weak var appointmentLabel: UILabel!
+   
+    // Project Details
+    @IBOutlet weak var projectDetailsView: UIView!
+    @IBOutlet weak var appName: UILabel!
+    @IBOutlet weak var appInfo: UILabel!
+    @IBOutlet weak var appFeatures: UILabel!
+    @IBOutlet weak var appPlatform: UILabel!
     
-    // FireBase Root Reference
+    
+     // FireBase Root Reference
     let rootRef = FIRDatabase.database().reference()
     
     override func viewDidLoad() {
@@ -51,6 +58,8 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         self.appointmentView.layer.borderWidth = 1
         self.appointmentView.layer.borderColor =  UIColor(red:215/255.0, green:214/255.0, blue:217/255.0, alpha: 0.5).cgColor
 
+        self.projectDetailsView.layer.borderWidth = 1
+        self.projectDetailsView.layer.borderColor =  UIColor(red:215/255.0, green:214/255.0, blue:217/255.0, alpha: 0.5).cgColor
         
         
         
@@ -174,7 +183,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             }
             
             
-            // Set PROGET PROGRESS
+            // Set PROJECT PROGRESS
             
             if(self.current_client.myCase.caseStatus == "Pending Review"){
                 self.progressImageView.image = UIImage(named: "progress-review")
@@ -186,6 +195,14 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
                 self.progressImageView.image = UIImage(named:"progress-publish")
             }
     
+            
+            // Set PROJECT Details
+            
+            self.appName.text = self.current_client.myCase.appName
+            self.appInfo.text = self.current_client.myCase.appDescription
+            self.appPlatform.text = self.current_client.myCase.platform
+            self.appFeatures.text = self.current_client.myCase.appFeatures
+            
             
        
             
@@ -200,11 +217,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
                 
                 let data = snapshot.value as? NSDictionary
                 
-                if(data == nil){
-                    self.appointmentLabel.text = "No appointment scheduled soon."
-                }
-                else{
-                    
+    
                     // Update Appoitnment Object
                     self.current_client.myCase.scheduler.myAppointment.date = data!["date"] as! String
                     self.current_client.myCase.scheduler.myAppointment.time = data!["time"] as! String
@@ -215,9 +228,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
                     self.current_client.myCase.scheduler.myAppointment.appointmentExists = true
                     
                     self.appointmentLabel.text = self.current_client.myCase.scheduler.myAppointment.info + " meeting at " + self.current_client.myCase.scheduler.myAppointment.date + " at " + self.current_client.myCase.scheduler.myAppointment.time
-                }
-                
-                
+
                 
             })
 
