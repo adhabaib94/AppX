@@ -1255,10 +1255,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="appt_icon" translatesAutoresizingMaskIntoConstraints="NO" id="mhc-id-aD5">
-                                                        <rect key="frame" x="23" y="19" width="39" height="33"/>
+                                                        <rect key="frame" x="22" y="19" width="39" height="33"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWd-Cv-79f">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWd-Cv-79f">
                                                         <rect key="frame" x="387" y="26" width="16" height="22"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <state key="normal" backgroundImage="appt_arrw"/>
@@ -1324,7 +1324,8 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQc-XD-GnF">
                                                         <rect key="frame" x="23" y="140" width="567" height="51"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <string key="text">Your product’s brief concept summary and description to helpus develop it.</string>
+                                                        <string key="text">Your product’s brief concept summary and description to help
+us develop it.</string>
                                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="14"/>
                                                         <color key="textColor" red="0.60763671880000003" green="0.60763671880000003" blue="0.60763671880000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>

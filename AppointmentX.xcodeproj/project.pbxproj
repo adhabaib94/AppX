@@ -43,6 +43,7 @@
 		1570F0931E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0811E428DAC00FF3968 /* FSCalendarTransitionCoordinator.m */; };
 		1570F0941E428DAC00FF3968 /* FSCalendarWeekdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1570F0831E428DAC00FF3968 /* FSCalendarWeekdayView.m */; };
 		1570F0951E428DAC00FF3968 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1570F0841E428DAC00FF3968 /* Info.plist */; };
+		1575B9E61E81AEC900153057 /* SendBirdChannelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1575B9E51E81AEC900153057 /* SendBirdChannelManager.swift */; };
 		158FA6EF1E4C7E3D002D2307 /* Raleway-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6DD1E4C7E3D002D2307 /* Raleway-ThinItalic.ttf */; };
 		158FA6F01E4C7E3D002D2307 /* Raleway-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6DE1E4C7E3D002D2307 /* Raleway-Thin.ttf */; };
 		158FA6F11E4C7E3D002D2307 /* Raleway-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158FA6DF1E4C7E3D002D2307 /* Raleway-SemiBoldItalic.ttf */; };
@@ -179,6 +180,7 @@
 		1570F0841E428DAC00FF3968 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1570F0961E428DD400FF3968 /* Objc-Bridge-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Objc-Bridge-Header.h"; path = "../../../Downloads/FSCalendar-master/Example-Swift/SwiftExample/Objc-Bridge-Header.h"; sourceTree = "<group>"; };
 		1570F0991E42954900FF3968 /* Objective-C-Header_Calender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Objective-C-Header_Calender.h"; sourceTree = "<group>"; };
+		1575B9E51E81AEC900153057 /* SendBirdChannelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendBirdChannelManager.swift; sourceTree = "<group>"; };
 		158FA6DD1E4C7E3D002D2307 /* Raleway-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ThinItalic.ttf"; sourceTree = "<group>"; };
 		158FA6DE1E4C7E3D002D2307 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Thin.ttf"; sourceTree = "<group>"; };
 		158FA6DF1E4C7E3D002D2307 /* Raleway-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				1570F05C1E40C8C100FF3968 /* Case.swift */,
 				1570F05E1E40D77200FF3968 /* Appointment.swift */,
 				1570F0601E40DD8A00FF3968 /* Scheduler.swift */,
+				1575B9E51E81AEC900153057 /* SendBirdChannelManager.swift */,
 			);
 			name = "Model Classes";
 			sourceTree = "<group>";
@@ -723,6 +726,7 @@
 				1570F0891E428DAC00FF3968 /* FSCalendarCell.m in Sources */,
 				15D5A8D11E6EB64B0083B974 /* RootViewController.swift in Sources */,
 				155074BA1E3F817A00F3A6A4 /* SystemViewController.swift in Sources */,
+				1575B9E61E81AEC900153057 /* SendBirdChannelManager.swift in Sources */,
 				154EB19F1E49E4350098F549 /* DisplayLogoController.swift in Sources */,
 				1570F05D1E40C8C100FF3968 /* Case.swift in Sources */,
 				15BB6DB71E53491F00E97619 /* CreateAccountController.swift in Sources */,
