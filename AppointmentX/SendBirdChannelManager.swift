@@ -54,6 +54,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     let LOAD_COLLECTION_VIEW = "LOAD_COLL"
     let TYPING_SHOW = "IS_TYPING"
     let TYPING_HIDE = "NT_TYPING"
+    let SHOW_BANNER = "SHOW_BANNER"
+
     
     
     // Setup Manager
@@ -413,6 +415,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
         if(!self.in_chat_controller){
             self.unread_messages = self.unread_messages + 1
             print("SendBirdChannelManager: Banner Messages \(self.unread_messages)\n")
+            NotificationCenter.default.post(name: Notification.Name(self.SHOW_BANNER), object: nil)
         }
    
         self.last_message_received = message.createdAt
@@ -471,8 +474,9 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
             }
             else{
                 
-                if(!self.in_chat_controller){
+                if(!self.in_chat_controller && msgs?.count != 0){
                     self.unread_messages += (msgs?.count)!
+                    NotificationCenter.default.post(name: Notification.Name(self.SHOW_BANNER), object: nil)
                     print("SendBirdChannelManager: Banner \(self.unread_messages)\n")
                 }
                 

@@ -77,6 +77,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         self.mainViewController.chatManager.in_chat_controller = true
         self.mainViewController.chatManager.unread_messages = 0
+        self.mainViewController.hideMessageBanner()
         
         
     

@@ -38,6 +38,12 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var appPlatform: UILabel!
     
     
+    // Message Banner
+    
+    var rightView: UIView!
+    var bannerView : UIImageView!
+    var bannerLabel: UILabel!
+    
      // FireBase Root Reference
     let rootRef = FIRDatabase.database().reference()
     
@@ -45,7 +51,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     // Sendbird Channel Manager
     
     var chatManager = SendBirdChannelManager()
-    
+    let SHOW_BANNER = "SHOW_BANNER"
     
     override func viewDidLoad() {
         
@@ -74,7 +80,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
             
         }
         
-
+        
         
         // Setup Basic UI Elements
         self.addLogoToNavigationBar()
@@ -94,7 +100,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.showInbox), name: Notification.Name("chatViewController"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.logOut), name: Notification.Name("logOut"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.showMessageBanner), name: Notification.Name(self.SHOW_BANNER), object: nil)
    
         
         
@@ -291,13 +297,57 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func setupMessageBarButton(){
+        
+        rightView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        
+        bannerView = UIImageView(frame: CGRect(x: 25, y: 15, width: 20, height: 20))
+        bannerView.image = UIImage(named:"banner_icon")
+        bannerView.isHidden = true
+        
+        bannerLabel = UILabel(frame: CGRect(x: 30, y: 20, width: 10, height: 10))
+        
+        bannerLabel.text = "0"
+        bannerLabel.font = UIFont(name: "Source Sans Pro", size: 11)
+        bannerLabel.textColor = UIColor.white
+        bannerLabel.textAlignment = .center
+        bannerLabel.isHidden = true
+        
+        
+        
         let btn1 = UIButton(type: .custom)
         btn1.setImage(UIImage(named: "inbox_icon_bar"), for: .normal)
-        btn1.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        btn1.frame = CGRect(x: 10, y: 0, width: 30, height: 30)
         btn1.addTarget(self, action: #selector(MainViewController.showInbox), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: btn1)
+        
+        rightView.addSubview(btn1)
+        rightView.addSubview(bannerView)
+        rightView.addSubview(bannerLabel)
+        
+        let item1 = UIBarButtonItem(customView: rightView)
         self.navigationItem.setRightBarButton(item1, animated: true)
     }
+    
+    
+    func showMessageBanner(){
+        DispatchQueue.main.async {
+        if(self.chatManager.unread_messages > 99){
+            self.bannerLabel.text = ".."
+        }
+        self.bannerLabel.text = String(self.chatManager.unread_messages)
+        self.bannerLabel.isHidden = false
+        self.bannerView.isHidden = false
+        }
+    }
+    
+    func hideMessageBanner(){
+         DispatchQueue.main.async {
+        
+        self.bannerLabel.isHidden = true
+        self.bannerView.isHidden = true
+        }
+        
+    }
+    
     
     func setupRefreshControl(){
 
