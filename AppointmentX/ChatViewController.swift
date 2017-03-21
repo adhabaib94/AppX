@@ -28,9 +28,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     var activityIndicator = UIActivityIndicatorView()
     
     
-    // Sendbird Channel Manager
+    // MainViewController 
     
-    var chatManager = SendBirdChannelManager()
+    var mainViewController : MainViewController!
     
     
     // Notification
@@ -69,7 +69,16 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
          self.navigationItem.hidesBackButton = true;
         
-        self.chatManager.setupManager(senderId: self.senderId, senderDisplayName: self.senderDisplayName )
+        
+        if(!self.mainViewController.chatManager.connection_established){
+            self.showActivityView()
+            self.mainViewController.chatManager.setupManager(senderId: self.senderId, senderDisplayName: self.senderDisplayName )
+        }
+        
+        self.mainViewController.chatManager.in_chat_controller = true
+        self.mainViewController.chatManager.unread_messages = 0
+        
+        
     
         NotificationCenter.default.addObserver(self, selector: #selector(self.showActivityView), name: Notification.Name(self.SHOW_LOADING_VIEW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.hideActivityView), name: Notification.Name(self.HIDE_LOADING_VIEW), object: nil)
@@ -138,7 +147,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         super.viewDidAppear(animated)
         
         // Initalize UIActivity Indicator
-        self.showActivityView()
+        //self.showActivityView()
        
         
     }
@@ -163,6 +172,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         self.hideActivityView()
         
+        self.mainViewController.chatManager.in_chat_controller = false
+        self.mainViewController.chatManager.unread_messages = 0
+        
+        
         //self.navigationController?.dismiss(animated: true, completion: nil)
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -175,7 +188,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.chatManager.messages.count;
+        return self.mainViewController.chatManager.messages.count;
     }
     
     
@@ -185,9 +198,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func collectionView(_ collectionView: JSQMessagesCollectionView, attributedTextForCellTopLabelAt indexPath: IndexPath) -> NSAttributedString? {
         
         if (indexPath.item % 2 == 0 || indexPath.item == 0) {
-            _ =  self.chatManager.messages[indexPath.item]
+            _ =  self.mainViewController.chatManager.messages[indexPath.item]
             
-            return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for:  self.chatManager.messages[indexPath.item].date)
+            return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for:  self.mainViewController.chatManager.messages[indexPath.item].date)
         }
         
         return nil
@@ -219,7 +232,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         
-        let message =  self.chatManager.messages[indexPath.item];
+        let message =  self.mainViewController.chatManager.messages[indexPath.item];
         
         if message.senderId == self.senderId {
             return 0
@@ -235,7 +248,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         
-        let message =  self.chatManager.messages[indexPath.item]
+        let message =  self.mainViewController.chatManager.messages[indexPath.item]
         
         
         if message.senderId == self.senderId {
@@ -252,7 +265,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
-        let message =  self.chatManager.messages[indexPath.item];
+        let message =  self.mainViewController.chatManager.messages[indexPath.item];
         
         if message.senderId == self.senderId {
             cell.textView.textColor = UIColor.white
@@ -271,7 +284,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         
         let bubbleFactory = JSQMessagesBubbleImageFactory();
-        let message =  self.chatManager.messages[indexPath.item];
+        let message =  self.mainViewController.chatManager.messages[indexPath.item];
         
         if message.senderId == self.senderId {
             return bubbleFactory?.outgoingMessagesBubbleImage(with:UIColor.init(red: 6.0/255.0, green: 190.0/255.0, blue: 189.0/255.0, alpha: 1));
@@ -287,7 +300,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt
         indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         
-        let message =  self.chatManager.messages[indexPath.item];
+        let message =  self.mainViewController.chatManager.messages[indexPath.item];
         
         if message.senderId == self.senderId {
             return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "profile-pic-2"), diameter: 30);
@@ -304,7 +317,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      *  Returns each message for each bubble
      */
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
-        return  self.chatManager.messages[indexPath.item]
+        return  self.mainViewController.chatManager.messages[indexPath.item]
     }
     
     
@@ -319,13 +332,13 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         
         // Append new message in message queue
-         self.chatManager.messages.append(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date , text: text))
+         self.mainViewController.chatManager.messages.append(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date , text: text))
         
         // Save to CoreDatata
-         self.chatManager.save(senderId: self.senderId ,senderDisplayName: self.senderDisplayName,content: text, date: date, createdAt: -1 , messageSent: true)
+         self.mainViewController.chatManager.save(senderId: self.senderId ,senderDisplayName: self.senderDisplayName,content: text, date: date, createdAt: -1 , messageSent: true)
         
         // Send Message Through Sendbird
-         self.chatManager.current_channel.sendUserMessage(text) { (userMessage, error) in
+         self.mainViewController.chatManager.current_channel.sendUserMessage(text) { (userMessage, error) in
             print("Messege Sent")
         }
         
@@ -346,12 +359,12 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         super.textViewDidChange(textView)
         // If the text is not empty, the user is typing
         
-        if( self.chatManager.connection_established){
+        if( self.mainViewController.chatManager.connection_established){
             if(textView.text != "" ){
-                 self.chatManager.current_channel.startTyping()
+                 self.mainViewController.chatManager.current_channel.startTyping()
             }
             else{
-                 self.chatManager.current_channel.endTyping()
+                 self.mainViewController.chatManager.current_channel.endTyping()
             }
         }
     }
@@ -360,8 +373,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func textViewDidEndEditing(_ textView: UITextView) {
         super.textViewDidEndEditing(textView)
         
-        if( self.chatManager.connection_established){
-             self.chatManager.current_channel.endTyping()
+        if( self.mainViewController.chatManager.connection_established){
+             self.mainViewController.chatManager.current_channel.endTyping()
         }
     }
     
@@ -410,7 +423,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 }
             }
             
-             self.chatManager.messages.removeAll()
+             self.mainViewController.chatManager.messages.removeAll()
             self.finishReceivingMessage()
         }
         
@@ -459,7 +472,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         var createdAtDates = [Int64]()
         
-        for msg in self.chatManager.stored_messages {
+        for msg in self.mainViewController.chatManager.stored_messages {
             
             
             print("SenderDisplayName: " + String(describing: msg.value(forKey: "senderDisplayName")!) + "\n")
@@ -467,7 +480,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             print("\tContent: " + String(describing: msg.value(forKey: "content")!) + "\n\n")
             print("\tContent: " + String(describing: msg.value(forKey: "date")! as! Date) + "\n\n")
             
-            self.chatManager.messages.append(JSQMessage(senderId: String(describing: msg.value(forKey: "senderId")!), senderDisplayName: String(describing: msg.value(forKey: "senderDisplayName")!) , date:( msg.value(forKey: "date")! as! Date) , text: String(describing: msg.value(forKey: "content")!)));
+            self.mainViewController.chatManager.messages.append(JSQMessage(senderId: String(describing: msg.value(forKey: "senderId")!), senderDisplayName: String(describing: msg.value(forKey: "senderDisplayName")!) , date:( msg.value(forKey: "date")! as! Date) , text: String(describing: msg.value(forKey: "content")!)));
             
             let current_date = msg.value(forKey: "createdAt") as! Int64
             let sender = String(describing: msg.value(forKey: "senderId")!)
@@ -486,14 +499,14 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         
         if(createdAtDates.count > 0){
-            self.chatManager.last_message_received = createdAtDates[createdAtDates.count - 1]
+            self.mainViewController.chatManager.last_message_received = createdAtDates[createdAtDates.count - 1]
         }
         else{
-            self.chatManager.last_message_received = 0
+            self.mainViewController.chatManager.last_message_received = 0
         }
         
         // Connect To SendBird Server
-        self.chatManager.loaded_messages = true
+        self.mainViewController.chatManager.loaded_messages = true
         
     }
     

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
+import SendBirdSDK
 
 
 class MainViewController: UIViewController, UIScrollViewDelegate {
@@ -40,15 +41,40 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
      // FireBase Root Reference
     let rootRef = FIRDatabase.database().reference()
     
+
+    // Sendbird Channel Manager
+    
+    var chatManager = SendBirdChannelManager()
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+    
+        
         
         // Receieved Client Data Notification
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUIToReflectClientCase), name: Notification.Name("ROOT"), object: nil)
         
         
         self.sideMenuViewController?.hideMenuViewController()
+        
+        
+        
+        // (BETA) Initialize User/ Display Name
+        if #available(iOS 10.0, *) {
+            
+            self.chatManager.setupManager(senderId: "user00", senderDisplayName: "Yousef")
+          
+        }
+            
+        else{
+             self.chatManager.setupManager(senderId: "root", senderDisplayName: "Abdullah")
+            
+        }
+        
+
         
         // Setup Basic UI Elements
         self.addLogoToNavigationBar()
@@ -305,10 +331,7 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-    }
-    
+  
     
     // Add Logo To MainViewController Navbar
     func addLogoToNavigationBar(){
@@ -328,7 +351,22 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     
+    // Segue Data Passing
+    
+    
+    override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        if(segue.identifier == "chatViewController"){
+            let destinationVC = segue.destination as! ChatViewController
+            destinationVC.mainViewController = self
+            
+        }
+        
+        
+    }
+
+    
+
     
 
 }

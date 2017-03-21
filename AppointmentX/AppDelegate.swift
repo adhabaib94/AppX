@@ -58,9 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
          if status == SBDPushTokenRegistrationStatus.pending {
          // Registration is pending.
          print("Pending Registeration")
-         SBDMain.registerDevicePushToken(SBDMain.getPendingPushToken()!, completionHandler: { (status, error) in
-            print("Registeration Suceeded")
-         })
+       //  SBDMain.registerDevicePushToken(SBDMain.getPendingPushToken()!, completionHandler: { (status, error) in
+         //   print("Registeration Suceeded")
+      //   })
          
          }
          else {
@@ -73,6 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
          print("Registeration Failed")
          }
          }
+ 
         
     }
     

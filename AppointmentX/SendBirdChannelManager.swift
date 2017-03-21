@@ -25,10 +25,15 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     var last_cell = IndexPath()
     
     
+
     // SendBird Required Variables
     var connection_established = false
     
     var current_channel:SBDGroupChannel = SBDGroupChannel()
+    
+    var unread_messages = 0
+    
+    var in_chat_controller = false
     
     // CoreData Variable
     
@@ -402,6 +407,14 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
         
+        
+        // Update MainViewController Banner
+        
+        if(!self.in_chat_controller){
+            self.unread_messages = self.unread_messages + 1
+            print("SendBirdChannelManager: Banner Messages \(self.unread_messages)\n")
+        }
+   
         self.last_message_received = message.createdAt
         
         let user_msg = (message as! SBDUserMessage)
@@ -458,6 +471,10 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
             }
             else{
                 
+                if(!self.in_chat_controller){
+                    self.unread_messages += (msgs?.count)!
+                    print("SendBirdChannelManager: Banner \(self.unread_messages)\n")
+                }
                 
                 for m in msgs! {
                     let user_msg = (m as! SBDUserMessage)
@@ -477,6 +494,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                     
                     self.last_message_received = (msgs?[((msgs?.count)!-1)].createdAt)!
                     self.current_channel.markAsRead()
+                    
                     
                 }
                 
