@@ -81,9 +81,11 @@ class SignInViewController: UIViewController,  UITextFieldDelegate, CAAnimationD
                 self.save(client_email: self.current_client.email, client_pass: self.current_client.password)
                 self.performSegue(withIdentifier: "rootViewController-old", sender: nil)
             }
+            
             else{
                 self.current_client.myCase.createCase(caseStatus: "Pending Review", platform: "N/A", appName: "N/A", appDescription: "N/A", appFeatures: "N/A", deadline: "N/A", clientID: self.current_client.clientID)
             }
+            
             
         }
         else if(notification_type == self.CLIENT_AUTH_FAILED){

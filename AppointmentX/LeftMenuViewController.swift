@@ -48,12 +48,25 @@ public class LeftMenuViewController: UIViewController, UITableViewDelegate, UITa
                     // POST NOTIFICATION FOR COMPLETION
                     NotificationCenter.default.post(name: Notification.Name("chatViewController"), object: nil)
                 }
+        case 4:
+            
+            self.sideMenuViewController!.hideMenuViewController()
+            self.perform( #selector(LeftMenuViewController.logOut), with: nil, afterDelay: 1.0)
+         
+           
+          
 
         default:
             break
         }
     }
 
+    
+    func logOut(){
+        self.sideMenuViewController?.backgroundImageView?.alpha = 0
+          NotificationCenter.default.post(name: Notification.Name("logOut"), object: nil)
+    }
+    
     // MARK: - <UITableViewDataSource>
   
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

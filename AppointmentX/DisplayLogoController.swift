@@ -25,12 +25,14 @@ import CoreData
 class DisplayLogoController: UIViewController, CAAnimationDelegate{
     @IBOutlet weak var imageView: UIImageView!
 
-
+  
+    
     var logo = UIImage.gif(name: "logo")
     
     // Core Data Variables
     var skip_sign_in = false
     var client_data: [NSManagedObject] = []
+    var didLogOut = false
     
     // Client Manager Status Fields/Notications
     let CLIENT_AUTH = "AUTH_COMPLETE"
@@ -46,20 +48,45 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
         
         self.fetchClientDataFromCoreData()
         
-        // Client Manager Notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_AUTH), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_AUTH_FAILED), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
-    
+        self.addObservers()
+        
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
-        self.perform(#selector(self.setup), with: nil, afterDelay: 0.5 )
+       self.addObservers()
+        if(!self.didLogOut){
+            self.perform(#selector(self.setup), with: nil, afterDelay: 0.5 )
+            self.didLogOut = true
+        }
+        else{
+            self.performSegue(withIdentifier: "create-account", sender: nil)
+        }
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.removeObservers()
     }
     
     
+    func addObservers(){
+        // Client Manager Notification
+        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_AUTH), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_AUTH_FAILED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.signedInNotification), name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
+
+    }
+    
+    func removeObservers(){
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: self.CLIENT_AUTH), object: nil);
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: self.CLIENT_AUTH_FAILED), object: nil);
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: self.CLIENT_DATA_RETREIVED), object: nil);
+    }
+    
+ 
     func setup(){
+        
         
         DispatchQueue.main.async {
             
@@ -128,7 +155,7 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
             self.imageView.alpha = 0
             
         }) { (Bool) in
-            
+             self.imageView.image = nil
             if(self.client_data.isEmpty || self.client_data.count > 1){
                 self.performSegue(withIdentifier: "create-account", sender: nil)
             }
@@ -188,14 +215,19 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
                 //3
                 do {
                     self.client_data = try managedContext.fetch(fetchRequest)
-                    let email = String(describing: self.client_data[0].value(forKey: "email")!)
-                    let pass = String(describing: self.client_data[0].value(forKey: "password")!)
                     
-                    self.current_client.authenticateExistingClient(email: email, password: pass)
+                    if(!self.client_data.isEmpty){
+                        let email = String(describing: self.client_data[0].value(forKey: "email")!)
+                        let pass = String(describing: self.client_data[0].value(forKey: "password")!)
+                        
+                        self.current_client.authenticateExistingClient(email: email, password: pass)
+                        
+                        print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
+                        
+
+                    }
                     
-                    print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
-                    
-                } catch let error as NSError {
+                    } catch let error as NSError {
                     print("Could not fetch. \(error), \(error.userInfo)")
                 }
                 
@@ -209,12 +241,18 @@ class DisplayLogoController: UIViewController, CAAnimationDelegate{
                     let results =
                         try managedContext.fetch(fetchRequest)
                     self.client_data = results as! [NSManagedObject]
-                    let email = String(describing: self.client_data[0].value(forKey: "email")!)
-                    let pass = String(describing: self.client_data[0].value(forKey: "password")!)
                     
-                    self.current_client.authenticateExistingClient(email: email, password: pass)
-                    
-                    print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
+                    if(!self.client_data.isEmpty){
+                        let email = String(describing: self.client_data[0].value(forKey: "email")!)
+                        let pass = String(describing: self.client_data[0].value(forKey: "password")!)
+                        
+                        self.current_client.authenticateExistingClient(email: email, password: pass)
+                        
+                        print("$DisplayLogoViewController: Found Client Data " + email  + ", " + pass + "\n")
+                        
+                        
+                    }
+
 
                 } catch let error as NSError {
                     print("Could not fetch \(error), \(error.userInfo)")

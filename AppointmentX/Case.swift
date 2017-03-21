@@ -21,6 +21,9 @@ class Case: NSObject {
     var appFeatures: String = ""
     var deadline: String = ""
     var clientID: String = ""
+    var track : String = ""
+    var start : String = ""
+    var end: String = ""
     
     // Case Manager Notfication Variables
 
@@ -48,6 +51,13 @@ class Case: NSObject {
         let ref =  FIRDatabase.database().reference()
         let newCaseRef = ref.child("Cases").childByAutoId()
         self.caseID = newCaseRef.key
+        
+        // Set Default Values
+        self.start = "N/A"
+        self.end = "N/A"
+        self.track = "Pending Consultation"
+        
+        
         let newCaseData = [
             "caseID" : newCaseRef.key,
             "caseStatus": caseStatus,
@@ -56,6 +66,9 @@ class Case: NSObject {
             "appDescription": appDescription,
             "appFeatures": appFeatures,
             "deadline": deadline,
+            "start" : start,
+            "end": end,
+            "track": track,
             "clientID" : clientID]
         
         newCaseRef.setValue(newCaseData,withCompletionBlock:   { (NSError, FIRDatabaseReference) in
@@ -85,7 +98,7 @@ class Case: NSObject {
             }
             
             DispatchQueue.main.async {
-                NotificationCenter.default.post(name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
+               NotificationCenter.default.post(name: Notification.Name(self.CLIENT_DATA_RETREIVED), object: nil)
             }
             
             
@@ -107,14 +120,17 @@ class Case: NSObject {
         
 
         ref.updateChildValues([
-                "caseID" : self.caseID,
-                "caseStatus": self.caseStatus,
-                "platform": self.platform,
-                "appName": self.appName,
-                "appDescription": self.appDescription,
-                "appFeatures": self.appFeatures,
-                "deadline": self.deadline,
-                "clientID" : self.clientID], withCompletionBlock: { (NSError, FIRDatabaseReference) in //update the book in the db
+                "caseID" : caseID,
+                "caseStatus": caseStatus,
+                "platform": platform,
+                "appName": appName,
+                "appDescription": appDescription,
+                "appFeatures": appFeatures,
+                "deadline": deadline,
+                "start" : start,
+                "end": end,
+                "track": track,
+                "clientID" : clientID], withCompletionBlock: { (NSError, FIRDatabaseReference) in //update the book in the db
              
                
                     // POST NOTIFICATION FOR COMPLETION
@@ -153,6 +169,9 @@ class Case: NSObject {
             self.deadline = ""
             self.clientID = ""
             self.caseExists = false
+            self.track = ""
+            self.start = ""
+            self.end = ""
             
             self.scheduler.cancelScheduledAppointment()
             
@@ -211,6 +230,9 @@ class Case: NSObject {
                 self.platform = caseData!["platform"] as! String
                 self.caseStatus = caseData!["caseStatus"] as! String
                 self.deadline = caseData!["deadline"] as! String
+                self.start = caseData!["start"] as! String
+                self.end = caseData!["end"] as! String
+                self.track = caseData!["track"] as! String
                 self.caseExists = true
                 
                 print("\t*** CaseManager: Case Object Initialized***\n")

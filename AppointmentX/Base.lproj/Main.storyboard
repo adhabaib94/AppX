@@ -260,7 +260,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ulo-Yy-Joq">
-                                <rect key="frame" x="158.33333333333331" y="340.33333333333326" width="98.999999999999943" height="56.666666666666686"/>
+                                <rect key="frame" x="158" y="340" width="99" height="57"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="45"/>
                                 <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1198,20 +1198,67 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JLN-j0-bKJ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRe-jD-MKI">
-                                        <rect key="frame" x="-1" y="8" width="414" height="850"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uRe-jD-MKI">
+                                        <rect key="frame" x="0.0" y="-18" width="414" height="850"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProgressReviewDisplay" translatesAutoresizingMaskIntoConstraints="NO" id="Y0n-JR-8jW">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progress-review" translatesAutoresizingMaskIntoConstraints="NO" id="Y0n-JR-8jW">
                                                 <rect key="frame" x="0.0" y="1" width="416" height="224"/>
                                                 <color key="backgroundColor" red="0.097172535955905914" green="0.12091294676065445" blue="0.15831455588340759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Y0n-JR-8jW" secondAttribute="height" multiplier="415:221" constant="-4.6334841628959111" id="8Yr-J8-2V0"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MainViewController_Content" translatesAutoresizingMaskIntoConstraints="NO" id="7na-uH-qap">
-                                                <rect key="frame" x="0.0" y="-86" width="416" height="786"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A Days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGP-oH-gTs">
+                                                <rect key="frame" x="10" y="213" width="60" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
+                                                <color key="textColor" red="0.84313725490196079" green="0.82745098039215681" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pending Review" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X6d-ZB-Nsf">
+                                                <rect key="frame" x="146" y="213" width="150" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
+                                                <color key="textColor" red="0.84313725490000002" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="N/A Days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuN-kn-YvE">
+                                                <rect key="frame" x="354" y="213" width="54" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
+                                                <color key="textColor" red="0.84313725490000002" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FbF-t8-oXx">
+                                                <rect key="frame" x="0.0" y="242" width="416" height="75"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No appointment scheduled soon." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wV5-Ry-tea">
+                                                        <rect key="frame" x="82" y="37" width="276" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="13"/>
+                                                        <color key="textColor" red="0.60763671875000003" green="0.60763671875000003" blue="0.60763671875000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Upcoming Appointment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3zj-bI-QxF">
+                                                        <rect key="frame" x="81" y="15" width="198" height="21"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="Raleway-Regular" family="Raleway" pointSize="17"/>
+                                                        <color key="textColor" red="0.16780760884284973" green="0.19162309169769287" blue="0.22490373253822327" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="appt_icon" translatesAutoresizingMaskIntoConstraints="NO" id="mhc-id-aD5">
+                                                        <rect key="frame" x="23" y="19" width="39" height="33"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWd-Cv-79f">
+                                                        <rect key="frame" x="387" y="26" width="16" height="22"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" backgroundImage="appt_arrw"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.9370916485786438" green="0.93694382905960083" blue="0.95754462480545044" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -1259,7 +1306,13 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="736"/>
                     <connections>
+                        <outlet property="appointmentLabel" destination="wV5-Ry-tea" id="r2o-KM-PX3"/>
+                        <outlet property="appointmentView" destination="FbF-t8-oXx" id="n7X-HU-1Ft"/>
+                        <outlet property="endLabel" destination="wuN-kn-YvE" id="mf8-TI-Y0J"/>
+                        <outlet property="progressImageView" destination="Y0n-JR-8jW" id="GhP-aZ-vbY"/>
                         <outlet property="scrollView" destination="JLN-j0-bKJ" id="h0t-W6-9zS"/>
+                        <outlet property="startLabel" destination="qGP-oH-gTs" id="Sgg-9V-SVI"/>
+                        <outlet property="statusLabel" destination="X6d-ZB-Nsf" id="UHf-Ud-v03"/>
                         <segue destination="J3C-zc-sam" kind="show" identifier="chatViewController" id="ncO-Kp-ISF"/>
                     </connections>
                 </viewController>
@@ -1323,9 +1376,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MainViewController_Content" width="375" height="579"/>
-        <image name="ProgressReviewDisplay" width="250" height="146"/>
         <image name="appointment_icon" width="43" height="43"/>
+        <image name="appt_arrw" width="9" height="15"/>
+        <image name="appt_icon" width="23" height="24"/>
         <image name="background_menu" width="414" height="736"/>
         <image name="bulb_bk" width="130" height="130"/>
         <image name="bulb_front" width="130" height="130"/>
@@ -1336,6 +1389,7 @@
         <image name="menu-icon" width="26" height="18"/>
         <image name="mid-btn" width="87" height="33"/>
         <image name="mid-btn-2" width="87" height="33"/>
+        <image name="progress-review" width="250" height="146"/>
         <image name="radio_box0" width="16" height="16"/>
         <image name="sign-in-icon" width="43" height="43"/>
         <image name="small_button" width="51" height="18"/>
