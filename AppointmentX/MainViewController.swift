@@ -194,32 +194,39 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
         
         // Upcoming Appointment UI Update
         
-        let apptRef = rootRef.child("Appointments").child(self.current_client.myCase.scheduler.myAppointment.appointmentID)
-        apptRef.observe(.value, with: { (snapshot) in
-            
-            let data = snapshot.value as? NSDictionary
-            
-            if(data == nil){
-                self.appointmentLabel.text = "No appointment scheduled soon."
-            }
-            else{
-            
-                // Update Appoitnment Object
-                self.current_client.myCase.scheduler.myAppointment.date = data!["date"] as! String
-                self.current_client.myCase.scheduler.myAppointment.time = data!["time"] as! String
-                self.current_client.myCase.scheduler.myAppointment.info = data!["info"] as! String
-                self.current_client.myCase.scheduler.myAppointment.slot = data!["slot"] as! String
-                self.current_client.myCase.scheduler.myAppointment.caseID = data!["caseID"] as! String
-                self.current_client.myCase.scheduler.myAppointment.clientID = data!["clientID"] as! String
-                self.current_client.myCase.scheduler.myAppointment.appointmentExists = true
+        if(self.current_client.myCase.scheduler.myAppointment.appointmentExists){
+            let apptRef = rootRef.child("Appointments").child(self.current_client.myCase.scheduler.myAppointment.appointmentID)
+            apptRef.observe(.value, with: { (snapshot) in
                 
-                self.appointmentLabel.text = self.current_client.myCase.scheduler.myAppointment.info + " meeting at " + self.current_client.myCase.scheduler.myAppointment.date + " at " + self.current_client.myCase.scheduler.myAppointment.time
-            }
+                let data = snapshot.value as? NSDictionary
+                
+                if(data == nil){
+                    self.appointmentLabel.text = "No appointment scheduled soon."
+                }
+                else{
+                    
+                    // Update Appoitnment Object
+                    self.current_client.myCase.scheduler.myAppointment.date = data!["date"] as! String
+                    self.current_client.myCase.scheduler.myAppointment.time = data!["time"] as! String
+                    self.current_client.myCase.scheduler.myAppointment.info = data!["info"] as! String
+                    self.current_client.myCase.scheduler.myAppointment.slot = data!["slot"] as! String
+                    self.current_client.myCase.scheduler.myAppointment.caseID = data!["caseID"] as! String
+                    self.current_client.myCase.scheduler.myAppointment.clientID = data!["clientID"] as! String
+                    self.current_client.myCase.scheduler.myAppointment.appointmentExists = true
+                    
+                    self.appointmentLabel.text = self.current_client.myCase.scheduler.myAppointment.info + " meeting at " + self.current_client.myCase.scheduler.myAppointment.date + " at " + self.current_client.myCase.scheduler.myAppointment.time
+                }
+                
+                
+                
+            })
 
-            
-            
-        })
-
+        }
+        else{
+            self.appointmentLabel.text = "No appointment scheduled soon."
+        }
+        
+       
         
     }
     
