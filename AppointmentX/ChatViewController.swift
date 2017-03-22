@@ -69,11 +69,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
          self.navigationItem.hidesBackButton = true;
         
-        
-        if(!self.mainViewController.chatManager.connection_established){
-            self.showActivityView()
-            self.mainViewController.chatManager.setupManager(senderId: self.senderId, senderDisplayName: self.senderDisplayName )
-        }
+ 
         
         self.mainViewController.chatManager.in_chat_controller = true
         self.mainViewController.chatManager.unread_messages = 0
@@ -147,8 +143,16 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        // Initalize UIActivity Indicator
-        //self.showActivityView()
+        
+        if(!self.mainViewController.chatManager.connection_established){
+            self.showActivityView()
+            self.mainViewController.chatManager.setupManager(senderId: self.senderId, senderDisplayName: self.senderDisplayName )
+        }
+        else{
+            self.loadStoredMessagesIntoUICollectionView()
+           
+        }
+        
        
         
     }
@@ -198,7 +202,15 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     override func collectionView(_ collectionView: JSQMessagesCollectionView, attributedTextForCellTopLabelAt indexPath: IndexPath) -> NSAttributedString? {
         
-        if (indexPath.item % 2 == 0 || indexPath.item == 0) {
+        
+        let current =  self.mainViewController.chatManager.messages[indexPath.item].senderId
+        var  prev = "NULL"
+        
+        if(indexPath.item > 0 ){
+            prev =  self.mainViewController.chatManager.messages[indexPath.item - 1].senderId
+        }
+        
+        if (current != prev) {
             _ =  self.mainViewController.chatManager.messages[indexPath.item]
             
             return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for:  self.mainViewController.chatManager.messages[indexPath.item].date)
@@ -220,8 +232,14 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      * Returns the top height for each cell
      */
     override func collectionView(_ collectionView: JSQMessagesCollectionView, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout, heightForCellTopLabelAt indexPath: IndexPath) -> CGFloat {
+        let current =  self.mainViewController.chatManager.messages[indexPath.item].senderId
+        var  prev = "NULL"
         
-        if (indexPath.item % 2 == 0 || indexPath.item == 0) {
+        if(indexPath.item > 0 ){
+            prev =  self.mainViewController.chatManager.messages[indexPath.item - 1].senderId
+        }
+        
+        if (current != prev) {
             return kJSQMessagesCollectionViewCellLabelHeightDefault
         }
         
@@ -357,7 +375,11 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     
     override func textViewDidChange(_ textView: UITextView) {
-        super.textViewDidChange(textView)
+        
+        if(self.mainViewController.chatManager.connection_established){
+            super.textViewDidChange(textView)
+        }
+        
         // If the text is not empty, the user is typing
         
         if( self.mainViewController.chatManager.connection_established){

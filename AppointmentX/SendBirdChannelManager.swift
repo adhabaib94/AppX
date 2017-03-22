@@ -39,6 +39,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     
     var stored_messages: [NSManagedObject] = []
     var loaded_messages: Bool = false
+    var loaded_messages_inserted: Bool = false
     var last_received: [NSManagedObject] = []
     
     
@@ -76,12 +77,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
 
         
         // Fetch CoreData Stored Messages and Last Recieved Message
-        self.fetchStoredMessages()
         self.fetchLastRecieved()
-    
-     
-        
-        
+        self.fetchStoredMessages()
         
     }
     
