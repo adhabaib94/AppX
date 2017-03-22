@@ -417,7 +417,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
    
         self.last_message_received = message.createdAt
         
-        let user_msg = (message as! SBDUserMessage)
+      
         
         print("ChatVC: Message Recived")
         
@@ -425,12 +425,38 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
         
         let now = Date()
         
-        messages.append(JSQMessage(senderId: user_msg.sender?.userId, senderDisplayName: user_msg.sender?.nickname, date: now , text: user_msg.message));
+        if let file = message as? SBDFileMessage {
+           
+            let url = URL(string: file.url)
+            
+            do {
+                let data = try Data(contentsOf: url!)
+                
+                let pic = UIImage(data:data )
+                
+                
+                let img = JSQPhotoMediaItem(image: pic)
+                
+                messages.append( JSQMessage(senderId: file.sender?.userId, senderDisplayName: file.sender?.nickname, date: now, media: img))
+
+            } catch {
+                print(error.localizedDescription)
+            }
+          
         
-        self.current_channel.markAsRead()
+            
+        }else{
+            let user_msg = (message as! SBDUserMessage)
+            messages.append(JSQMessage(senderId: user_msg.sender?.userId, senderDisplayName: user_msg.sender?.nickname, date: now , text: user_msg.message));
+            
+            self.current_channel.markAsRead()
+            
+            // Beta -> Store to CoreData
+            self.save(senderId: (user_msg.sender?.userId)!,senderDisplayName: (user_msg.sender?.nickname)!,content: user_msg.message!, date: now, createdAt: message.createdAt, messageSent: false)
+
+        }
         
-        // Beta -> Store to CoreData
-        self.save(senderId: (user_msg.sender?.userId)!,senderDisplayName: (user_msg.sender?.nickname)!,content: user_msg.message!, date: now, createdAt: message.createdAt, messageSent: false)
+      
         
         //(BETA) NOTIFY UPDATE COLLECTION VIEW
         NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)

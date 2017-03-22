@@ -12,23 +12,26 @@ import MobileCoreServices
 import AVKit
 import SendBirdSDK
 import CoreData
+import Photos
 
 
-class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDChannelDelegate {
+class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDChannelDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // UI Variable Declaration
     
     
     private var last_cell = IndexPath()
-
+    
     
     // UI connection indicator
     
     var activityCoreView = UIView()
     var activityIndicator = UIActivityIndicatorView()
+    let picker = UIImagePickerController();
     
     
-    // MainViewController 
+    
+    // MainViewController
     
     var mainViewController : MainViewController!
     
@@ -44,7 +47,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     
     // --------------------------------------- UIViewController Functions -----------------------------------//
     
- 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,22 +67,23 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             
         }
         
-
         
         
-         self.navigationItem.hidesBackButton = true;
         
- 
+        self.navigationItem.hidesBackButton = true;
+        
+        self.picker.delegate = self
+        
         
         self.mainViewController.chatManager.in_chat_controller = true
         self.mainViewController.chatManager.unread_messages = 0
         self.mainViewController.hideMessageBanner()
         
         
-    
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.showActivityView), name: Notification.Name(self.SHOW_LOADING_VIEW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.hideActivityView), name: Notification.Name(self.HIDE_LOADING_VIEW), object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(self.loadStoredMessagesIntoUICollectionView), name: Notification.Name(self.LOAD_COLLECTION_VIEW), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loadStoredMessagesIntoUICollectionView), name: Notification.Name(self.LOAD_COLLECTION_VIEW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.recievedMessage), name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showTyping), name: Notification.Name(self.TYPING_SHOW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.hideTyping), name: Notification.Name(self.TYPING_HIDE), object: nil)
@@ -130,13 +134,13 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
         
         // Insure User Updates Status to endTyping
-       // self.current_channel.endTyping()
+        // self.current_channel.endTyping()
         
     }
     
@@ -149,11 +153,17 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             self.mainViewController.chatManager.setupManager(senderId: self.senderId, senderDisplayName: self.senderDisplayName )
         }
         else{
-            self.loadStoredMessagesIntoUICollectionView()
-           
+            
+           if(!self.mainViewController.chatManager.loaded_messages_inserted ){
+                self.mainViewController.chatManager.messages.removeAll()
+                self.loadStoredMessagesIntoUICollectionView()
+                self.mainViewController.chatManager.loaded_messages_inserted = true
+            
+            }
+            
         }
         
-       
+        
         
     }
     
@@ -169,7 +179,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         return .lightContent
     }
     
-
+    
     
     func onClickBack()
         
@@ -179,6 +189,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         self.mainViewController.chatManager.in_chat_controller = false
         self.mainViewController.chatManager.unread_messages = 0
+        self.mainViewController.chatManager.loaded_messages_inserted = false
         
         
         //self.navigationController?.dismiss(animated: true, completion: nil)
@@ -284,16 +295,21 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
      */
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
+        
         let message =  self.mainViewController.chatManager.messages[indexPath.item];
         
-        if message.senderId == self.senderId {
-            cell.textView.textColor = UIColor.white
-            cell.textView.font = UIFont(name: "Source Sans Pro", size: 17)
-        } else {
-            cell.textView.textColor = UIColor.black
-            cell.textView.font = UIFont(name: "Source Sans Pro", size: 17)
-        }
         
+        if(!message.isMediaMessage){
+            if (message.senderId == self.senderId) {
+                cell.textView.textColor = UIColor.white
+                cell.textView.font = UIFont(name: "Source Sans Pro", size: 17)
+            } else {
+                cell.textView.textColor = UIColor.black
+                cell.textView.font = UIFont(name: "Source Sans Pro", size: 17)
+            }
+        }
+ 
+ 
         return cell;
     }
     
@@ -351,13 +367,13 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
         
         // Append new message in message queue
-         self.mainViewController.chatManager.messages.append(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date , text: text))
+        self.mainViewController.chatManager.messages.append(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date , text: text))
         
         // Save to CoreDatata
-         self.mainViewController.chatManager.save(senderId: self.senderId ,senderDisplayName: self.senderDisplayName,content: text, date: date, createdAt: -1 , messageSent: true)
+        self.mainViewController.chatManager.save(senderId: self.senderId ,senderDisplayName: self.senderDisplayName,content: text, date: date, createdAt: -1 , messageSent: true)
         
         // Send Message Through Sendbird
-         self.mainViewController.chatManager.current_channel.sendUserMessage(text) { (userMessage, error) in
+        self.mainViewController.chatManager.current_channel.sendUserMessage(text) { (userMessage, error) in
             print("Messege Sent")
         }
         
@@ -369,8 +385,72 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
     }
     
+    override func didPressAccessoryButton(_ sender: UIButton!) {
+        let alert = UIAlertController(title: "Media Messages", message: "Please select media", preferredStyle: .actionSheet);
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil);
+        
+        let photos = UIAlertAction(title: "From Library", style: .default,    handler: { (alert: UIAlertAction) in
+            self.picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.chooseMedia()
+        })
+        
+        let camera = UIAlertAction(title: "Camera", style: .default,    handler: { (alert: UIAlertAction) in
+            self.picker.sourceType = UIImagePickerControllerSourceType.camera
+            self.chooseMedia()
+        })
+        
+        alert.addAction(photos);
+        alert.addAction(camera);
+        alert.addAction(cancel);
+        present(alert, animated: true, completion: nil);
+        
+    }
     
+    // END SENDING BUTTONS FUNCTIONS
     
+    // PICKER VIEW FUNCTIONS
+    
+    private func chooseMedia() {
+        
+        present(picker, animated: true, completion: nil);
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let pic = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            
+            
+            let binary_pic =  UIImagePNGRepresentation(pic)
+            
+            let img = JSQPhotoMediaItem(image: pic)
+        
+            
+            
+            let date = Date()
+            
+             self.mainViewController.chatManager.messages.append( JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date, media: img))
+
+            
+            
+            self.mainViewController.chatManager.current_channel.sendFileMessage(withBinaryData: binary_pic! , filename: "Recived Image", type: "PNG", size: UInt(binary_pic!.count), data: nil  , completionHandler: { (fileMessage, error) in
+                if error != nil {
+                    NSLog("Error: %@", error!)
+                    return
+                }
+                
+                // ...
+            })
+ 
+            
+        }
+        self.dismiss(animated: true, completion: nil);
+        
+        // Update UICollectionView and Dismiss TextView
+        DispatchQueue.main.async {
+            self.finishSendingMessage(animated: true)
+        }
+    }
     // ---------------------------------------------- Helper Functions --------------------------------------//
     
     
@@ -384,10 +464,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         if( self.mainViewController.chatManager.connection_established){
             if(textView.text != "" ){
-                 self.mainViewController.chatManager.current_channel.startTyping()
+                self.mainViewController.chatManager.current_channel.startTyping()
             }
             else{
-                 self.mainViewController.chatManager.current_channel.endTyping()
+                self.mainViewController.chatManager.current_channel.endTyping()
             }
         }
     }
@@ -397,14 +477,14 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         super.textViewDidEndEditing(textView)
         
         if( self.mainViewController.chatManager.connection_established){
-             self.mainViewController.chatManager.current_channel.endTyping()
+            self.mainViewController.chatManager.current_channel.endTyping()
         }
     }
     
     
     
-
-
+    
+    
     func clearStoredMessages(){
         
         DispatchQueue.main.async {
@@ -432,7 +512,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 }
                 
             } else {
-                 let managedContext = appDelegate.managedObjectContext
+                let managedContext = appDelegate.managedObjectContext
                 let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
                 
                 // Create Batch Delete Request
@@ -446,7 +526,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 }
             }
             
-             self.mainViewController.chatManager.messages.removeAll()
+            self.mainViewController.chatManager.messages.removeAll()
             self.finishReceivingMessage()
         }
         
@@ -467,7 +547,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             self.activityCoreView.addSubview(self.activityIndicator)
             self.navigationItem.titleView = self.activityCoreView
             self.activityIndicator.startAnimating()
-
+            
             
         }
         
@@ -541,7 +621,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         }
     }
     
- 
+    
     func showTyping(){
         
         DispatchQueue.main.async {
@@ -550,7 +630,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             self.collectionView.reloadData()
             
         }
-
+        
     }
     
     func hideTyping(){
@@ -560,7 +640,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             self.collectionView.reloadData()
             
         }
-
+        
     }
     
 }
