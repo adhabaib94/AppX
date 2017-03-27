@@ -421,17 +421,16 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         if let pic = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
+            let compressed_pic = pic.jpeg(.lowest)
             
-            let binary_pic =  UIImagePNGRepresentation(pic)
+            //let binary_pic =  UIImagePNGRepresentation(compressed_pic)
             
-            let img = JSQPhotoMediaItem(image: pic)
+            let image_ready = UIImage(data: compressed_pic!)
+            
+            
+            let img = JSQPhotoMediaItem(image: image_ready)
         
-            
-            
             let date = Date()
-            
-  
-            
         
             
             // Update UICollectionView and Dismiss TextView
@@ -439,14 +438,14 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 
                 self.mainViewController.chatManager.messages.append( JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date, media: img))
                 
-                self.mainViewController.chatManager.save(senderId: self.senderId , senderDisplayName: self.senderDisplayName, content: "", date: date, createdAt: -1, messageSent: true , img: binary_pic!, isMedia: true)
+                self.mainViewController.chatManager.save(senderId: self.senderId , senderDisplayName: self.senderDisplayName, content: "", date: date, createdAt: -1, messageSent: true , img: compressed_pic!, isMedia: true)
                 
                 self.finishSendingMessage(animated: true)
             }
 
             
             
-            self.mainViewController.chatManager.current_channel.sendFileMessage(withBinaryData: binary_pic! , filename: "Recived Image", type: "PNG", size: UInt(binary_pic!.count), data: nil  , completionHandler: { (fileMessage, error) in
+            self.mainViewController.chatManager.current_channel.sendFileMessage(withBinaryData: compressed_pic! , filename: "Recived Image", type: "JPEG", size: UInt((compressed_pic?.count)!), data: nil  , completionHandler: { (fileMessage, error) in
                 if error != nil {
                     NSLog("Error: %@", error!)
                    
@@ -673,6 +672,26 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
 }
 
 
-
+extension UIImage {
+    enum JPEGQuality: CGFloat {
+        case lowest  = 0
+        case low     = 0.25
+        case medium  = 0.5
+        case high    = 0.75
+        case highest = 1
+    }
+    
+    /// Returns the data for the specified image in PNG format
+    /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
+    /// - returns: A data object containing the PNG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
+    var png: Data? { return UIImagePNGRepresentation(self) }
+    
+    /// Returns the data for the specified image in JPEG format.
+    /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
+    /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
+    func jpeg(_ quality: JPEGQuality) -> Data? {
+        return UIImageJPEGRepresentation(self, quality.rawValue)
+}
+}
 
 

@@ -67,7 +67,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     func setupManager(senderId: String , senderDisplayName: String){
         
         // BETA) Setup Managed Context
-    
+        
         DispatchQueue.main.async {
             guard let appDelegate =
                 UIApplication.shared.delegate as? AppDelegate else {
@@ -75,7 +75,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
             }
             
             if #available(iOS 10.0, *) {
-            
+                
                 self.managedContext =
                     appDelegate.persistentContainer.viewContext
             }
@@ -208,7 +208,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     }
     
     
-    func update(){
+    func update(senderId: String, senderDisplayName: String, content: String, date: Date, createdAt: Int64, messageSent: Bool, img: Data, isMedia: Bool, object: NSManagedObject) {
+        
         DispatchQueue.main.async {
             guard let appDelegate =
                 UIApplication.shared.delegate as? AppDelegate else {
@@ -229,13 +230,20 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                     NSEntityDescription.entity(forEntityName: "Message",
                                                in: managedContext)!
                 
-                _ = NSManagedObject(entity: entity,
-                                              insertInto: managedContext)
+                
+                
+                // 3
+                object.setValue(senderId, forKeyPath: "senderId")
+                object.setValue(senderDisplayName, forKeyPath: "senderDisplayName")
+                object.setValue(content, forKeyPath: "content")
+                object.setValue(date, forKeyPath: "date")
+                object.setValue(createdAt, forKeyPath: "createdAt")
+                object.setValue(img, forKeyPath: "img")
+                object.setValue(isMedia, forKeyPath: "isMedia")
                 
                 // 4
                 do {
                     try managedContext.save()
-                   
                 } catch let error as NSError {
                     print("Could not save. \(error), \(error.userInfo)")
                 }
@@ -251,26 +259,28 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                     NSEntityDescription.entity(forEntityName: "Message",
                                                in: managedContext)!
                 
-                _ = NSManagedObject(entity: entity,
-                                              insertInto: managedContext)
                 
-        
+                // 3
+                object.setValue(senderId, forKeyPath: "senderId")
+                object.setValue(senderDisplayName, forKeyPath: "senderDisplayName")
+                object.setValue(content, forKeyPath: "content")
+                object.setValue(date, forKeyPath: "date")
+                object.setValue(createdAt, forKeyPath: "createdAt")
+                object.setValue(img, forKeyPath: "img")
+                object.setValue(isMedia, forKeyPath: "isMedia")
+                
                 // 4
                 do {
                     try managedContext.save()
-               
+                    
                 } catch let error as NSError {
                     print("Could not save. \(error), \(error.userInfo)")
                 }
                 
-                    
             }
-            
-            
         }
-
+        
     }
-    
     
     func save(senderId: String, senderDisplayName: String, content: String, date: Date, createdAt: Int64, messageSent: Bool, img: Data, isMedia: Bool) {
         
@@ -501,7 +511,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
         
     }
     
-
+    
     
     func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
         URLSession.shared.dataTask(with: url) {
@@ -511,7 +521,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     }
     
     
-
+    
     func mediaReceived(senderID: String, senderName: String, url: String ,file: SBDFileMessage, index: Int) {
         
         let now = Date()
@@ -519,8 +529,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
         print("Download Started")
         
         DispatchQueue.main.async() {
-            
         /*
+            
             let empty_data = Data()
             let empty_image = UIImage(data: empty_data)
             let empty_photo = JSQPhotoMediaItem(image: empty_image);
@@ -529,14 +539,17 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
             
             self.messages.insert(JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: empty_photo), at: index+1);
             
-        
+            
+            self.save(senderId: senderID,senderDisplayName: (file.sender?.nickname)!,content: "", date: now, createdAt: file.createdAt, messageSent: false, img: empty_data, isMedia: true)
+            
             //(BETA) NOTIFY UPDATE COLLECTION VIEW
             NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
- 
-    */
             
+            JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+ 
+             */
         }
-        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+        
         
         
         let mediaURL = URL(string: url)
@@ -546,20 +559,29 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
             DispatchQueue.main.async() { () -> Void in
                 let image = UIImage(data: data)
                 let photo = JSQPhotoMediaItem(image: image);
-                if senderID == self.senderId {
-                    photo?.appliesMediaViewMaskAsOutgoing = true;
-                } else {
-                    photo?.appliesMediaViewMaskAsOutgoing = false;
-                }
-
+             
+                photo?.appliesMediaViewMaskAsOutgoing = false;
+        
+                
+                  /*
+                let msg = self.stored_messages[index+1] as NSManagedObject
+                
+              
+                self.update(senderId: senderID,senderDisplayName: senderName, content: "", date: now, createdAt: file.createdAt, messageSent: false, img: data, isMedia: true, object: msg)
+                
+ 
+                
+                
+                self.messages[index+1] = JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: photo)
+                 */
+                
                 self.messages.insert(JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: photo), at: index+1)
-    
                 
-               self.save(senderId: (file.sender?.userId)!,senderDisplayName: (file.sender?.nickname)!,content: "", date: now, createdAt: file.createdAt, messageSent: false, img: data, isMedia: true)
-                
-                
+                self.save(senderId: senderID, senderDisplayName: senderName, content: "", date: now, createdAt: file.createdAt, messageSent: false, img: data, isMedia: true)
+              
                 //(BETA) NOTIFY UPDATE COLLECTION VIEW
                 NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
+                
                 
                 JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
                 
