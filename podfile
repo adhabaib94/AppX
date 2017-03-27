@@ -10,4 +10,5 @@ pod 'SwiftGifOrigin', '~> 1.6.1'
 pod 'SendBirdSDK'
 pod 'JSQMessagesViewController'
 pod 'AKSideMenu'
+pod ‘SDWebImage’
 end

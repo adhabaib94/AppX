@@ -363,7 +363,10 @@ class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func showInbox(){
-        self.performSegue(withIdentifier: "chatViewController", sender: nil)
+        
+        if(!self.chatManager.in_chat_controller){
+            self.performSegue(withIdentifier: "chatViewController", sender: nil)
+        }
     }
     
     func updateModelData(){

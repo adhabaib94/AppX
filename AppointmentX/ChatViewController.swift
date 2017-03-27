@@ -370,7 +370,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         self.mainViewController.chatManager.messages.append(JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date , text: text))
         
         // Save to CoreDatata
-        self.mainViewController.chatManager.save(senderId: self.senderId ,senderDisplayName: self.senderDisplayName,content: text, date: date, createdAt: -1 , messageSent: true)
+        let nil_data = Data()
+        self.mainViewController.chatManager.save(senderId: self.senderId ,senderDisplayName: self.senderDisplayName,content: text, date: date, createdAt: -1 , messageSent: true, img: nil_data, isMedia: false)
         
         // Send Message Through Sendbird
         self.mainViewController.chatManager.current_channel.sendUserMessage(text) { (userMessage, error) in
@@ -429,27 +430,39 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             
             let date = Date()
             
-             self.mainViewController.chatManager.messages.append( JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date, media: img))
+  
+            
+        
+            
+            // Update UICollectionView and Dismiss TextView
+            DispatchQueue.main.async {
+                
+                self.mainViewController.chatManager.messages.append( JSQMessage(senderId: self.senderId, senderDisplayName: self.senderDisplayName, date: date, media: img))
+                
+                self.mainViewController.chatManager.save(senderId: self.senderId , senderDisplayName: self.senderDisplayName, content: "", date: date, createdAt: -1, messageSent: true , img: binary_pic!, isMedia: true)
+                
+                self.finishSendingMessage(animated: true)
+            }
 
             
             
             self.mainViewController.chatManager.current_channel.sendFileMessage(withBinaryData: binary_pic! , filename: "Recived Image", type: "PNG", size: UInt(binary_pic!.count), data: nil  , completionHandler: { (fileMessage, error) in
                 if error != nil {
                     NSLog("Error: %@", error!)
+                   
+
                     return
                 }
                 
-                // ...
+           
+             
             })
  
             
         }
         self.dismiss(animated: true, completion: nil);
         
-        // Update UICollectionView and Dismiss TextView
-        DispatchQueue.main.async {
-            self.finishSendingMessage(animated: true)
-        }
+      
     }
     // ---------------------------------------------- Helper Functions --------------------------------------//
     
@@ -577,13 +590,25 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         for msg in self.mainViewController.chatManager.stored_messages {
             
+            let isMedia = msg.value(forKey: "isMedia") as! Bool
             
-            print("SenderDisplayName: " + String(describing: msg.value(forKey: "senderDisplayName")!) + "\n")
-            print("\tSenderID: " + String(describing: msg.value(forKey: "senderId")!) + "\n")
-            print("\tContent: " + String(describing: msg.value(forKey: "content")!) + "\n\n")
-            print("\tContent: " + String(describing: msg.value(forKey: "date")! as! Date) + "\n\n")
+            if(!isMedia){
             
-            self.mainViewController.chatManager.messages.append(JSQMessage(senderId: String(describing: msg.value(forKey: "senderId")!), senderDisplayName: String(describing: msg.value(forKey: "senderDisplayName")!) , date:( msg.value(forKey: "date")! as! Date) , text: String(describing: msg.value(forKey: "content")!)));
+                self.mainViewController.chatManager.messages.append(JSQMessage(senderId: String(describing: msg.value(forKey: "senderId")!), senderDisplayName: String(describing: msg.value(forKey: "senderDisplayName")!) , date:( msg.value(forKey: "date")! as! Date) , text: String(describing: msg.value(forKey: "content")!)));
+            }
+            
+            else{
+                
+
+                let pic = UIImage(data:msg.value(forKey: "img")! as! Data)
+                
+                let img = JSQPhotoMediaItem(image: pic)
+                
+                 self.mainViewController.chatManager.messages.append(JSQMessage(senderId: String(describing: msg.value(forKey: "senderId")!), senderDisplayName: String(describing: msg.value(forKey: "senderDisplayName")!) , date:( msg.value(forKey: "date")! as! Date), media: img))
+                
+                
+            }
+            
             
             let current_date = msg.value(forKey: "createdAt") as! Int64
             let sender = String(describing: msg.value(forKey: "senderId")!)
@@ -591,6 +616,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             if(sender != self.senderId){
                 createdAtDates.append(current_date)
             }
+                
+        
             
         }
         

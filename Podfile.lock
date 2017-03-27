@@ -24,6 +24,9 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - NVActivityIndicatorView (3.5.1)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
   - SendBirdSDK (3.0.44)
   - SwiftGifOrigin (1.6.1)
 
@@ -33,6 +36,7 @@ DEPENDENCIES:
   - Firebase/Database
   - JSQMessagesViewController
   - NVActivityIndicatorView
+  - SDWebImage
   - SendBirdSDK
   - SwiftGifOrigin (~> 1.6.1)
 
@@ -47,9 +51,10 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 39fed975e3c9f8eba7292071e29eeb541d105e66
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   NVActivityIndicatorView: 075563b3547445ebcff840e3297ce9dd4a23731f
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SendBirdSDK: 976ced2079ea1fef23f97b51c1d09aaa70ff8182
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
 
-PODFILE CHECKSUM: 86dff3dfb37fefaea6948bf95c3092826b0e1b89
+PODFILE CHECKSUM: 535a27e5755c1f26796588c01cbb43ec12a83abc
 
 COCOAPODS: 1.2.0

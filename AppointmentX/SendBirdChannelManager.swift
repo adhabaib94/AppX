@@ -12,6 +12,7 @@ import MobileCoreServices
 import AVKit
 import SendBirdSDK
 import CoreData
+import SDWebImage
 
 
 class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegate {
@@ -25,7 +26,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     var last_cell = IndexPath()
     
     
-
+    
     // SendBird Required Variables
     var connection_established = false
     
@@ -42,6 +43,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     var loaded_messages_inserted: Bool = false
     var last_received: [NSManagedObject] = []
     
+    var managedContext: NSManagedObjectContext?
+    
     
     // Client Data
     
@@ -56,15 +59,36 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     let TYPING_SHOW = "IS_TYPING"
     let TYPING_HIDE = "NT_TYPING"
     let SHOW_BANNER = "SHOW_BANNER"
-
+    
     
     
     // Setup Manager
     
     func setupManager(senderId: String , senderDisplayName: String){
         
-        // BETA)
-       
+        // BETA) Setup Managed Context
+    
+        DispatchQueue.main.async {
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            if #available(iOS 10.0, *) {
+            
+                self.managedContext =
+                    appDelegate.persistentContainer.viewContext
+            }
+            else {
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                self.managedContext = appDelegate.managedObjectContext
+                
+            }
+            
+        }
+        
+        // BETA) SenderID and SenderDisplayName
+        
         self.senderId = senderId
         self.senderDisplayName = senderDisplayName
         
@@ -74,7 +98,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
         SBDMain.add(self as SBDChannelDelegate, identifier: "user00" + "root")
         
         SBDMain.add(self as SBDConnectionDelegate, identifier: "user00" + "root" + "connect")
-
+        
         
         // Fetch CoreData Stored Messages and Last Recieved Message
         self.fetchLastRecieved()
@@ -125,8 +149,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                         try managedContext.fetch(fetchRequest)
                     self.stored_messages = results as! [NSManagedObject]
                     NotificationCenter.default.post(name: Notification.Name(self.LOAD_COLLECTION_VIEW), object: nil)
-                   
-
+                    
+                    
                     // Connect To SendBird Server
                     self.channelConnectToSendBird()
                     self.loaded_messages = true
@@ -183,8 +207,72 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
         }
     }
     
+    
+    func update(){
+        DispatchQueue.main.async {
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            // 1
+            if #available(iOS 10.0, *) {
+                
+                
+                // (A) Save Message Entity
+                
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                
+                // 2
+                let entity =
+                    NSEntityDescription.entity(forEntityName: "Message",
+                                               in: managedContext)!
+                
+                _ = NSManagedObject(entity: entity,
+                                              insertInto: managedContext)
+                
+                // 4
+                do {
+                    try managedContext.save()
+                   
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+                
+                
+            } else {
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.managedObjectContext
+                
+                let entity =
+                    NSEntityDescription.entity(forEntityName: "Message",
+                                               in: managedContext)!
+                
+                _ = NSManagedObject(entity: entity,
+                                              insertInto: managedContext)
+                
+        
+                // 4
+                do {
+                    try managedContext.save()
+               
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+                    
+            }
+            
+            
+        }
 
-    func save(senderId: String, senderDisplayName: String, content: String, date: Date, createdAt: Int64, messageSent: Bool) {
+    }
+    
+    
+    func save(senderId: String, senderDisplayName: String, content: String, date: Date, createdAt: Int64, messageSent: Bool, img: Data, isMedia: Bool) {
         
         DispatchQueue.main.async {
             guard let appDelegate =
@@ -215,6 +303,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                 message.setValue(content, forKeyPath: "content")
                 message.setValue(date, forKeyPath: "date")
                 message.setValue(createdAt, forKeyPath: "createdAt")
+                message.setValue(img, forKeyPath: "img")
+                message.setValue(isMedia, forKeyPath: "isMedia")
                 
                 // 4
                 do {
@@ -271,6 +361,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                 message.setValue(content, forKeyPath: "content")
                 message.setValue(date, forKeyPath: "date")
                 message.setValue(createdAt, forKeyPath: "createdAt")
+                message.setValue(img, forKeyPath: "img")
+                message.setValue(isMedia, forKeyPath: "isMedia")
                 
                 // 4
                 do {
@@ -312,49 +404,6 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     }
     
     
-    
-    func loadStoredMessagesIntoUICollectionView(){
-        
-        var createdAtDates = [Int64]()
-        
-        for msg in stored_messages {
-            
-            
-            print("SenderDisplayName: " + String(describing: msg.value(forKey: "senderDisplayName")!) + "\n")
-            print("\tSenderID: " + String(describing: msg.value(forKey: "senderId")!) + "\n")
-            print("\tContent: " + String(describing: msg.value(forKey: "content")!) + "\n\n")
-            print("\tContent: " + String(describing: msg.value(forKey: "date")! as! Date) + "\n\n")
-            
-            messages.append(JSQMessage(senderId: String(describing: msg.value(forKey: "senderId")!), senderDisplayName: String(describing: msg.value(forKey: "senderDisplayName")!) , date:( msg.value(forKey: "date")! as! Date) , text: String(describing: msg.value(forKey: "content")!)));
-            
-            let current_date = msg.value(forKey: "createdAt") as! Int64
-            let sender = String(describing: msg.value(forKey: "senderId")!)
-            
-            if(sender != self.senderId){
-                createdAtDates.append(current_date)
-            }
-            
-        }
-        
-        
-        
-        // ** NOTIFY CHATVC TO UPDATE COLLECTION VIEW **
-        
-        if(createdAtDates.count > 0){
-            self.last_message_received = createdAtDates[createdAtDates.count - 1]
-        }
-        else{
-            self.last_message_received = 0
-        }
-        
-        // Connect To SendBird Server
-        self.channelConnectToSendBird()
-        self.loaded_messages = true
-        
-        
-    }
-    
-
     /**
      *  Connect to SendBird Server Authentication
      */
@@ -390,7 +439,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                 self.current_channel = channel!
                 self.getLastSentMessages()
                 self.connection_established = true
-               //(BETA) NOTIFY self.hideActivityView()
+                //(BETA) NOTIFY self.hideActivityView()
                 NotificationCenter.default.post(name: Notification.Name(self.HIDE_LOADING_VIEW), object: nil)
             }
             
@@ -404,6 +453,123 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
      *  Recieved New Message from Channel
      */
     
+    
+    
+    
+    func clearStoredMessages(){
+        
+        DispatchQueue.main.async {
+            
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            
+            // Create Fetch Request
+            
+            if #available(iOS 10.0, *) {
+                let managedContext =
+                    appDelegate.persistentContainer.viewContext
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+                
+                // Create Batch Delete Request
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                do {
+                    try managedContext.execute(batchDeleteRequest)
+                    
+                } catch {
+                    // Error Handling
+                }
+                
+            } else {
+                let managedContext = appDelegate.managedObjectContext
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+                
+                // Create Batch Delete Request
+                let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                
+                do {
+                    try managedContext.execute(batchDeleteRequest)
+                    
+                } catch {
+                    // Error Handling
+                }
+            }
+            
+        }
+        
+    }
+    
+
+    
+    func getDataFromUrl(url: URL, completion: @escaping (_ data: Data?, _  response: URLResponse?, _ error: Error?) -> Void) {
+        URLSession.shared.dataTask(with: url) {
+            (data, response, error) in
+            completion(data, response, error)
+            }.resume()
+    }
+    
+    
+
+    func mediaReceived(senderID: String, senderName: String, url: String ,file: SBDFileMessage, index: Int) {
+        
+        let now = Date()
+        
+        print("Download Started")
+        
+        DispatchQueue.main.async() {
+            
+        /*
+            let empty_data = Data()
+            let empty_image = UIImage(data: empty_data)
+            let empty_photo = JSQPhotoMediaItem(image: empty_image);
+            empty_photo?.appliesMediaViewMaskAsOutgoing = false;
+            
+            
+            self.messages.insert(JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: empty_photo), at: index+1);
+            
+        
+            //(BETA) NOTIFY UPDATE COLLECTION VIEW
+            NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
+ 
+    */
+            
+        }
+        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+        
+        
+        let mediaURL = URL(string: url)
+        getDataFromUrl(url: mediaURL!) { (data, response, error)  in
+            guard let data = data, error == nil else { return }
+            print("Download Finished")
+            DispatchQueue.main.async() { () -> Void in
+                let image = UIImage(data: data)
+                let photo = JSQPhotoMediaItem(image: image);
+                if senderID == self.senderId {
+                    photo?.appliesMediaViewMaskAsOutgoing = true;
+                } else {
+                    photo?.appliesMediaViewMaskAsOutgoing = false;
+                }
+
+                self.messages.insert(JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: photo), at: index+1)
+    
+                
+               self.save(senderId: (file.sender?.userId)!,senderDisplayName: (file.sender?.nickname)!,content: "", date: now, createdAt: file.createdAt, messageSent: false, img: data, isMedia: true)
+                
+                
+                //(BETA) NOTIFY UPDATE COLLECTION VIEW
+                NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
+                
+                JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+                
+            }
+        }
+        
+    }
+    
+    
+    
     func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
         
         
@@ -414,52 +580,57 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
             print("SendBirdChannelManager: Banner Messages \(self.unread_messages)\n")
             NotificationCenter.default.post(name: Notification.Name(self.SHOW_BANNER), object: nil)
         }
-   
-        self.last_message_received = message.createdAt
         
-      
+        
+        if( self.last_message_received < message.createdAt){
+            self.last_message_received = message.createdAt
+        }
+        
         
         print("ChatVC: Message Recived")
         
-        JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
         
-        let now = Date()
         
-        if let file = message as? SBDFileMessage {
-           
-            let url = URL(string: file.url)
+        DispatchQueue.main.async {
             
-            do {
-                let data = try Data(contentsOf: url!)
+            let now = Date()
+            
+            
+            
+            if let file = message as? SBDFileMessage {
                 
-                let pic = UIImage(data:data )
+                var index = self.messages.count - 1
                 
+                if(index < 0 ){
+                    index = 0
+                }
                 
-                let img = JSQPhotoMediaItem(image: pic)
+                self.mediaReceived(senderID: (file.sender?.userId)!, senderName: (file.sender?.nickname)!, url: file.url, file: file, index: index)
                 
-                messages.append( JSQMessage(senderId: file.sender?.userId, senderDisplayName: file.sender?.nickname, date: now, media: img))
-
-            } catch {
-                print(error.localizedDescription)
             }
-          
-        
+            else{
+                let user_msg = (message as! SBDUserMessage)
+                self.messages.append(JSQMessage(senderId: user_msg.sender?.userId, senderDisplayName: user_msg.sender?.nickname, date: now , text: user_msg.message));
+                
+                self.current_channel.markAsRead()
+                
+                // Beta -> Store to CoreData
+                let nil_data = Data()
+                self.save(senderId: (user_msg.sender?.userId)!,senderDisplayName: (user_msg.sender?.nickname)!,content: user_msg.message!, date: now, createdAt: message.createdAt, messageSent: false, img: nil_data, isMedia: false)
+                
+                //(BETA) NOTIFY UPDATE COLLECTION VIEW
+                NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
+                
+                JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+                
+                
+                
+                
+            }
             
-        }else{
-            let user_msg = (message as! SBDUserMessage)
-            messages.append(JSQMessage(senderId: user_msg.sender?.userId, senderDisplayName: user_msg.sender?.nickname, date: now , text: user_msg.message));
             
-            self.current_channel.markAsRead()
-            
-            // Beta -> Store to CoreData
-            self.save(senderId: (user_msg.sender?.userId)!,senderDisplayName: (user_msg.sender?.nickname)!,content: user_msg.message!, date: now, createdAt: message.createdAt, messageSent: false)
-
         }
         
-      
-        
-        //(BETA) NOTIFY UPDATE COLLECTION VIEW
-        NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
         
     }
     
@@ -504,16 +675,39 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                 }
                 
                 for m in msgs! {
-                    let user_msg = (m as! SBDUserMessage)
                     
-                    if(user_msg.sender?.userId != self.senderId){
-                        self.messages.append(JSQMessage(senderId: user_msg.sender?.userId, displayName: user_msg.sender?.nickname, text: user_msg.message));
+                    
+                    if let file = m as? SBDFileMessage {
                         
-                        let now = Date()
+                        var index = self.messages.count - 1
                         
-                        // Beta -> Store to CoreData
-                        self.save(senderId: (user_msg.sender?.userId)!,senderDisplayName: (user_msg.sender?.nickname)!,content: user_msg.message!, date: now , createdAt: user_msg.createdAt, messageSent: false)
+                        if(index < 0 ){
+                            index = 0
+                        }
+                        
+                        self.mediaReceived(senderID: (file.sender?.userId)!, senderName: (file.sender?.nickname)!, url: file.url, file: file, index: index)
+                        
+                    }else{
+                        let user_msg = (m as! SBDUserMessage)
+                        
+                        if(user_msg.sender?.userId != self.senderId){
+                            self.messages.append(JSQMessage(senderId: user_msg.sender?.userId, displayName: user_msg.sender?.nickname, text: user_msg.message));
+                            
+                            let now = Date()
+                            
+                            let nil_data = Data()
+                            
+                            // Beta -> Store to CoreData
+                            self.save(senderId: (user_msg.sender?.userId)!,senderDisplayName: (user_msg.sender?.nickname)!,content: user_msg.message!, date: now , createdAt: user_msg.createdAt, messageSent: false, img: nil_data, isMedia: false)
+                        }
+                        
                     }
+                    
+                    
+                    
+                    
+                    
+                    
                     
                 }
                 
@@ -526,7 +720,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                 }
                 
                 
-               //(BETA) NOTIFY UPDATE COLLECTIONVIEW
+                //(BETA) NOTIFY UPDATE COLLECTIONVIEW
                 NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
             }
             
@@ -536,41 +730,43 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     
     /**
      *  Get All Messages from Channel from Sendbird Server
+     
+     func getPreviousMessages(){
+     
+     let previousMessageQuery = self.current_channel.createPreviousMessageListQuery()
+     previousMessageQuery?.loadPreviousMessages(withLimit: 10, reverse: false, completionHandler: { (msgs, error) in
+     if error != nil {
+     NSLog("Error: %@", error!)
+     return
+     }
+     else{
+     if(msgs?.count != 0 ){
+     self.messages.removeAll()
+     for m in msgs! {
+     let user_msg = (m as! SBDUserMessage)
+     self.messages.append(JSQMessage(senderId: user_msg.sender?.userId, displayName: user_msg.sender?.nickname, text: user_msg.message));
+     }
+     
+     self.last_message_received = (msgs?[((msgs?.count)!-1)].createdAt)!
+     
+     self.current_channel.markAsRead()
+     
+     
+     DispatchQueue.main.async {
+     //(BETA) NOTIFY UPDATE COLLECTIONVIEW
+     NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
+     
+     self.connection_established = true
+     
+     }
+     }
+     }
+     
+     })
+     
+     }
+     
      */
-    func getPreviousMessages(){
-        
-        let previousMessageQuery = self.current_channel.createPreviousMessageListQuery()
-        previousMessageQuery?.loadPreviousMessages(withLimit: 10, reverse: false, completionHandler: { (msgs, error) in
-            if error != nil {
-                NSLog("Error: %@", error!)
-                return
-            }
-            else{
-                if(msgs?.count != 0 ){
-                    self.messages.removeAll()
-                    for m in msgs! {
-                        let user_msg = (m as! SBDUserMessage)
-                        self.messages.append(JSQMessage(senderId: user_msg.sender?.userId, displayName: user_msg.sender?.nickname, text: user_msg.message));
-                    }
-                    
-                    self.last_message_received = (msgs?[((msgs?.count)!-1)].createdAt)!
-                    
-                    self.current_channel.markAsRead()
-                    
-                    
-                    DispatchQueue.main.async {
-                         //(BETA) NOTIFY UPDATE COLLECTIONVIEW
-                        NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
-                        
-                        self.connection_established = true
-                        
-                    }
-                }
-            }
-            
-        })
-        
-    }
     
     /**
      *  When read receipt has been updated
@@ -595,7 +791,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
             
             if(members?.count == 1){
                 if(members?[0].userId != self.senderId){
-                NotificationCenter.default.post(name: Notification.Name(self.TYPING_SHOW), object: nil)
+                    NotificationCenter.default.post(name: Notification.Name(self.TYPING_SHOW), object: nil)
                     
                 }
             }
@@ -606,14 +802,14 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                         
                     }
                 }
- 
+                
             }
- 
+            
             
             // Refresh typing status.
         }
         
-       
+        
         
     }
     
@@ -688,8 +884,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     
     func didStartReconnection() {
         print("ChatVC: Attemping to reconnect!")
-       //(BETA) NOTFIFY self.showActivityView()
-         NotificationCenter.default.post(name: Notification.Name(self.SHOW_LOADING_VIEW), object: nil)
+        //(BETA) NOTFIFY self.showActivityView()
+        NotificationCenter.default.post(name: Notification.Name(self.SHOW_LOADING_VIEW), object: nil)
         self.connection_established = false
     }
     
@@ -700,8 +896,8 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
         print("ChatVC: Auto reconnecting succeeded!")
         if(self.loaded_messages){
             self.getLastSentMessages()
-          //(BETA) NOTFIFY  self.hideActivityView()
-              NotificationCenter.default.post(name: Notification.Name(self.HIDE_LOADING_VIEW), object: nil)
+            //(BETA) NOTFIFY  self.hideActivityView()
+            NotificationCenter.default.post(name: Notification.Name(self.HIDE_LOADING_VIEW), object: nil)
         }
         
         
@@ -709,15 +905,15 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     
     func didFailReconnection() {
         //(BETA) NOTFIFY self.showActivityView()
-          NotificationCenter.default.post(name: Notification.Name(self.SHOW_LOADING_VIEW), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(self.SHOW_LOADING_VIEW), object: nil)
         self.connection_established = false
         print("ChatVC: Auto reconnecting failed. You should call `connect` to reconnect to SendBird.")
         
     }
     
     
-
-      
+    
+    
     
     
 }
