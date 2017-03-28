@@ -154,7 +154,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQa-BZ-b15">
-                                        <rect key="frame" x="267" y="681" width="50" height="33"/>
+                                        <rect key="frame" x="267" y="681" width="50" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="jfE-IB-HzF"/>
                                         </constraints>
@@ -167,7 +167,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2L-nb-g3d">
-                                        <rect key="frame" x="95" y="685" width="175" height="25"/>
+                                        <rect key="frame" x="95" y="685" width="175" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="175" id="Uh9-cJ-5Ns"/>
                                         </constraints>
@@ -260,7 +260,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ulo-Yy-Joq">
-                                <rect key="frame" x="158" y="340" width="99" height="57"/>
+                                <rect key="frame" x="156.33333333333337" y="342.33333333333326" width="102.66666666666663" height="52.666666666666686"/>
                                 <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="45"/>
                                 <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -315,7 +315,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7c-UA-u7r">
-                                        <rect key="frame" x="95" y="511" width="175" height="25"/>
+                                        <rect key="frame" x="95" y="511" width="175" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="175" id="dxa-aa-bfi"/>
                                         </constraints>
@@ -324,7 +324,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgg-oP-RO9">
-                                        <rect key="frame" x="256" y="507" width="54" height="33"/>
+                                        <rect key="frame" x="256" y="507" width="60" height="31"/>
                                         <fontDescription key="fontDescription" name="SourceSansPro-Regular" family="Source Sans Pro" pointSize="16"/>
                                         <state key="normal" title="Register">
                                             <color key="titleColor" red="0.023529411760000001" green="0.74509803919999995" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1445,7 +1445,7 @@ us develop it.</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="L5L-5h-tfa" kind="presentation" identifier="chatDetailViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="flB-Ej-exN"/>
+                        <segue destination="L5L-5h-tfa" kind="presentation" identifier="chatDetailViewController" modalPresentationStyle="overCurrentContext" modalTransitionStyle="coverVertical" id="flB-Ej-exN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8JV-aR-yU0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1464,7 +1464,7 @@ us develop it.</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="20" translatesAutoresizingMaskIntoConstraints="NO" id="piT-3V-1kR">
+                            <scrollView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="20" translatesAutoresizingMaskIntoConstraints="NO" id="piT-3V-1kR">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="soQ-oX-Yjt">
@@ -1496,7 +1496,7 @@ us develop it.</string>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="piT-3V-1kR" firstAttribute="leading" secondItem="V4r-Vk-6Yk" secondAttribute="leading" id="Agc-HE-6sX"/>
                             <constraint firstItem="piT-3V-1kR" firstAttribute="top" secondItem="V4r-Vk-6Yk" secondAttribute="top" id="CT5-O5-c7k"/>

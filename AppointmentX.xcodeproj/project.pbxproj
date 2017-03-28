@@ -77,6 +77,7 @@
 		158FA71E1E4DCC10002D2307 /* WalkthroughController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */; };
 		158FA7201E4DCCEA002D2307 /* bulb.gif in Resources */ = {isa = PBXBuildFile; fileRef = 158FA71F1E4DCCEA002D2307 /* bulb.gif */; };
 		15AC44271E89FDF00056BD9F /* ChatViewDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AC44261E89FDF00056BD9F /* ChatViewDetailController.swift */; };
+		15AC442A1E8A0F160056BD9F /* ViewControllerPannable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AC44291E8A0F160056BD9F /* ViewControllerPannable.swift */; };
 		15BB6DB21E51C6B500E97619 /* ScheduleAppointmentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */; };
 		15BB6DB71E53491F00E97619 /* CreateAccountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB6DB61E53491F00E97619 /* CreateAccountController.swift */; };
 		15BB6DB91E549AC700E97619 /* ring-indicator.gif in Resources */ = {isa = PBXBuildFile; fileRef = 15BB6DB81E549AC700E97619 /* ring-indicator.gif */; };
@@ -215,6 +216,7 @@
 		158FA71D1E4DCC10002D2307 /* WalkthroughController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughController.swift; sourceTree = "<group>"; };
 		158FA71F1E4DCCEA002D2307 /* bulb.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bulb.gif; sourceTree = "<group>"; };
 		15AC44261E89FDF00056BD9F /* ChatViewDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewDetailController.swift; sourceTree = "<group>"; };
+		15AC44291E8A0F160056BD9F /* ViewControllerPannable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerPannable.swift; sourceTree = "<group>"; };
 		15BB6DB11E51C6B500E97619 /* ScheduleAppointmentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleAppointmentController.swift; sourceTree = "<group>"; };
 		15BB6DB61E53491F00E97619 /* CreateAccountController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountController.swift; sourceTree = "<group>"; };
 		15BB6DB81E549AC700E97619 /* ring-indicator.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "ring-indicator.gif"; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 		154EB1A01E49E43C0098F549 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				15AC44281E8A0EF90056BD9F /* Custom ViewControllers */,
 				15D5A8CB1E6EB5F80083B974 /* SideBar */,
 				15AC44261E89FDF00056BD9F /* ChatViewDetailController.swift */,
 				15C343431E634A8B00F9541A /* ChatViewController.swift */,
@@ -443,6 +446,14 @@
 				158FA6EE1E4C7E3D002D2307 /* Raleway-Black.ttf */,
 			);
 			name = "Custom Fonts";
+			sourceTree = "<group>";
+		};
+		15AC44281E8A0EF90056BD9F /* Custom ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				15AC44291E8A0F160056BD9F /* ViewControllerPannable.swift */,
+			);
+			name = "Custom ViewControllers";
 			sourceTree = "<group>";
 		};
 		15D5A8CB1E6EB5F80083B974 /* SideBar */ = {
@@ -722,6 +733,7 @@
 				15D5A8CE1E6EB63A0083B974 /* LeftMenuViewController.swift in Sources */,
 				1570F0861E428DAC00FF3968 /* FSCalendar.m in Sources */,
 				1570F0611E40DD8A00FF3968 /* Scheduler.swift in Sources */,
+				15AC442A1E8A0F160056BD9F /* ViewControllerPannable.swift in Sources */,
 				15D5A8CF1E6EB63A0083B974 /* RightMenuViewController.swift in Sources */,
 				15AC44271E89FDF00056BD9F /* ChatViewDetailController.swift in Sources */,
 				1570F08E1E428DAC00FF3968 /* FSCalendarDelegationProxy.m in Sources */,

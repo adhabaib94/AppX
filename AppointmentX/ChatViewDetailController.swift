@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatViewDetailController: UIViewController , UIScrollViewDelegate{
+class ChatViewDetailController: ViewControllerPannable , UIScrollViewDelegate{
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
 

@@ -69,13 +69,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
             
         }
         
-        
-        
-        
+
         self.navigationItem.hidesBackButton = true;
         
         self.picker.delegate = self
-        
         
         self.mainViewController.chatManager.in_chat_controller = true
         self.mainViewController.chatManager.unread_messages = 0
@@ -89,6 +86,13 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         NotificationCenter.default.addObserver(self, selector: #selector(self.recievedMessage), name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.showTyping), name: Notification.Name(self.TYPING_SHOW), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.hideTyping), name: Notification.Name(self.TYPING_HIDE), object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.refreshChatViewControllerCollectionView),
+            name: NSNotification.Name.UIApplicationDidBecomeActive,
+            object: nil)
+
         
         // Setup JSQMessageViewController UI Elements
         
@@ -131,9 +135,6 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         self.navigationItem.setLeftBarButton(item2, animated: true)
         
         
-        
-        
-        
     }
     
     
@@ -155,27 +156,44 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.navigationController?.navigationBar.isHidden = false
-        
-        
-        if(!self.mainViewController.chatManager.connection_established){
-            self.showActivityView()
-            self.mainViewController.chatManager.setupManager(senderId: self.senderId, senderDisplayName: self.senderDisplayName )
-        }
-        else{
-            
-           if(!self.mainViewController.chatManager.loaded_messages_inserted ){
-                self.mainViewController.chatManager.messages.removeAll()
-                self.loadStoredMessagesIntoUICollectionView()
-                self.mainViewController.chatManager.loaded_messages_inserted = true
-            
-            }
-            
-        }
-        
-        
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.refreshChatViewControllerCollectionView()
+        
+    }
+    
+    
+    func refreshChatViewControllerCollectionView(){
+        
+        self.navigationController?.navigationBar.isHidden = false
+
+        if(!self.mainViewController.chatManager.connection_established){
+            self.showActivityView()
+             self.mainViewController.chatManager.messages.removeAll()
+            self.mainViewController.chatManager.setupManager(senderId: self.senderId, senderDisplayName: self.senderDisplayName )
+            self.mainViewController.chatManager.in_chat_controller = true
+            self.mainViewController.chatManager.unread_messages = 0
+            self.mainViewController.hideMessageBanner()
+            
+        }
+        else{
+            /*
+            if(!self.mainViewController.chatManager.loaded_messages_inserted){
+                self.mainViewController.chatManager.messages.removeAll()
+                self.loadStoredMessagesIntoUICollectionView()
+                
+                
+            }
+            */
+        }
+
+    }
+    
+    
     
     
     override func didReceiveMemoryWarning() {
@@ -686,11 +704,6 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         
         
-        DispatchQueue.main.async {
-            self.finishReceivingMessage()
-        }
-        
-        
         if(createdAtDates.count > 0){
             self.mainViewController.chatManager.last_message_received = createdAtDates[createdAtDates.count - 1]
         }
@@ -700,6 +713,12 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         // Connect To SendBird Server
         self.mainViewController.chatManager.loaded_messages = true
+        self.mainViewController.chatManager.loaded_messages_inserted = true
+        
+        
+        DispatchQueue.main.async {
+            self.finishReceivingMessage()
+        }
         
     }
     

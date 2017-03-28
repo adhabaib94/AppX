@@ -41,8 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "chatViewController"), object: nil)
-        
+       // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "chatViewController"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "IS_TYPING"), object: nil)
         self.removeAllPendingNotification()
         
         completionHandler(UIBackgroundFetchResult.newData)
