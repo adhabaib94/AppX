@@ -106,9 +106,9 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         imageView.image = UIImage(named: "background")
         
-        imageView.alpha = 0
+        imageView.alpha = 0.03
         
-        self.view.insertSubview(imageView, at: 1)
+        self.view.insertSubview(imageView, at: 0)
         
         self.automaticallyScrollsToMostRecentMessage = true
         
@@ -138,6 +138,12 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
+        
+        self.hideActivityView()
+        
+        self.mainViewController.chatManager.in_chat_controller = false
+        self.mainViewController.chatManager.unread_messages = 0
+        self.mainViewController.chatManager.loaded_messages_inserted = false
         
         // Insure User Updates Status to endTyping
         // self.current_channel.endTyping()
@@ -251,10 +257,10 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         }
         
         if (current != prev) {
-            return kJSQMessagesCollectionViewCellLabelHeightDefault
+            return kJSQMessagesCollectionViewCellLabelHeightDefault + 5
         }
         
-        return 2.0
+        return 2
     }
     
     /**
@@ -320,6 +326,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         
         let bubbleFactory = JSQMessagesBubbleImageFactory();
         let message =  self.mainViewController.chatManager.messages[indexPath.item];
+        
+        
         
         if message.senderId == self.senderId {
             return bubbleFactory?.outgoingMessagesBubbleImage(with:UIColor.init(red: 6.0/255.0, green: 190.0/255.0, blue: 189.0/255.0, alpha: 1));
@@ -445,7 +453,7 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
 
             
             
-            self.mainViewController.chatManager.current_channel.sendFileMessage(withBinaryData: compressed_pic! , filename: "Recived Image", type: "JPEG", size: UInt((compressed_pic?.count)!), data: nil  , completionHandler: { (fileMessage, error) in
+            self.mainViewController.chatManager.current_channel.sendFileMessage(withBinaryData: compressed_pic! , filename: "Recived Image", type: "jpg", size: UInt((compressed_pic?.count)!), data: nil  , completionHandler: { (fileMessage, error) in
                 if error != nil {
                     NSLog("Error: %@", error!)
                    
@@ -602,6 +610,17 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
                 let pic = UIImage(data:msg.value(forKey: "img")! as! Data)
                 
                 let img = JSQPhotoMediaItem(image: pic)
+                
+                let senderID = String(describing: msg.value(forKey: "senderId")!)
+                
+                
+                if senderID == self.senderId {
+                    img?.appliesMediaViewMaskAsOutgoing = true;
+                } else {
+                    img?.appliesMediaViewMaskAsOutgoing = false;
+                }
+
+                
                 
                  self.mainViewController.chatManager.messages.append(JSQMessage(senderId: String(describing: msg.value(forKey: "senderId")!), senderDisplayName: String(describing: msg.value(forKey: "senderDisplayName")!) , date:( msg.value(forKey: "date")! as! Date), media: img))
                 

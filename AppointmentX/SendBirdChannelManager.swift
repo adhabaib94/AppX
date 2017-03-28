@@ -525,7 +525,7 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
     func mediaReceived(senderID: String, senderName: String, url: String ,file: SBDFileMessage, index: Int) {
         
         let now = Date()
-        
+        NotificationCenter.default.post(name: Notification.Name(self.TYPING_SHOW), object: nil)
         print("Download Started")
         
         DispatchQueue.main.async() {
@@ -557,11 +557,35 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
             guard let data = data, error == nil else { return }
             print("Download Finished")
             DispatchQueue.main.async() { () -> Void in
+                
                 let image = UIImage(data: data)
+                
                 let photo = JSQPhotoMediaItem(image: image);
-             
-                photo?.appliesMediaViewMaskAsOutgoing = false;
-        
+                
+                if senderID == self.senderId {
+                    photo?.appliesMediaViewMaskAsOutgoing = true;
+                } else {
+                    photo?.appliesMediaViewMaskAsOutgoing = false;
+                }
+
+                
+                self.messages.append(JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: photo))
+                
+                
+                
+                self.save(senderId: senderID, senderDisplayName: senderName, content: "", date: now, createdAt: file.createdAt, messageSent: false, img: data, isMedia: true)
+                
+                
+                
+                //(BETA) NOTIFY UPDATE COLLECTION VIEW
+                
+                NotificationCenter.default.post(name: Notification.Name(self.TYPING_HIDE), object: nil)
+                NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
+                
+                
+                JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+                
+
                 
                   /*
                 let msg = self.stored_messages[index+1] as NSManagedObject
@@ -575,15 +599,9 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                 self.messages[index+1] = JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: photo)
                  */
                 
-                self.messages.insert(JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: photo), at: index+1)
+               
                 
-                self.save(senderId: senderID, senderDisplayName: senderName, content: "", date: now, createdAt: file.createdAt, messageSent: false, img: data, isMedia: true)
-              
-                //(BETA) NOTIFY UPDATE COLLECTION VIEW
-                NotificationCenter.default.post(name: Notification.Name(self.UPDATE_COLLECTION_VIEW), object: nil)
-                
-                
-                JSQSystemSoundPlayer.jsq_playMessageReceivedSound()
+              //  self.messages.insert(JSQMessage(senderId: senderID, senderDisplayName: senderName, date: now, media: photo), at: index+1)
                 
             }
         }
@@ -707,7 +725,11 @@ class SendBirdChannelManager: NSObject, SBDConnectionDelegate, SBDChannelDelegat
                             index = 0
                         }
                         
-                        self.mediaReceived(senderID: (file.sender?.userId)!, senderName: (file.sender?.nickname)!, url: file.url, file: file, index: index)
+                        
+                        if(file.sender?.userId != self.senderId){
+
+                            self.mediaReceived(senderID: (file.sender?.userId)!, senderName: (file.sender?.nickname)!, url: file.url, file: file, index: index)
+                        }
                         
                     }else{
                         let user_msg = (m as! SBDUserMessage)
