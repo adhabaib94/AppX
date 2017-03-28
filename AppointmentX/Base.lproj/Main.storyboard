@@ -1142,7 +1142,7 @@
             <objects>
                 <navigationController storyboardIdentifier="contentViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OHJ-vj-pYC" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" alpha="0.75" contentMode="scaleToFill" translucent="NO" id="Ple-Jp-eXY" customClass="TMNavigationBar" customModule="AppointmentX" customModuleProvider="target">
+                    <navigationBar key="navigationBar" alpha="0.75" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="Ple-Jp-eXY" customClass="TMNavigationBar" customModule="AppointmentX" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1444,10 +1444,78 @@ us develop it.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="L5L-5h-tfa" kind="presentation" identifier="chatDetailViewController" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="flB-Ej-exN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8JV-aR-yU0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4074" y="416"/>
+        </scene>
+        <!--Chat View Detail Controller-->
+        <scene sceneID="b0O-HA-LnZ">
+            <objects>
+                <viewController id="L5L-5h-tfa" customClass="ChatViewDetailController" customModule="AppointmentX" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BN2-1y-XXE"/>
+                        <viewControllerLayoutGuide type="bottom" id="Oth-qi-lno"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="V4r-Vk-6Yk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="20" translatesAutoresizingMaskIntoConstraints="NO" id="piT-3V-1kR">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <subviews>
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="soQ-oX-Yjt">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbS-bN-RJs">
+                                        <rect key="frame" x="8" y="33" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="7dT-XT-h4a"/>
+                                            <constraint firstAttribute="height" constant="44" id="e3j-yr-zXk"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="Multiply-50"/>
+                                        <connections>
+                                            <action selector="backClicked:" destination="L5L-5h-tfa" eventType="touchUpInside" id="yPn-a2-Fsx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="soQ-oX-Yjt" secondAttribute="bottom" id="6vF-g1-5Wu"/>
+                                    <constraint firstItem="soQ-oX-Yjt" firstAttribute="centerY" secondItem="piT-3V-1kR" secondAttribute="centerY" id="9cO-TN-Y0F"/>
+                                    <constraint firstItem="soQ-oX-Yjt" firstAttribute="centerX" secondItem="piT-3V-1kR" secondAttribute="centerX" id="G1g-gp-BZS"/>
+                                    <constraint firstItem="soQ-oX-Yjt" firstAttribute="top" secondItem="piT-3V-1kR" secondAttribute="top" id="KOy-5i-IGr"/>
+                                    <constraint firstAttribute="trailing" secondItem="soQ-oX-Yjt" secondAttribute="trailing" id="PQ0-Qf-XhB"/>
+                                    <constraint firstItem="VbS-bN-RJs" firstAttribute="top" secondItem="piT-3V-1kR" secondAttribute="top" constant="33" id="Py2-xP-pDG"/>
+                                    <constraint firstItem="soQ-oX-Yjt" firstAttribute="leading" secondItem="piT-3V-1kR" secondAttribute="leading" id="b6b-bn-DCW"/>
+                                    <constraint firstItem="VbS-bN-RJs" firstAttribute="leading" secondItem="piT-3V-1kR" secondAttribute="leadingMargin" id="qQV-aU-o0t"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="piT-3V-1kR" firstAttribute="leading" secondItem="V4r-Vk-6Yk" secondAttribute="leading" id="Agc-HE-6sX"/>
+                            <constraint firstItem="piT-3V-1kR" firstAttribute="top" secondItem="V4r-Vk-6Yk" secondAttribute="top" id="CT5-O5-c7k"/>
+                            <constraint firstAttribute="trailing" secondItem="piT-3V-1kR" secondAttribute="trailing" id="EfK-JE-8f6"/>
+                            <constraint firstItem="piT-3V-1kR" firstAttribute="bottom" secondItem="Oth-qi-lno" secondAttribute="top" id="LL7-Go-opj"/>
+                        </constraints>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="baclButton" destination="VbS-bN-RJs" id="iC0-La-ZLw"/>
+                        <outlet property="imageView" destination="soQ-oX-Yjt" id="qeP-QV-vn7"/>
+                        <outlet property="scrollView" destination="piT-3V-1kR" id="szx-RX-deR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pbo-DE-HRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4853.6231884057979" y="415.76086956521743"/>
         </scene>
         <!--Left Menu View Controller-->
         <scene sceneID="2M0-VC-oBM">
@@ -1487,6 +1555,7 @@ us develop it.</string>
         </scene>
     </scenes>
     <resources>
+        <image name="Multiply-50" width="16" height="16"/>
         <image name="appointment_icon" width="43" height="43"/>
         <image name="appt_arrw" width="9" height="15"/>
         <image name="appt_icon" width="23" height="24"/>

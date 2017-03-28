@@ -29,6 +29,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     var activityIndicator = UIActivityIndicatorView()
     let picker = UIImagePickerController();
     
+    var selected_image: UIImage!
+    
     
     
     // MainViewController
@@ -153,6 +155,8 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        self.navigationController?.navigationBar.isHidden = false
+        
         
         if(!self.mainViewController.chatManager.connection_established){
             self.showActivityView()
@@ -244,6 +248,47 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
         return 3
         
     }
+    
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
+        let message =  self.mainViewController.chatManager.messages[indexPath.item];
+        
+        
+        if(message.isMediaMessage){
+            let mediaItem =  message.media
+            if mediaItem is JSQPhotoMediaItem{
+                let photoItem = mediaItem as! JSQPhotoMediaItem
+                let image:UIImage = photoItem.image //UIImage obtained.
+                self.selected_image = image
+                self.performSegue(withIdentifier: "chatDetailViewController", sender: nil)
+            }
+
+            
+        }
+
+    }
+    
+    
+    override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if(segue.identifier == "chatDetailViewController"){
+            let destinationVC = segue.destination as! ChatViewDetailController
+            destinationVC.image = self.selected_image
+            
+            if(self.selected_image == nil){
+                print("Image Not Found")
+            }
+            else{
+                print("Image EXISTS!")
+            }
+            
+        }
+        
+        
+    }
+    
+    
+
     
     /**
      * Returns the top height for each cell
