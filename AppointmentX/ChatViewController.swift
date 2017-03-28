@@ -460,8 +460,12 @@ class ChatViewController: JSQMessagesViewController, SBDConnectionDelegate, SBDC
     override func didPressAccessoryButton(_ sender: UIButton!) {
         let alert = UIAlertController(title: "Media Messages", message: "Please select media", preferredStyle: .actionSheet);
         
+        alert.view.tintColor = UIColor.init(red: 6.0/255.0, green: 190.0/255.0, blue: 189.0/255.0, alpha: 1)
+        
+        
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil);
         
+    
         let photos = UIAlertAction(title: "From Library", style: .default,    handler: { (alert: UIAlertAction) in
             self.picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
             self.chooseMedia()
